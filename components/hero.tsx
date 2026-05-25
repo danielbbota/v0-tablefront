@@ -49,7 +49,7 @@ export function Hero() {
       {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Full Screen Video */}
-        {/* DROP tablefront-hero.mp4 HERE */}
+        {/* DROP tablefront-hero-keyframes.mp4 HERE */}
         <video
           ref={videoRef}
           muted
@@ -57,7 +57,7 @@ export function Hero() {
           preload="auto"
           className="absolute inset-0 h-full w-full object-cover"
         >
-          <source src="/videos/tablefront-hero.mp4" type="video/mp4" />
+          <source src="/videos/tablefront-hero-keyframes.mp4" type="video/mp4" />
         </video>
 
         {/* Dark Gradient Overlay for Text Readability */}
