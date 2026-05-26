@@ -2,28 +2,28 @@ import { Clock, DollarSign, Globe, Users } from "lucide-react"
 
 const painPoints = [
   {
-    icon: Clock,
-    title: "You&apos;re Too Busy Running the Business",
+    icon: Users,
+    title: "Reputation",
     description:
-      "Between managing staff, inventory, and customers, who has time to build a website? We handle everything so you can focus on what you do best.",
+      "Your website is your first impression. An outdated or slow site makes guests choose a competitor before they ever experience what you offer.",
   },
   {
     icon: DollarSign,
-    title: "Generic Templates Don&apos;t Cut It",
+    title: "Revenue",
     description:
-      "Cookie-cutter websites don&apos;t capture the soul of your establishment. Your space has character — your website should too.",
+      "Every missed direct reservation is full-margin revenue gone. High bounce rates and third-party commissions are quietly bleeding your business every month.",
+  },
+  {
+    icon: Clock,
+    title: "Time",
+    description:
+      "Manually updating menus, fixing broken links, and handling phone bookings costs you hours every week. Time you should be spending on your guests, not your inbox.",
   },
   {
     icon: Globe,
-    title: "You&apos;re Losing Customers Online",
+    title: "Risk",
     description:
-      "70% of diners check a restaurant&apos;s website before visiting. If yours is outdated or hard to navigate, you&apos;re leaving money on the table.",
-  },
-  {
-    icon: Users,
-    title: "Tech Agencies Don&apos;t Get Hospitality",
-    description:
-      "Most web developers have never worked a Friday night rush. We have. We understand the unique challenges and opportunities in your industry.",
+      "Poor Google visibility and outdated platforms leave you exposed. One stronger competitor online can cause a sudden drop in bookings and foot traffic overnight.",
   },
 ]
 
@@ -34,10 +34,10 @@ export function PainPoints() {
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-secondary">
-            The Problem
+            WHY YOUR WEBSITE IS COSTING YOU
           </p>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground-dark md:text-4xl lg:text-5xl text-balance">
-            Sound familiar?
+            The silent problems hurting your business every day.
           </h2>
         </div>
 

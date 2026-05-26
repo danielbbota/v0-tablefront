@@ -1,27 +1,31 @@
+import { Button } from "@/components/ui/button"
+
+const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
+
 const steps = [
   {
     number: "01",
-    title: "Discovery Call",
+    title: "Discovery",
     description:
-      "We learn about your business, your brand, and your goals. No jargon, no pressure — just a conversation.",
+      "We learn your business, your guests, and exactly what your current online presence is costing you.",
   },
   {
     number: "02",
-    title: "Strategy & Design",
+    title: "Design",
     description:
-      "We craft a custom strategy and design mockups tailored to your unique identity and target audience.",
+      "We build a custom design that matches your brand and converts browsers into direct bookings.",
   },
   {
     number: "03",
-    title: "Build & Refine",
+    title: "Build",
     description:
-      "Our team builds your site with your feedback at every step. You&apos;ll never be left in the dark.",
+      "We put it all together — menu, reservations, local SEO, fully mobile-first.",
   },
   {
     number: "04",
-    title: "Launch & Support",
+    title: "Handover",
     description:
-      "We launch your new site and provide ongoing support to ensure it keeps performing at its best.",
+      "Your site goes live in 7 days. We train your team and stay on for 30 days of support.",
   },
 ]
 
@@ -32,10 +36,10 @@ export function HowItWorks() {
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-primary">
-            The Process
+            THE PROCESS
           </p>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-            How it works
+            From outdated to fully live in 7 days.
           </h2>
         </div>
 
@@ -64,6 +68,19 @@ export function HowItWorks() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-16 flex justify-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary px-8 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
+          >
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+              BOOK A FREE CALL
+            </a>
+          </Button>
         </div>
       </div>
     </section>

@@ -2,14 +2,14 @@ import { User } from "lucide-react"
 
 const leaders = [
   {
-    name: "Alex Chen",
-    role: "Co-Founder & Creative Director",
-    bio: "Former restaurant manager turned designer. Spent 8 years in the trenches of NYC hospitality before discovering a passion for web design. Knows firsthand why a 3-click reservation matters at 7pm on a Saturday.",
+    name: "Daniel Bota",
+    role: "CEO & LEAD DEVELOPER",
+    bio: "Daniel spent 10+ years working in hospitality before building TableFront — he knows firsthand what a broken website costs a business.",
   },
   {
-    name: "Jordan Rivera",
-    role: "Co-Founder & Lead Developer",
-    bio: "Started as a barista, became a full-stack developer. Built websites for over 50 hospitality businesses while understanding what actually drives customers through the door — and keeps them coming back.",
+    name: "Devin Kabay",
+    role: "SALES MANAGER",
+    bio: "With a Hotel Management degree and 7+ years on the floor, Devin brings real hospitality instinct to every client conversation — making sure the right businesses find TableFront.",
   },
 ]
 
@@ -20,13 +20,13 @@ export function Leaders() {
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-secondary">
-            The Team
+            THE PEOPLE BEHIND IT
           </p>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground-dark md:text-4xl lg:text-5xl text-balance">
-            Who we are
+            Led by people who&apos;ve worked the floor.
           </h2>
           <p className="mt-6 font-sans text-lg leading-relaxed text-foreground-dark/70">
-            We&apos;re not just developers — we&apos;re hospitality veterans who traded aprons for keyboards.
+            We didn&apos;t come from agencies. We came from hospitality.
           </p>
         </div>
 

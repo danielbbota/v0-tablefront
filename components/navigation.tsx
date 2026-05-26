@@ -5,12 +5,12 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const CALENDLY_URL = "https://calendly.com/tablefront"
+const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
 const navLinks = [
-  { href: "#pain-points", label: "Why TableFront" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#leaders", label: "Who We Are" },
+  { href: "#pain-points", label: "WHY TABLEFRONT" },
+  { href: "#how-it-works", label: "HOW IT WORKS" },
+  { href: "#leaders", label: "OUR TEAM" },
 ]
 
 export function Navigation() {
@@ -54,7 +54,7 @@ export function Navigation() {
               className="bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
             >
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                Book a Free Call
+                BOOK A FREE CALL
               </a>
             </Button>
           </div>
@@ -88,7 +88,7 @@ export function Navigation() {
                 className="mt-2 bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
               >
                 <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                  Book a Free Call
+                  BOOK A FREE CALL
                 </a>
               </Button>
             </div>
