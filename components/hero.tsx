@@ -69,14 +69,6 @@ export function Hero() {
         {/* Content Overlay - Centered Text */}
         <div className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0">
           <div className="mx-auto max-w-4xl px-6 text-center">
-            {/* Eyebrow */}
-            <p 
-              className="mb-6 font-mono uppercase text-primary"
-              style={{ fontSize: "clamp(9px, 2.5vw, 14px)", letterSpacing: "0.12em" }}
-            >
-              {t("hero_eyebrow", currentLang)}
-            </p>
-
             {/* Headline */}
             <h1 
               className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
