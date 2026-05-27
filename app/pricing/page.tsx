@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { LanguageProvider, useLanguage } from "@/lib/language-context";
+import { t, Language } from "@/lib/translations";
+import { ChevronDown } from "lucide-react";
 
 const CHECK = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
@@ -24,206 +27,205 @@ const INFO = () => (
   </svg>
 );
 
-const SCOPE_RULES = [
-  {
-    icon: "✅",
-    label: "Always included in monthly plans",
-    items: [
-      "6-month plan: 1 menu & content update included per contract period",
-      "12-month plan: 2 menu & content updates included per contract period",
-      "Opening hours and contact details edits",
-      "Small text or description edits",
-    ],
-  },
-  {
-    icon: "⚠️",
-    label: "Limited — visual menu subscribers only",
-    items: [
-      "Full menu redesign or restructure counts as 1 full update",
-      "Adding entirely new menu sections or categories counts as 1 full update",
-      "Full photo reshoots requiring bulk image work counted as 1 full update",
-    ],
-  },
-  {
-    icon: "🚫",
-    label: "Never included — quoted separately",
-    items: [
-      "New pages beyond original scope",
-      "E-commerce, online ordering or loyalty systems",
-      "Custom illustrations or photography shoots",
-      "POS or accounting software integrations",
-      "Social media or Google Ads management",
-      "Print menus, signage or brand materials",
-    ],
-  },
+const languages = [
+  { code: "EN" as Language, label: "English" },
+  { code: "DE" as Language, label: "Deutsch" },
+  { code: "PT" as Language, label: "Português" },
 ];
 
-const PLANS = [
-  {
-    id: "onetime",
-    label: "One-Time Build",
-    badge: null,
-    priceDisplay: "1,500",
-    priceSub: "one-time · starting price",
-    commitment: "No monthly fees. You own the site.",
-    highlight: false,
-    note: "Base build includes a clean PDF menu guests can open and download — simple, fast, professional. Full visual menu available as add-on (+CHF 500).",
-    features: [
-      { text: "Custom mobile-first design", included: true },
-      { text: "PDF menu (open & download)", included: true },
-      { text: "Reservation system integration", included: true },
-      { text: "Google Maps, hours & WhatsApp click-to-call", included: true },
-      { text: "Local SEO setup", included: true },
-      { text: "Basic analytics dashboard", included: true },
-      { text: "30 days post-launch support", included: true },
-      { text: "Training & handover session", included: true },
-      { text: "Monthly menu & content updates", included: false },
-      { text: "Ongoing maintenance & fixes", included: false },
-    ],
-  },
-  {
-    id: "sub6",
-    label: "Monthly — 6 Months",
-    badge: null,
-    priceDisplay: "149",
-    priceSub: "per month · starting price",
-    commitment: "6-month commitment. Cancel after.",
-    highlight: false,
-    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates. Includes 1 menu & content update per contract period.",
-    features: [
-      { text: "Custom mobile-first design", included: true },
-      { text: "PDF menu (open & download)", included: true },
-      { text: "Reservation system integration", included: true },
-      { text: "Google Maps, hours & WhatsApp click-to-call", included: true },
-      { text: "Local SEO setup", included: true },
-      { text: "Basic analytics dashboard", included: true },
-      { text: "30 days post-launch support", included: true },
-      { text: "Training & handover session", included: true },
-      { text: "1 menu & content update included", included: true, note: "Per contract period" },
-      { text: "Ongoing maintenance & fixes", included: true },
-    ],
-  },
-  {
-    id: "sub12",
-    label: "Monthly — 12 Months",
-    badge: "BEST VALUE",
-    priceDisplay: "149",
-    priceSub: "per month · starting price",
-    commitment: "1 month free — effective ~8% saving.",
-    highlight: true,
-    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates. Includes 2 menu & content updates per contract period.",
-    features: [
-      { text: "Custom mobile-first design", included: true },
-      { text: "PDF menu (open & download)", included: true },
-      { text: "Reservation system integration", included: true },
-      { text: "Google Maps, hours & WhatsApp click-to-call", included: true },
-      { text: "Local SEO setup", included: true },
-      { text: "Basic analytics dashboard", included: true },
-      { text: "30 days post-launch support", included: true },
-      { text: "Training & handover session", included: true },
-      { text: "2 menu & content updates included", included: true, note: "Per contract period" },
-      { text: "Ongoing maintenance & fixes", included: true },
-    ],
-    extra: "12 months billed monthly + 1 month free",
-  },
-];
-
-const ADDONS = [
-  {
-    id: "menu_visual",
-    icon: "🍽️",
-    label: "Full Visual Menu Integration",
-    price: "+CHF 500",
-    priceSub: "one-time build fee",
-    desc: "Every dish and drink built directly into the site — photos, descriptions, allergens, and prices. Guests browse your menu like a magazine, no PDF needed.",
-    scopeNote: "Subscription clients: +CHF 60/mo covers monthly updates (price changes, seasonal swaps, photo replacements). Full menu restructures limited to 2× per year.",
-    tag: null,
-    fixed: 500,
-  },
-  {
-    id: "speed",
-    icon: "⚡",
-    label: "48-Hour Emergency Launch",
-    price: "+CHF 800",
-    priceSub: null,
-    desc: "Reopening after renovation or lost your site? We go live in 48 hours so your reputation doesn't take a hit.",
-    scopeNote: null,
-    tag: null,
-    fixed: 800,
-  },
-  {
-    id: "guarantee",
-    icon: "🛡",
-    label: "30-Day Money-Back Guarantee",
-    price: "+CHF 600",
-    priceSub: null,
-    desc: "Not happy within 30 days? Full refund. We're confident enough in the work to carry the risk.",
-    scopeNote: null,
-    tag: null,
-    fixed: 600,
-  },
-  {
-    id: "updates_monthly",
-    icon: "✏️",
-    label: "Monthly Update Service",
-    price: "+CHF 79/mo",
-    priceSub: null,
-    desc: "Menu changes, specials, photos, hours — handled fast, no login needed. Best for owners who update content regularly throughout the year.",
-    scopeNote: "Covers: price edits, seasonal swaps, photo replacements, PDF menu swaps. Full menu restructures: max 2× per year.",
-    tag: "One-time plan only",
-    fixed: 79,
-    isMonthly: true,
-  },
-  {
-    id: "updates_ondemand",
-    icon: "🖊️",
-    label: "Per-Update (Pay as You Go)",
-    price: "From CHF 80",
-    priceSub: null,
-    desc: "Need an extra update beyond your included allowance, or on a one-time plan? Pay per update based on scope. No monthly commitment.",
-    scopeNote: "Final price confirmed before each update based on what needs changing.",
-    tag: null,
-    fixed: null,
-  },
-  {
-    id: "support60",
-    icon: "📞",
-    label: "60-Day Post-Launch Support",
-    price: "+CHF 400",
-    priceSub: null,
-    desc: "Dedicated support and weekly check-in calls for 60 days after launch. Zero surprises, zero stress.",
-    scopeNote: null,
-    tag: null,
-    fixed: 400,
-  },
-  {
-    id: "reports",
-    icon: "📊",
-    label: "3-Month Performance Reports",
-    price: "+CHF 350",
-    priceSub: null,
-    desc: "Monthly report showing visitor numbers, top pages, and reservation conversion — so you can see the results in real numbers.",
-    scopeNote: null,
-    tag: null,
-    fixed: 350,
-  },
-];
-
-const INCLUDED_ALL = [
-  "Custom mobile-first design",
-  "7-day delivery",
-  "Local SEO setup",
-  "Reservation system",
-  "30-day support",
-  "Training & handover",
-];
-
-export default function PricingPage() {
-  const [selectedPlan, setSelectedPlan] = useState(null);
-  const [selectedAddons, setSelectedAddons] = useState([]);
+function PricingContent() {
+  const { currentLang, setCurrentLang } = useLanguage();
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [scopeOpen, setScopeOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
 
-  const toggleAddon = (id) => {
+  const SCOPE_RULES = [
+    {
+      icon: "✅",
+      labelKey: "scope_always_included" as const,
+      itemKeys: ["scope_item_1", "scope_item_2", "scope_item_3", "scope_item_4"] as const,
+    },
+    {
+      icon: "⚠️",
+      labelKey: "scope_limited" as const,
+      itemKeys: ["scope_item_5", "scope_item_6", "scope_item_7"] as const,
+    },
+    {
+      icon: "🚫",
+      labelKey: "scope_never" as const,
+      itemKeys: ["scope_item_8", "scope_item_9", "scope_item_10", "scope_item_11", "scope_item_12", "scope_item_13"] as const,
+    },
+  ];
+
+  const PLANS = [
+    {
+      id: "onetime",
+      labelKey: "plan_onetime_label" as const,
+      badge: null,
+      priceDisplay: "1,500",
+      priceSubKey: "plan_onetime_pricesub" as const,
+      commitmentKey: "plan_onetime_commitment" as const,
+      highlight: false,
+      noteKey: "plan_onetime_note" as const,
+      features: [
+        { textKey: "feat_custom_design" as const, included: true },
+        { textKey: "feat_pdf_menu" as const, included: true },
+        { textKey: "feat_reservation" as const, included: true },
+        { textKey: "feat_google_maps" as const, included: true },
+        { textKey: "feat_local_seo" as const, included: true },
+        { textKey: "feat_analytics" as const, included: true },
+        { textKey: "feat_30_days" as const, included: true },
+        { textKey: "feat_training" as const, included: true },
+        { textKey: "feat_monthly_updates" as const, included: false },
+        { textKey: "feat_ongoing_maintenance" as const, included: false },
+      ],
+    },
+    {
+      id: "sub6",
+      labelKey: "plan_sub6_label" as const,
+      badge: null,
+      priceDisplay: "149",
+      priceSubKey: "plan_sub6_pricesub" as const,
+      commitmentKey: "plan_sub6_commitment" as const,
+      highlight: false,
+      noteKey: "plan_sub6_note" as const,
+      features: [
+        { textKey: "feat_custom_design" as const, included: true },
+        { textKey: "feat_pdf_menu" as const, included: true },
+        { textKey: "feat_reservation" as const, included: true },
+        { textKey: "feat_google_maps" as const, included: true },
+        { textKey: "feat_local_seo" as const, included: true },
+        { textKey: "feat_analytics" as const, included: true },
+        { textKey: "feat_30_days" as const, included: true },
+        { textKey: "feat_training" as const, included: true },
+        { textKey: "feat_1_update" as const, included: true, noteKey: "feat_per_contract" as const },
+        { textKey: "feat_ongoing_maintenance" as const, included: true },
+      ],
+    },
+    {
+      id: "sub12",
+      labelKey: "plan_sub12_label" as const,
+      badgeKey: "plan_sub12_badge" as const,
+      priceDisplay: "149",
+      priceSubKey: "plan_sub12_pricesub" as const,
+      commitmentKey: "plan_sub12_commitment" as const,
+      highlight: true,
+      noteKey: "plan_sub12_note" as const,
+      extraKey: "plan_sub12_extra" as const,
+      features: [
+        { textKey: "feat_custom_design" as const, included: true },
+        { textKey: "feat_pdf_menu" as const, included: true },
+        { textKey: "feat_reservation" as const, included: true },
+        { textKey: "feat_google_maps" as const, included: true },
+        { textKey: "feat_local_seo" as const, included: true },
+        { textKey: "feat_analytics" as const, included: true },
+        { textKey: "feat_30_days" as const, included: true },
+        { textKey: "feat_training" as const, included: true },
+        { textKey: "feat_2_updates" as const, included: true, noteKey: "feat_per_contract" as const },
+        { textKey: "feat_ongoing_maintenance" as const, included: true },
+      ],
+    },
+  ];
+
+  const ADDONS = [
+    {
+      id: "menu_visual",
+      icon: "🍽️",
+      labelKey: "addon_visual_menu_label" as const,
+      priceKey: "addon_visual_menu_price" as const,
+      priceSubKey: "addon_visual_menu_pricesub" as const,
+      descKey: "addon_visual_menu_desc" as const,
+      scopeNoteKey: "addon_visual_menu_scope" as const,
+      subBadgeKey: "addon_visual_menu_sub_badge" as const,
+      tag: null,
+      fixed: 500,
+    },
+    {
+      id: "speed",
+      icon: "⚡",
+      labelKey: "addon_emergency_label" as const,
+      priceKey: "addon_emergency_price" as const,
+      priceSubKey: null,
+      descKey: "addon_emergency_desc" as const,
+      scopeNoteKey: null,
+      subBadgeKey: null,
+      tag: null,
+      fixed: 800,
+    },
+    {
+      id: "guarantee",
+      icon: "🛡",
+      labelKey: "addon_guarantee_label" as const,
+      priceKey: "addon_guarantee_price" as const,
+      priceSubKey: null,
+      descKey: "addon_guarantee_desc" as const,
+      scopeNoteKey: null,
+      subBadgeKey: null,
+      tag: null,
+      fixed: 600,
+    },
+    {
+      id: "updates_monthly",
+      icon: "✏️",
+      labelKey: "addon_monthly_update_label" as const,
+      priceKey: "addon_monthly_update_price" as const,
+      priceSubKey: null,
+      descKey: "addon_monthly_update_desc" as const,
+      scopeNoteKey: "addon_monthly_update_scope" as const,
+      subBadgeKey: null,
+      tagKey: "addon_monthly_update_tag" as const,
+      fixed: 79,
+      isMonthly: true,
+    },
+    {
+      id: "updates_ondemand",
+      icon: "🖊️",
+      labelKey: "addon_ondemand_label" as const,
+      priceKey: "addon_ondemand_price" as const,
+      priceSubKey: null,
+      descKey: "addon_ondemand_desc" as const,
+      scopeNoteKey: "addon_ondemand_scope" as const,
+      subBadgeKey: null,
+      tag: null,
+      fixed: null,
+    },
+    {
+      id: "support60",
+      icon: "📞",
+      labelKey: "addon_support60_label" as const,
+      priceKey: "addon_support60_price" as const,
+      priceSubKey: null,
+      descKey: "addon_support60_desc" as const,
+      scopeNoteKey: null,
+      subBadgeKey: null,
+      tag: null,
+      fixed: 400,
+    },
+    {
+      id: "reports",
+      icon: "📊",
+      labelKey: "addon_reports_label" as const,
+      priceKey: "addon_reports_price" as const,
+      priceSubKey: null,
+      descKey: "addon_reports_desc" as const,
+      scopeNoteKey: null,
+      subBadgeKey: null,
+      tag: null,
+      fixed: 350,
+    },
+  ];
+
+  const INCLUDED_ALL_KEYS = [
+    "strip_custom_design",
+    "strip_7_day",
+    "strip_local_seo",
+    "strip_reservation",
+    "strip_30_day",
+    "strip_training",
+  ] as const;
+
+  const toggleAddon = (id: string) => {
     setSelectedAddons((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
@@ -260,6 +262,7 @@ export default function PricingPage() {
           background: rgba(26, 18, 8, 0.95); 
           backdrop-filter: blur(4px); 
           border-bottom: 1px solid #3A3228; 
+          overflow-x: hidden;
         }
         .p-nav-inner { 
           max-width: 960px; 
@@ -268,7 +271,15 @@ export default function PricingPage() {
           height: 80px; 
           display: flex; 
           align-items: center; 
-          justify-content: space-between; 
+          justify-content: space-between;
+          flex-wrap: nowrap;
+        }
+        @media (max-width: 640px) {
+          .p-nav-inner {
+            padding: 8px 12px;
+            height: auto;
+            min-height: 56px;
+          }
         }
         .p-nav-back { 
           font-family: 'Syne', sans-serif; 
@@ -281,10 +292,81 @@ export default function PricingPage() {
           display: flex; 
           align-items: center; 
           gap: 6px; 
-          transition: color 0.2s; 
+          transition: color 0.2s;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
         .p-nav-back:hover { 
           color: #C9954A; 
+        }
+        .p-nav-right {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+          .p-nav-right {
+            gap: 8px;
+          }
+        }
+        .p-nav-lang {
+          position: relative;
+          overflow: visible;
+        }
+        .p-nav-lang-btn {
+          font-family: 'Syne', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #EDE8DC;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          transition: color 0.2s;
+        }
+        .p-nav-lang-btn:hover {
+          color: #C9954A;
+        }
+        .p-nav-lang-dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          margin-top: 8px;
+          min-width: 100px;
+          background: #1A1208;
+          border: 1px solid #3A3228;
+          border-radius: 8px;
+          overflow: visible;
+          z-index: 10000;
+        }
+        .p-nav-lang-option {
+          display: block;
+          width: 100%;
+          padding: 10px 16px;
+          font-family: 'Syne', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #EDE8DC;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+          transition: all 0.2s;
+        }
+        .p-nav-lang-option:hover {
+          background: rgba(201, 149, 74, 0.1);
+          color: #C9954A;
+        }
+        .p-nav-lang-option.active {
+          background: rgba(201, 149, 74, 0.15);
+          color: #C9954A;
         }
         .p-nav-btn { 
           background: #C9954A; 
@@ -297,7 +379,16 @@ export default function PricingPage() {
           text-decoration: none; 
           padding: 11px 20px; 
           border-radius: 8px; 
-          transition: opacity 0.2s; 
+          transition: opacity 0.2s;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+          .p-nav-btn {
+            font-size: 11px;
+            padding: 8px 12px;
+            letter-spacing: 0.04em;
+          }
         }
         .p-nav-btn:hover { 
           opacity: 0.9; 
@@ -403,68 +494,103 @@ export default function PricingPage() {
       <nav className="p-nav">
         <div className="p-nav-inner">
           <Link href="/" className="p-nav-back">
-            ← Back to Home
+            ← {t("pricing_back", currentLang)}
           </Link>
-          <a href="https://calendly.com/daniel-tablesfront/30min" target="_blank" rel="noopener noreferrer" className="p-nav-btn">
-            BOOK A FREE CALL
-          </a>
+          <div className="p-nav-right">
+            {/* Language Selector */}
+            <div className="p-nav-lang">
+              <button
+                className="p-nav-lang-btn"
+                onClick={() => setIsLangOpen(!isLangOpen)}
+              >
+                {currentLang}
+                <ChevronDown 
+                  style={{ 
+                    width: 12, 
+                    height: 12, 
+                    transition: "transform 0.2s",
+                    transform: isLangOpen ? "rotate(180deg)" : "rotate(0deg)"
+                  }} 
+                />
+              </button>
+              {isLangOpen && (
+                <div className="p-nav-lang-dropdown">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      className={`p-nav-lang-option ${currentLang === lang.code ? "active" : ""}`}
+                      onClick={() => {
+                        setCurrentLang(lang.code);
+                        setIsLangOpen(false);
+                      }}
+                    >
+                      {lang.code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <a href="https://calendly.com/daniel-tablesfront/30min" target="_blank" rel="noopener noreferrer" className="p-nav-btn">
+              {t("nav_cta", currentLang)}
+            </a>
+          </div>
         </div>
       </nav>
 
       <div className="pw">
-        <div className="eyebrow">Hospitality Website Packages</div>
-        <h1 className="hero-title">A website that works<br /><span>as hard as you do.</span></h1>
-        <p className="hero-sub">Built by people who actually worked in hospitality. Every package includes a custom, mobile-first site live in 7 days — protecting your reputation and driving direct reservations.</p>
+        <div className="eyebrow">{t("pricing_eyebrow", currentLang)}</div>
+        <h1 className="hero-title">{t("pricing_headline_1", currentLang)}<br /><span>{t("pricing_headline_2", currentLang)}</span></h1>
+        <p className="hero-sub">{t("pricing_sub", currentLang)}</p>
         <div className="strip">
-          {INCLUDED_ALL.map((item, i) => (
-            <div className="strip-item" key={i}><CHECK /><span>{item}</span></div>
+          {INCLUDED_ALL_KEYS.map((key, i) => (
+            <div className="strip-item" key={i}><CHECK /><span>{t(key, currentLang)}</span></div>
           ))}
         </div>
         
-        <div className="sec-title">Choose your plan</div>
-        <div className="sec-sub">All plans start with a clean, professional site with PDF menu. Scope what you need with add-ons below.</div>
+        <div className="sec-title">{t("pricing_choose", currentLang)}</div>
+        <div className="sec-sub">{t("pricing_choose_sub", currentLang)}</div>
         
         <div className="plans-grid">
           {PLANS.map((plan) => (
             <div key={plan.id} className={`plan-card${plan.highlight ? " hl" : ""}${selectedPlan === plan.id ? " sel" : ""}`} onClick={() => setSelectedPlan(selectedPlan === plan.id ? null : plan.id)}>
-              {plan.badge && <div className="plan-badge">{plan.badge}</div>}
-              <div className="plan-lbl">{plan.label}</div>
-              <div className="plan-from">Starting from</div>
+              {plan.badgeKey && <div className="plan-badge">{t(plan.badgeKey, currentLang)}</div>}
+              <div className="plan-lbl">{t(plan.labelKey, currentLang)}</div>
+              <div className="plan-from">{t("pricing_starting_from", currentLang)}</div>
               <div className="plan-price"><span className="plan-cur">CHF </span>{plan.priceDisplay}</div>
-              <div className="plan-psub">{plan.priceSub}</div>
-              <div className="plan-commit">{plan.commitment}</div>
-              {plan.extra && <div className="plan-extra">��� {plan.extra}</div>}
-              <div className="plan-note">{plan.note}</div>
+              <div className="plan-psub">{t(plan.priceSubKey, currentLang)}</div>
+              <div className="plan-commit">{t(plan.commitmentKey, currentLang)}</div>
+              {plan.extraKey && <div className="plan-extra">✓ {t(plan.extraKey, currentLang)}</div>}
+              <div className="plan-note">{t(plan.noteKey, currentLang)}</div>
               <hr className="plan-div" />
               {plan.features.map((f, i) => (
                 <div key={i}>
-                  <div className={`feat-row${f.included ? "" : " dim"}`}>{f.included ? <CHECK /> : <X_ICON />}<span>{f.text}</span></div>
-                  {f.note && <div className="feat-note">↳ {f.note}</div>}
+                  <div className={`feat-row${f.included ? "" : " dim"}`}>{f.included ? <CHECK /> : <X_ICON />}<span>{t(f.textKey, currentLang)}</span></div>
+                  {f.noteKey && <div className="feat-note">↳ {t(f.noteKey, currentLang)}</div>}
                 </div>
               ))}
-              <button className={`sel-btn${selectedPlan === plan.id ? " act" : ""}`}>{selectedPlan === plan.id ? "✓ Selected" : "Select this plan"}</button>
+              <button className={`sel-btn${selectedPlan === plan.id ? " act" : ""}`}>{selectedPlan === plan.id ? `✓ ${t("pricing_selected", currentLang)}` : t("pricing_select", currentLang)}</button>
             </div>
           ))}
         </div>
         
         <div className="dot-div">· · ·</div>
         
-        <div className="sec-title">What's included — and what's not</div>
-        <div className="sec-sub">Read this before you sign. Clear scope protects us both.</div>
+        <div className="sec-title">{t("pricing_included_title", currentLang)}</div>
+        <div className="sec-sub">{t("pricing_included_sub", currentLang)}</div>
         <div className="scope-toggle" onClick={() => setScopeOpen(!scopeOpen)}>
           <span style={{ fontSize: "15px" }}>📋</span>
-          <span className="scope-toggle-label">View full scope rules — monthly updates, limits & exclusions</span>
+          <span className="scope-toggle-label">{t("pricing_scope_toggle", currentLang)}</span>
           <span className={`scope-toggle-arrow${scopeOpen ? " open" : ""}`}>▼</span>
         </div>
         {scopeOpen && (
           <div className="scope-body">
             {SCOPE_RULES.map((col, ci) => (
               <div className="scope-col" key={ci}>
-                <div className="scope-col-head"><span>{col.icon}</span><span>{col.label}</span></div>
-                {col.items.map((item, ii) => (
+                <div className="scope-col-head"><span>{col.icon}</span><span>{t(col.labelKey, currentLang)}</span></div>
+                {col.itemKeys.map((itemKey, ii) => (
                   <div className="scope-item" key={ii}>
                     <div className={ci === 0 ? "scope-dot-green" : ci === 1 ? "scope-dot-amber" : "scope-dot-red"} />
-                    <span>{item}</span>
+                    <span>{t(itemKey, currentLang)}</span>
                   </div>
                 ))}
               </div>
@@ -472,8 +598,8 @@ export default function PricingPage() {
           </div>
         )}
         
-        <div className="sec-title">Upgrade your package</div>
-        <div className="sec-sub">Optional add-ons — mix and match based on what matters most.</div>
+        <div className="sec-title">{t("pricing_addons_title", currentLang)}</div>
+        <div className="sec-sub">{t("pricing_addons_sub", currentLang)}</div>
         
         <div className="addons-grid">
           {ADDONS.map((addon) => {
@@ -489,18 +615,18 @@ export default function PricingPage() {
                   <div className="addon-icon">{addon.icon}</div>
                   <div className="addon-body">
                     <div className="addon-hdr">
-                      <div className="addon-lbl">{addon.label}</div>
+                      <div className="addon-lbl">{t(addon.labelKey, currentLang)}</div>
                       <div className="addon-price-wrap">
-                        <div className="addon-price">{addon.price}</div>
-                        {addon.priceSub && <div className="addon-psub">{addon.priceSub}</div>}
+                        <div className="addon-price">{t(addon.priceKey, currentLang)}</div>
+                        {addon.priceSubKey && <div className="addon-psub">{t(addon.priceSubKey, currentLang)}</div>}
                       </div>
                     </div>
-                    <div className="addon-desc">{addon.desc}</div>
-                    {addon.id === "menu_visual" && isSubscription && (<div className="addon-sub-badge">+ CHF 60/mo for updates on subscription</div>)}
-                    {addon.tag && <div className="addon-tag">{addon.tag}</div>}
+                    <div className="addon-desc">{t(addon.descKey, currentLang)}</div>
+                    {addon.id === "menu_visual" && isSubscription && addon.subBadgeKey && (<div className="addon-sub-badge">{t(addon.subBadgeKey, currentLang)}</div>)}
+                    {addon.tagKey && <div className="addon-tag">{t(addon.tagKey, currentLang)}</div>}
                   </div>
                 </div>
-                {addon.scopeNote && (<div className="addon-scope"><INFO /><span>{addon.scopeNote}</span></div>)}
+                {addon.scopeNoteKey && (<div className="addon-scope"><INFO /><span>{t(addon.scopeNoteKey, currentLang)}</span></div>)}
               </div>
             );
           })}
@@ -508,30 +634,32 @@ export default function PricingPage() {
         
         <div className="dot-div">· · ·</div>
         
-        <div className="sec-title">Your Investment</div>
-        <div className="sec-sub">Live summary based on your selections above.</div>
+        <div className="sec-title">{t("pricing_summary_title", currentLang)}</div>
+        <div className="sec-sub">{t("pricing_summary_sub", currentLang)}</div>
         
         <div className="sum-box">
           {!selectedPlan && selectedAddons.length === 0 ? (
-            <div className="sum-empty">Select a plan above to see your investment summary.</div>
+            <div className="sum-empty">{t("pricing_empty", currentLang)}</div>
           ) : (
             <>
               {selectedPlan && (() => {
                 const plan = PLANS.find(p => p.id === selectedPlan);
-                return (<div className="sum-row"><span className="sum-lbl">{plan.label}</span><span className="sum-val">{selectedPlan === "onetime" ? "From CHF 1,500" : "From CHF 149/mo"}</span></div>);
+                if (!plan) return null;
+                return (<div className="sum-row"><span className="sum-lbl">{t(plan.labelKey, currentLang)}</span><span className="sum-val">{selectedPlan === "onetime" ? "From CHF 1,500" : "From CHF 149/mo"}</span></div>);
               })()}
               {selectedAddons.map((id) => {
                 const a = ADDONS.find((x) => x.id === id);
+                if (!a) return null;
                 const showSubSurcharge = id === "menu_visual" && isSubscription;
-                return (<div className="sum-row" key={id}><span className="sum-lbl">{a.label}{showSubSurcharge ? " (incl. +CHF 60/mo update fee)" : ""}</span><span className="sum-val">{a.price}{showSubSurcharge ? " + CHF 60/mo" : ""}</span></div>);
+                return (<div className="sum-row" key={id}><span className="sum-lbl">{t(a.labelKey, currentLang)}{showSubSurcharge ? " (incl. +CHF 60/mo update fee)" : ""}</span><span className="sum-val">{t(a.priceKey, currentLang)}{showSubSurcharge ? " + CHF 60/mo" : ""}</span></div>);
               })}
               <div className="sum-total">
-                <span className="sum-total-lbl">Total</span>
+                <span className="sum-total-lbl">{t("pricing_total", currentLang)}</span>
                 <div>
                   <div className="sum-total-val">
                     {selectedPlan === "onetime" ? `From CHF ${(1500 + totalAddons).toLocaleString()}` : selectedPlan ? `From CHF ${149 + totalMonthly}/mo${(totalAddons - (hasVisualMenu ? 500 : 0)) > 0 ? ` + CHF ${totalAddons - (hasVisualMenu ? 500 : 0)}` : ""}${hasVisualMenu ? " + CHF 500 build" : ""}` : totalAddons > 0 ? `CHF ${totalAddons}` : "—"}
                   </div>
-                  {hasVariableAddon && (<div className="sum-var-note">+ Per-update cost quoted separately (from CHF 80)</div>)}
+                  {hasVariableAddon && (<div className="sum-var-note">{t("pricing_var_note", currentLang)}</div>)}
                 </div>
               </div>
             </>
@@ -539,10 +667,18 @@ export default function PricingPage() {
         </div>
         
         <p className="cta-note">
-          All prices in Swiss Francs (CHF) · 7-day build from materials received · No hidden fees<br />
-          Final price confirmed after understanding your full scope. This page was prepared for you after our call.
+          {t("pricing_note", currentLang)}<br />
+          {t("pricing_note_2", currentLang)}
         </p>
       </div>
     </div>
+  );
+}
+
+export default function PricingPage() {
+  return (
+    <LanguageProvider>
+      <PricingContent />
+    </LanguageProvider>
   );
 }

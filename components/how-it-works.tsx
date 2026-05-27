@@ -1,45 +1,47 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/language-context"
+import { t } from "@/lib/translations"
 
 const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
-const steps = [
-  {
-    number: "01",
-    title: "Discovery",
-    description:
-      "We learn your business, your guests, and exactly what your current online presence is costing you.",
-  },
-  {
-    number: "02",
-    title: "Design",
-    description:
-      "We build a custom design that matches your brand and converts browsers into direct bookings.",
-  },
-  {
-    number: "03",
-    title: "Build",
-    description:
-      "We put it all together — menu, reservations, local SEO, fully mobile-first.",
-  },
-  {
-    number: "04",
-    title: "Handover",
-    description:
-      "Your site goes live in 7 days. We train your team and stay on for 30 days of support.",
-  },
-]
-
 export function HowItWorks() {
+  const { currentLang } = useLanguage()
+
+  const steps = [
+    {
+      number: "01",
+      titleKey: "step_1_title" as const,
+      descKey: "step_1_body" as const,
+    },
+    {
+      number: "02",
+      titleKey: "step_2_title" as const,
+      descKey: "step_2_body" as const,
+    },
+    {
+      number: "03",
+      titleKey: "step_3_title" as const,
+      descKey: "step_3_body" as const,
+    },
+    {
+      number: "04",
+      titleKey: "step_4_title" as const,
+      descKey: "step_4_body" as const,
+    },
+  ]
+
   return (
-    <section id="how-it-works" className="bg-background py-24 md:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section id="how-it-works" className="bg-background py-24 md:py-32 overflow-x-hidden">
+      <div className="mx-auto max-w-7xl px-4 lg:px-8" style={{ maxWidth: "100%" }}>
         {/* Section Header */}
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-primary">
-            THE PROCESS
+        <div className="mx-auto max-w-2xl text-center px-2">
+          <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-primary" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+            {t("process_eyebrow", currentLang)}
           </p>
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-            From outdated to fully live in 7 days.
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+            {t("process_headline", currentLang)}
           </h2>
         </div>
 
@@ -51,34 +53,34 @@ export function HowItWorks() {
           {/* Steps */}
           <div className="grid gap-8 md:grid-cols-4">
             {steps.map((step, index) => (
-              <div key={index} className="relative">
+              <div key={index} className="relative" style={{ maxWidth: "100%", overflowX: "hidden" }}>
                 {/* Step Number Circle */}
                 <div className="relative z-10 mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary font-mono text-sm font-bold text-primary-foreground">
                   {step.number}
                 </div>
 
                 {/* Content */}
-                <h3 className="mb-3 font-serif text-xl font-semibold text-foreground">
-                  {step.title}
+                <h3 className="mb-3 font-serif text-xl font-semibold text-foreground" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+                  {t(step.titleKey, currentLang)}
                 </h3>
-                <p 
-                  className="font-sans leading-relaxed text-foreground/70"
-                  dangerouslySetInnerHTML={{ __html: step.description }}
-                />
+                <p className="font-sans leading-relaxed text-foreground/70" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+                  {t(step.descKey, currentLang)}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
         {/* CTA Button */}
-        <div className="mt-16 flex justify-center">
+        <div className="mt-16 flex justify-center px-4">
           <Button
             asChild
             size="lg"
-            className="bg-primary px-8 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
+            className="bg-primary px-6 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
+            style={{ maxWidth: "280px", whiteSpace: "normal", overflowWrap: "break-word", wordBreak: "break-word" }}
           >
             <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-              BOOK A FREE CALL
+              {t("process_cta", currentLang)}
             </a>
           </Button>
         </div>
