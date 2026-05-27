@@ -64,7 +64,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
         {/* Content Overlay - Centered Text */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pt-24 md:pt-0">
           <div className="mx-auto max-w-4xl px-6 text-center">
             {/* Eyebrow */}
             <p className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-primary">
@@ -72,7 +72,10 @@ export function Hero() {
             </p>
 
             {/* Headline */}
-            <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl text-balance">
+            <h1 
+              className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
+              style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
+            >
               Your guests&apos; first impression,
               <br />
               <span className="text-primary">rebuilt in 7 days.</span>
@@ -95,14 +98,14 @@ export function Hero() {
             </Button>
 
             {/* Small Text Below Button */}
-            <p className="mt-4 font-sans text-sm text-white/60">
+            <p className="mb-24 mt-4 font-sans text-sm text-white/60 md:mb-0">
               7-day delivery · No long contracts · Built for hospitality
             </p>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+        {/* Scroll Indicator - Hidden on mobile */}
+        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block">
           <div className="flex flex-col items-center gap-2">
             <span className="font-mono text-xs uppercase tracking-wider text-white/60">Scroll to explore</span>
             <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />
