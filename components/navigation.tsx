@@ -36,7 +36,7 @@ export function Navigation() {
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link href="/">
-            <img src="/TF-logo-noBackground.png" alt="TableFront" style={{ height: "40px", width: "auto" }} />
+            <img src="/TF-logo-noBackground.png" alt="TableFront" style={{ height: "64px", width: "auto" }} />
           </Link>
 
           {/* Desktop Navigation */}

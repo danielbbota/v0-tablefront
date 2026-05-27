@@ -29,21 +29,19 @@ const SCOPE_RULES = [
     icon: "✅",
     label: "Always included in monthly plans",
     items: [
-      "Price changes on existing items",
-      "Seasonal item swaps (add / remove dishes)",
-      "Opening hours, contact details, specials",
-      "Photo replacements for existing dishes",
+      "6-month plan: 1 menu & content update included per contract period",
+      "12-month plan: 2 menu & content updates included per contract period",
+      "Opening hours and contact details edits",
       "Small text or description edits",
-      "PDF menu file replacement (unlimited)",
     ],
   },
   {
     icon: "⚠️",
     label: "Limited — visual menu subscribers only",
     items: [
-      "Full menu redesign or restructure: max 2× per year",
-      "Adding entirely new menu sections or categories",
-      "Full photo reshoots requiring bulk image work",
+      "Full menu redesign or restructure counts as 1 full update",
+      "Adding entirely new menu sections or categories counts as 1 full update",
+      "Full photo reshoots requiring bulk image work counted as 1 full update",
     ],
   },
   {
@@ -435,7 +433,7 @@ export default function PricingPage() {
               <div className="plan-price"><span className="plan-cur">CHF </span>{plan.priceDisplay}</div>
               <div className="plan-psub">{plan.priceSub}</div>
               <div className="plan-commit">{plan.commitment}</div>
-              {plan.extra && <div className="plan-extra">✦ {plan.extra}</div>}
+              {plan.extra && <div className="plan-extra">��� {plan.extra}</div>}
               <div className="plan-note">{plan.note}</div>
               <hr className="plan-div" />
               {plan.features.map((f, i) => (
