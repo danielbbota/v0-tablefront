@@ -2,12 +2,14 @@
 
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/i18n"
 
 const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
 export function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const wrapper = wrapperRef.current
@@ -68,7 +70,7 @@ export function Hero() {
           <div className="mx-auto max-w-4xl px-6 text-center">
             {/* Eyebrow */}
             <p className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-primary">
-              HOSPITALITY WEBSITE SPECIALISTS
+              {t("hero_eyebrow")}
             </p>
 
             {/* Headline */}
@@ -76,14 +78,14 @@ export function Hero() {
               className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
               style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
             >
-              Your guests&apos; first impression,
+              {t("hero_headline_1")}
               <br />
-              <span className="text-primary">rebuilt in 7 days.</span>
+              <span className="text-primary">{t("hero_headline_2")}</span>
             </h1>
 
             {/* Subheadline */}
             <p className="mx-auto mb-10 max-w-2xl font-sans text-lg leading-relaxed text-white/80 md:text-xl text-pretty">
-              Websites built for hospitality. By people who lived it.
+              {t("hero_sub")}
             </p>
 
             {/* CTA */}
@@ -93,13 +95,13 @@ export function Hero() {
               className="bg-primary px-8 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
             >
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                BOOK A FREE CALL
+                {t("hero_cta")}
               </a>
             </Button>
 
             {/* Small Text Below Button */}
             <p className="mb-24 mt-4 font-sans text-sm text-white/60 md:mb-0">
-              7-day delivery · No long contracts · Built for hospitality
+              {t("hero_sub_cta")}
             </p>
           </div>
         </div>
@@ -107,7 +109,7 @@ export function Hero() {
         {/* Scroll Indicator - Hidden on mobile */}
         <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block">
           <div className="flex flex-col items-center gap-2">
-            <span className="font-mono text-xs uppercase tracking-wider text-white/60">Scroll to explore</span>
+            <span className="font-mono text-xs uppercase tracking-wider text-white/60">{t("hero_scroll")}</span>
             <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />
           </div>
         </div>

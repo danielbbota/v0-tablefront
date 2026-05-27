@@ -4,35 +4,29 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage, Language } from "@/lib/i18n"
 
 const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
-const navLinks = [
-  { href: "#pain-points", label: "WHY TABLEFRONT" },
-  { href: "#how-it-works", label: "HOW IT WORKS" },
-  { href: "#leaders", label: "OUR TEAM" },
-  { href: "/pricing", label: "INVESTMENT" },
-]
-
-const languages = [
+const languages: { code: Language; label: string }[] = [
   { code: "EN", label: "English" },
   { code: "DE", label: "German" },
   { code: "PT", label: "Portuguese" },
 ]
 
-// Placeholder translations structure for future use
-const translations = {
-  EN: {},
-  DE: {},
-  PT: {},
-}
-
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [currentLang, setCurrentLang] = useState<"EN" | "DE" | "PT">("EN")
   const [isLangOpen, setIsLangOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+  const { lang, setLang, t } = useLanguage()
+
+  const navLinks = [
+    { href: "#pain-points", label: t("nav_why") },
+    { href: "#how-it-works", label: t("nav_how") },
+    { href: "#leaders", label: t("nav_team") },
+    { href: "/pricing", label: t("nav_investment") },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,25 +78,25 @@ export function Navigation() {
                 onClick={() => setIsLangOpen(!isLangOpen)}
                 className="flex items-center gap-1 font-mono text-sm uppercase tracking-wider text-foreground/80 transition-colors hover:text-primary"
               >
-                {currentLang}
+                {lang}
                 <ChevronDown className={`h-3 w-3 transition-transform ${isLangOpen ? "rotate-180" : ""}`} />
               </button>
               {isLangOpen && (
                 <div className="absolute top-full right-0 mt-2 min-w-[100px] rounded-md border border-foreground/10 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden">
-                  {languages.map((lang) => (
+                  {languages.map((l) => (
                     <button
-                      key={lang.code}
+                      key={l.code}
                       onClick={() => {
-                        setCurrentLang(lang.code as "EN" | "DE" | "PT")
+                        setLang(l.code)
                         setIsLangOpen(false)
                       }}
                       className={`block w-full px-4 py-2 text-left font-mono text-sm uppercase tracking-wider transition-colors ${
-                        currentLang === lang.code
+                        lang === l.code
                           ? "bg-primary/10 text-primary"
                           : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
                       }`}
                     >
-                      {lang.code}
+                      {l.code}
                     </button>
                   ))}
                 </div>
@@ -114,7 +108,7 @@ export function Navigation() {
               className="bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
             >
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                BOOK A FREE CALL
+                {t("nav_cta")}
               </a>
             </Button>
           </div>
@@ -146,17 +140,17 @@ export function Navigation() {
               
               {/* Language Selector - Mobile */}
               <div className="flex items-center gap-2 py-2">
-                {languages.map((lang, index) => (
-                  <div key={lang.code} className="flex items-center">
+                {languages.map((l, index) => (
+                  <div key={l.code} className="flex items-center">
                     <button
-                      onClick={() => setCurrentLang(lang.code as "EN" | "DE" | "PT")}
+                      onClick={() => setLang(l.code)}
                       className={`font-mono text-sm uppercase tracking-wider transition-colors ${
-                        currentLang === lang.code
+                        lang === l.code
                           ? "text-primary"
                           : "text-foreground/80 hover:text-primary"
                       }`}
                     >
-                      {lang.code}
+                      {l.code}
                     </button>
                     {index < languages.length - 1 && (
                       <span className="ml-2 text-foreground/40">·</span>
@@ -170,7 +164,7 @@ export function Navigation() {
                 className="mt-2 bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
               >
                 <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                  BOOK A FREE CALL
+                  {t("nav_cta")}
                 </a>
               </Button>
             </div>
