@@ -64,7 +64,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
         {/* Content Overlay - Centered Text */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pt-24 md:pt-0">
           <div className="mx-auto max-w-4xl px-6 text-center">
             {/* Eyebrow */}
             <p className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-primary">
@@ -72,7 +72,10 @@ export function Hero() {
             </p>
 
             {/* Headline */}
-            <h1 className="mb-6 font-serif text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl text-balance">
+            <h1 
+              className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
+              style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
+            >
               Your guests&apos; first impression,
               <br />
               <span className="text-primary">rebuilt in 7 days.</span>

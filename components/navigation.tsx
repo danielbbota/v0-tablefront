@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
@@ -14,9 +14,25 @@ const navLinks = [
   { href: "/pricing", label: "INVESTMENT" },
 ]
 
+const languages = [
+  { code: "EN", label: "English" },
+  { code: "DE", label: "German" },
+  { code: "PT", label: "Portuguese" },
+]
+
+// Placeholder translations structure for future use
+const translations = {
+  EN: {},
+  DE: {},
+  PT: {},
+}
+
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [currentLang, setCurrentLang] = useState<"EN" | "DE" | "PT">("EN")
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  const langRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +40,17 @@ export function Navigation() {
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Close language dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setIsLangOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
   return (
@@ -36,7 +63,7 @@ export function Navigation() {
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link href="/">
-            <img src="/TF-logo-noBackground.png" alt="TableFront" style={{ height: "64px", width: "auto" }} />
+            <img src="/TF-logo-noBackground.png" alt="TableFront" style={{ height: "80px", width: "auto" }} />
           </Link>
 
           {/* Desktop Navigation */}
@@ -50,6 +77,38 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+            
+            {/* Language Selector - Desktop */}
+            <div className="relative" ref={langRef}>
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="flex items-center gap-1 font-mono text-sm uppercase tracking-wider text-foreground/80 transition-colors hover:text-primary"
+              >
+                {currentLang}
+                <ChevronDown className={`h-3 w-3 transition-transform ${isLangOpen ? "rotate-180" : ""}`} />
+              </button>
+              {isLangOpen && (
+                <div className="absolute top-full right-0 mt-2 min-w-[100px] rounded-md border border-foreground/10 bg-background/95 backdrop-blur-sm shadow-lg overflow-hidden">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setCurrentLang(lang.code as "EN" | "DE" | "PT")
+                        setIsLangOpen(false)
+                      }}
+                      className={`block w-full px-4 py-2 text-left font-mono text-sm uppercase tracking-wider transition-colors ${
+                        currentLang === lang.code
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground/80 hover:bg-primary/5 hover:text-primary"
+                      }`}
+                    >
+                      {lang.code}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Button
               asChild
               className="bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
@@ -84,6 +143,28 @@ export function Navigation() {
                   {link.label}
                 </Link>
               ))}
+              
+              {/* Language Selector - Mobile */}
+              <div className="flex items-center gap-2 py-2">
+                {languages.map((lang, index) => (
+                  <div key={lang.code} className="flex items-center">
+                    <button
+                      onClick={() => setCurrentLang(lang.code as "EN" | "DE" | "PT")}
+                      className={`font-mono text-sm uppercase tracking-wider transition-colors ${
+                        currentLang === lang.code
+                          ? "text-primary"
+                          : "text-foreground/80 hover:text-primary"
+                      }`}
+                    >
+                      {lang.code}
+                    </button>
+                    {index < languages.length - 1 && (
+                      <span className="ml-2 text-foreground/40">·</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
               <Button
                 asChild
                 className="mt-2 bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
