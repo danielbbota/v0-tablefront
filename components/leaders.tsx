@@ -1,15 +1,17 @@
-import { User } from "lucide-react"
+import Image from "next/image"
 
 const leaders = [
   {
     name: "Daniel Bota",
     role: "CEO & LEAD DEVELOPER",
     bio: "Daniel spent 10+ years working in hospitality before building TableFront — he knows firsthand what a broken website costs a business.",
+    image: "/images/team/daniel-bota.jpg",
   },
   {
     name: "Devin Kabay",
     role: "SALES MANAGER",
     bio: "With a Hotel Management degree and 7+ years on the floor, Devin brings real hospitality instinct to every client conversation — making sure the right businesses find TableFront.",
+    image: "/images/team/devin-kabay.jpg",
   },
 ]
 
@@ -37,11 +39,15 @@ export function Leaders() {
               key={index}
               className="flex flex-col items-center rounded-lg bg-white p-8 text-center shadow-sm md:flex-row md:items-start md:text-left"
             >
-              {/* Photo Placeholder */}
-              {/* Replace the gradient div below with an <img> tag when photos are available */}
-              {/* Example: <img src="/images/team/alex-chen.jpg" alt={leader.name} className="h-32 w-32 rounded-full object-cover" /> */}
-              <div className="mb-6 flex h-32 w-32 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 md:mb-0 md:mr-6">
-                <User className="h-16 w-16 text-primary/50" />
+              {/* Photo */}
+              <div className="relative mb-6 h-40 w-40 flex-shrink-0 overflow-hidden rounded-full md:mb-0 md:mr-6">
+                <Image
+                  src={leader.image}
+                  alt={leader.name}
+                  fill
+                  className="object-cover object-top"
+                  sizes="160px"
+                />
               </div>
 
               {/* Info */}
