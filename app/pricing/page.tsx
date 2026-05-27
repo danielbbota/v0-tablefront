@@ -262,6 +262,7 @@ function PricingContent() {
           background: rgba(26, 18, 8, 0.95); 
           backdrop-filter: blur(4px); 
           border-bottom: 1px solid #3A3228; 
+          overflow-x: hidden;
         }
         .p-nav-inner { 
           max-width: 960px; 
@@ -270,7 +271,15 @@ function PricingContent() {
           height: 80px; 
           display: flex; 
           align-items: center; 
-          justify-content: space-between; 
+          justify-content: space-between;
+          flex-wrap: nowrap;
+        }
+        @media (max-width: 640px) {
+          .p-nav-inner {
+            padding: 8px 12px;
+            height: auto;
+            min-height: 56px;
+          }
         }
         .p-nav-back { 
           font-family: 'Syne', sans-serif; 
@@ -283,7 +292,9 @@ function PricingContent() {
           display: flex; 
           align-items: center; 
           gap: 6px; 
-          transition: color 0.2s; 
+          transition: color 0.2s;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
         .p-nav-back:hover { 
           color: #C9954A; 
@@ -292,6 +303,12 @@ function PricingContent() {
           display: flex;
           align-items: center;
           gap: 16px;
+          flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+          .p-nav-right {
+            gap: 8px;
+          }
         }
         .p-nav-lang {
           position: relative;
@@ -360,7 +377,16 @@ function PricingContent() {
           text-decoration: none; 
           padding: 11px 20px; 
           border-radius: 8px; 
-          transition: opacity 0.2s; 
+          transition: opacity 0.2s;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+          .p-nav-btn {
+            font-size: 11px;
+            padding: 8px 12px;
+            letter-spacing: 0.04em;
+          }
         }
         .p-nav-btn:hover { 
           opacity: 0.9; 

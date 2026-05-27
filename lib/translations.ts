@@ -352,9 +352,9 @@ export const translations = {
     PT: "Preço final confirmado após compreensão do seu âmbito completo. Esta página foi preparada para si após a nossa chamada.",
   },
   pricing_back: {
-    EN: "Back to Home",
-    DE: "Zurück zur Startseite",
-    PT: "Voltar ao Início",
+    EN: "Back",
+    DE: "Zurück",
+    PT: "Voltar",
   },
   pricing_select: {
     EN: "Select this plan",
