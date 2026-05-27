@@ -1,34 +1,40 @@
-import Image from "next/image"
+"use client"
 
-const leaders = [
-  {
-    name: "Daniel Bota",
-    role: "CEO & LEAD DEVELOPER",
-    bio: "Daniel spent 10+ years working in hospitality before building TableFront — he knows firsthand what a broken website costs a business.",
-    image: "/images/team/daniel-bota.jpg",
-  },
-  {
-    name: "Devin Kabay",
-    role: "SALES MANAGER",
-    bio: "With a Hotel Management degree and 7+ years on the floor, Devin brings real hospitality instinct to every client conversation — making sure the right businesses find TableFront.",
-    image: "/images/team/devin-kabay.jpg",
-  },
-]
+import Image from "next/image"
+import { useLanguage } from "@/lib/language-context"
+import { t } from "@/lib/translations"
 
 export function Leaders() {
+  const { currentLang } = useLanguage()
+
+  const leaders = [
+    {
+      name: "Daniel Bota",
+      roleKey: "daniel_role" as const,
+      bioKey: "daniel_bio" as const,
+      image: "/images/team/daniel-bota.jpg",
+    },
+    {
+      name: "Devin Kabay",
+      roleKey: "devin_role" as const,
+      bioKey: "devin_bio" as const,
+      image: "/images/team/devin-kabay.jpg",
+    },
+  ]
+
   return (
     <section id="leaders" className="bg-background-light py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-secondary">
-            THE PEOPLE BEHIND IT
+            {t("team_eyebrow", currentLang)}
           </p>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground-dark md:text-4xl lg:text-5xl text-balance">
-            Led by people who&apos;ve worked the floor.
+            {t("team_headline", currentLang)}
           </h2>
           <p className="mt-6 font-sans text-lg leading-relaxed text-foreground-dark/70">
-            We didn&apos;t come from agencies. We came from hospitality.
+            {t("team_sub", currentLang)}
           </p>
         </div>
 
@@ -56,10 +62,10 @@ export function Leaders() {
                   {leader.name}
                 </h3>
                 <p className="mt-1 font-mono text-sm uppercase tracking-wider text-secondary">
-                  {leader.role}
+                  {t(leader.roleKey, currentLang)}
                 </p>
                 <p className="mt-4 font-sans leading-relaxed text-foreground-dark/70">
-                  {leader.bio}
+                  {t(leader.bioKey, currentLang)}
                 </p>
               </div>
             </div>

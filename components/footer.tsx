@@ -1,13 +1,19 @@
-import Link from "next/link"
+"use client"
 
-const footerLinks = [
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#leaders", label: "Our Team" },
-  { href: "https://calendly.com/daniel-tablesfront/30min", label: "Book a Call" },
-  { href: "/pricing", label: "Pricing" },
-]
+import Link from "next/link"
+import { useLanguage } from "@/lib/language-context"
+import { t } from "@/lib/translations"
 
 export function Footer() {
+  const { currentLang } = useLanguage()
+
+  const footerLinks = [
+    { href: "#how-it-works", labelKey: "footer_nav_how" as const },
+    { href: "#leaders", labelKey: "footer_nav_team" as const },
+    { href: "https://calendly.com/daniel-tablesfront/30min", labelKey: "footer_nav_book" as const },
+    { href: "/pricing", labelKey: "footer_nav_pricing" as const },
+  ]
+
   return (
     <footer className="bg-background border-t border-border py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -18,14 +24,14 @@ export function Footer() {
               TableFront
             </Link>
             <p className="mt-4 font-sans text-sm leading-relaxed text-foreground/60">
-              Websites built for hospitality. By people who lived it.
+              {t("footer_tagline", currentLang)}
             </p>
           </div>
 
           {/* Navigation Column */}
           <div>
             <h4 className="font-mono text-sm uppercase tracking-wider text-primary">
-              Navigation
+              {t("footer_navigation", currentLang)}
             </h4>
             <ul className="mt-4 space-y-3">
               {footerLinks.map((link) => (
@@ -34,7 +40,7 @@ export function Footer() {
                     href={link.href}
                     className="font-sans text-sm text-foreground/60 transition-colors hover:text-primary"
                   >
-                    {link.label}
+                    {t(link.labelKey, currentLang)}
                   </Link>
                 </li>
               ))}
@@ -45,7 +51,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-12 border-t border-border pt-8">
           <p className="font-sans text-sm text-foreground/40">
-            tablesfront.com · © 2026 TableFront · All rights reserved
+            tablesfront.com · {t("footer_rights", currentLang)}
           </p>
         </div>
       </div>

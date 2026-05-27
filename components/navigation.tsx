@@ -4,35 +4,30 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useLanguage } from "@/lib/language-context"
+import { t, Language } from "@/lib/translations"
 
 const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
-const navLinks = [
-  { href: "#pain-points", label: "WHY TABLEFRONT" },
-  { href: "#how-it-works", label: "HOW IT WORKS" },
-  { href: "#leaders", label: "OUR TEAM" },
-  { href: "/pricing", label: "INVESTMENT" },
-]
-
 const languages = [
-  { code: "EN", label: "English" },
-  { code: "DE", label: "German" },
-  { code: "PT", label: "Portuguese" },
+  { code: "EN" as Language, label: "English" },
+  { code: "DE" as Language, label: "German" },
+  { code: "PT" as Language, label: "Portuguese" },
 ]
-
-// Placeholder translations structure for future use
-const translations = {
-  EN: {},
-  DE: {},
-  PT: {},
-}
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [currentLang, setCurrentLang] = useState<"EN" | "DE" | "PT">("EN")
   const [isLangOpen, setIsLangOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+  const { currentLang, setCurrentLang } = useLanguage()
+
+  const navLinks = [
+    { href: "#pain-points", labelKey: "nav_why" as const },
+    { href: "#how-it-works", labelKey: "nav_how" as const },
+    { href: "#leaders", labelKey: "nav_team" as const },
+    { href: "/pricing", labelKey: "nav_investment" as const },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +69,7 @@ export function Navigation() {
                 href={link.href}
                 className="font-mono text-sm uppercase tracking-wider text-foreground/80 transition-colors hover:text-primary"
               >
-                {link.label}
+                {t(link.labelKey, currentLang)}
               </Link>
             ))}
             
@@ -93,7 +88,7 @@ export function Navigation() {
                     <button
                       key={lang.code}
                       onClick={() => {
-                        setCurrentLang(lang.code as "EN" | "DE" | "PT")
+                        setCurrentLang(lang.code)
                         setIsLangOpen(false)
                       }}
                       className={`block w-full px-4 py-2 text-left font-mono text-sm uppercase tracking-wider transition-colors ${
@@ -114,7 +109,7 @@ export function Navigation() {
               className="bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
             >
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                BOOK A FREE CALL
+                {t("nav_cta", currentLang)}
               </a>
             </Button>
           </div>
@@ -140,7 +135,7 @@ export function Navigation() {
                   className="font-mono text-sm uppercase tracking-wider text-foreground/80 transition-colors hover:text-primary"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.label}
+                  {t(link.labelKey, currentLang)}
                 </Link>
               ))}
               
@@ -149,7 +144,7 @@ export function Navigation() {
                 {languages.map((lang, index) => (
                   <div key={lang.code} className="flex items-center">
                     <button
-                      onClick={() => setCurrentLang(lang.code as "EN" | "DE" | "PT")}
+                      onClick={() => setCurrentLang(lang.code)}
                       className={`font-mono text-sm uppercase tracking-wider transition-colors ${
                         currentLang === lang.code
                           ? "text-primary"
@@ -170,7 +165,7 @@ export function Navigation() {
                 className="mt-2 bg-primary font-mono text-sm uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
               >
                 <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                  BOOK A FREE CALL
+                  {t("nav_cta", currentLang)}
                 </a>
               </Button>
             </div>
