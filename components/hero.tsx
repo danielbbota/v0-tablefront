@@ -67,10 +67,13 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
 
         {/* Content Overlay - Centered Text */}
-        <div className="absolute inset-0 flex items-center justify-center pt-24 md:pt-0">
+        <div className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0">
           <div className="mx-auto max-w-4xl px-6 text-center">
             {/* Eyebrow */}
-            <p className="mb-6 font-mono text-sm uppercase tracking-[0.2em] text-primary">
+            <p 
+              className="mb-6 font-mono uppercase text-primary"
+              style={{ fontSize: "clamp(9px, 2.5vw, 14px)", letterSpacing: "0.12em" }}
+            >
               {t("hero_eyebrow", currentLang)}
             </p>
 

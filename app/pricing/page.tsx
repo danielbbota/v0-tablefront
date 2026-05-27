@@ -312,6 +312,7 @@ function PricingContent() {
         }
         .p-nav-lang {
           position: relative;
+          overflow: visible;
         }
         .p-nav-lang-btn {
           font-family: 'Syne', sans-serif;
@@ -337,10 +338,11 @@ function PricingContent() {
           right: 0;
           margin-top: 8px;
           min-width: 100px;
-          background: rgba(26, 18, 8, 0.98);
+          background: #1A1208;
           border: 1px solid #3A3228;
           border-radius: 8px;
-          overflow: hidden;
+          overflow: visible;
+          z-index: 10000;
         }
         .p-nav-lang-option {
           display: block;

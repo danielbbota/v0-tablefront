@@ -126,7 +126,19 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-6">
+          <div 
+            className="md:hidden pb-6"
+            style={{
+              backgroundColor: "#1A1208",
+              backdropFilter: "none",
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              zIndex: 9999,
+              padding: "16px 24px 24px",
+            }}
+          >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
