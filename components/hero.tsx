@@ -47,7 +47,7 @@ export function Hero() {
     <section 
       ref={wrapperRef}
       className="relative"
-      style={{ height: "100vh" }}
+      style={{ height: "150vh", marginBottom: 0, paddingBottom: 0 }}
     >
       {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">

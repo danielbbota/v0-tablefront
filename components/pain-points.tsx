@@ -31,7 +31,7 @@ export function PainPoints() {
   ]
 
   return (
-    <section id="pain-points" className="bg-background-light py-24 md:py-32 overflow-x-hidden">
+    <section id="pain-points" className="bg-background-light py-24 md:py-32 overflow-x-hidden" style={{ marginTop: "-50vh", paddingTop: "6rem" }}>
       <div className="mx-auto max-w-7xl px-4 lg:px-8" style={{ maxWidth: "100%" }}>
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center px-2">
