@@ -95,14 +95,14 @@ export function Hero() {
             </Button>
 
             {/* Small Text Below Button */}
-            <p className="mt-4 font-sans text-sm text-white/60">
+            <p className="mb-24 mt-4 font-sans text-sm text-white/60 md:mb-0">
               7-day delivery · No long contracts · Built for hospitality
             </p>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+        {/* Scroll Indicator - Hidden on mobile */}
+        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block">
           <div className="flex flex-col items-center gap-2">
             <span className="font-mono text-xs uppercase tracking-wider text-white/60">Scroll to explore</span>
             <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />

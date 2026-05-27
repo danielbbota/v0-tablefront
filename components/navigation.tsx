@@ -11,6 +11,7 @@ const navLinks = [
   { href: "#pain-points", label: "WHY TABLEFRONT" },
   { href: "#how-it-works", label: "HOW IT WORKS" },
   { href: "#leaders", label: "OUR TEAM" },
+  { href: "/pricing", label: "INVESTMENT" },
 ]
 
 export function Navigation() {
@@ -33,9 +34,9 @@ export function Navigation() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          {/* Wordmark */}
-          <Link href="/" className="font-serif text-2xl font-bold tracking-wide text-foreground">
-            TableFront
+          {/* Logo */}
+          <Link href="/">
+            <img src="/TF-logo-noBackground.png" alt="TableFront" style={{ height: "40px", width: "auto" }} />
           </Link>
 
           {/* Desktop Navigation */}

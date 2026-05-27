@@ -12,7 +12,7 @@ const CHECK = () => (
 
 const X_ICON = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
-    <circle cx="8" cy="8" r="8" fill="#ffffff" fillOpacity="0.06"/>
+    <circle cx="8" cy="8" r="8" fill="#ffffff" fillOpacity="0.5"/>
     <path d="M5.5 5.5L10.5 10.5M10.5 5.5L5.5 10.5" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>
 );
@@ -249,7 +249,7 @@ export default function PricingPage() {
   }, 0) + (hasVisualMenu && isSubscription ? 60 : 0);
 
   return (
-    <div style={{ background: "#1A1208", minHeight: "100vh", padding: "0 0 80px" }}>
+    <div style={{ background: "#F5EFE0", minHeight: "100vh", padding: "0 0 80px" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500&family=Syne:wght@400;600;700&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -306,98 +306,98 @@ export default function PricingPage() {
         }
 
         /* Page Content Styles */
-        .pw { max-width: 960px; margin: 0 auto; padding: 60px 24px 0; font-family: 'Lora', serif; color: #EDE8DC; }
+        .pw { max-width: 960px; margin: 0 auto; padding: 60px 24px 0; font-family: 'Lora', serif; color: #3a3020; }
         .eyebrow { font-family: 'Syne', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #C9954A; margin-bottom: 14px; }
-        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.15; color: #EDE8DC; margin-bottom: 16px; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.15; color: #1E1E1E; margin-bottom: 16px; }
         .hero-title span { color: #C9954A; }
-        .hero-sub { font-family: 'Lora', serif; font-size: 16px; color: #EDE8DC; opacity: 0.8; line-height: 1.7; max-width: 580px; margin-bottom: 32px; }
+        .hero-sub { font-family: 'Lora', serif; font-size: 16px; color: #3a3020; line-height: 1.7; max-width: 580px; margin-bottom: 32px; }
         .strip { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 48px; }
-        .strip-item { display: flex; align-items: center; gap: 7px; font-family: 'Syne', sans-serif; font-size: 13px; color: #EDE8DC; opacity: 0.9; }
-        .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #EDE8DC; margin-bottom: 8px; }
-        .sec-sub { font-family: 'Lora', serif; font-size: 14px; color: #EDE8DC; opacity: 0.7; margin-bottom: 28px; line-height: 1.6; }
+        .strip-item { display: flex; align-items: center; gap: 7px; font-family: 'Syne', sans-serif; font-size: 13px; color: #3a3020; }
+        .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1E1E1E; margin-bottom: 8px; }
+        .sec-sub { font-family: 'Lora', serif; font-size: 14px; color: #7a6a55; margin-bottom: 28px; line-height: 1.6; }
         .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
         
-        /* Plan Card Standard (Dark) Style */
-        .plan-card { background: #2A2218; border: 1.5px solid #3A3228; border-radius: 14px; padding: 28px 24px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; color: #EDE8DC; }
+        /* Plan Card Standard (Light) Style */
+        .plan-card { background: #FFFFFF; border: 1.5px solid #E8E0D0; border-radius: 14px; padding: 28px 24px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; color: #1E1E1E; }
         .plan-card:hover { border-color: #C9954A; }
-        .plan-card.sel { border-color: #C9954A; box-shadow: 0 0 0 3px rgba(201,149,74,0.15); }
+        .plan-card.sel { border-color: #C9954A; box-shadow: 0 0 0 3px rgba(201,149,74,0.08); background: rgba(201,149,74,0.08); }
         
-        /* Plan Card Highlight (Light Theme) Style */
-        .plan-card.hl { background: #F5EFE0; color: #1E1E1E; border-color: #C9954A; }
+        /* Plan Card Highlight (Selected Theme) Style */
+        .plan-card.hl { background: #FFFFFF; color: #1E1E1E; border-color: #C9954A; }
         .plan-card.hl .plan-lbl { color: #B85C38; }
-        .plan-card.hl .plan-from { color: #5C5248; }
+        .plan-card.hl .plan-from { color: #7a6a55; }
         .plan-card.hl .plan-price { color: #1E1E1E; }
-        .plan-card.hl .plan-psub { color: #5C5248; }
-        .plan-card.hl .plan-commit { color: #5C5248; }
-        .plan-card.hl .plan-note { color: #5C5248; }
+        .plan-card.hl .plan-psub { color: #7a6a55; }
+        .plan-card.hl .plan-commit { color: #7a6a55; }
+        .plan-card.hl .plan-note { color: #7a6a55; }
         .plan-card.hl .feat-row { color: #1E1E1E; }
         .plan-card.hl .feat-row.dim { color: #A8A090; }
-        .plan-card.hl .plan-div { border-top-color: rgba(0, 0, 0, 0.1); }
-        .plan-card.hl .sel-btn { border-color: #1E1E1E; color: #1E1E1E; }
+        .plan-card.hl .plan-div { border-top-color: #E8E0D0; }
+        .plan-card.hl .sel-btn { border-color: #E8E0D0; color: #7a6a55; }
         .plan-card.hl .sel-btn:hover { border-color: #C9954A; color: #C9954A; }
         .plan-card.hl .sel-btn.act { background: #C9954A; border-color: #C9954A; color: #1A1208; }
 
         .plan-badge { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #C9954A; color: #1A1208; font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; padding: 3px 12px; border-radius: 20px; white-space: nowrap; }
         .plan-lbl { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; color: #C9954A; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
-        .plan-from { font-family: 'Lora', serif; font-size: 11px; color: #A89F8F; margin-bottom: 2px; }
-        .plan-price { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1; }
+        .plan-from { font-family: 'Lora', serif; font-size: 11px; color: #7a6a55; margin-bottom: 2px; }
+        .plan-price { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: #C9954A; line-height: 1; }
         .plan-cur { font-size: 18px; vertical-align: super; }
-        .plan-psub { font-family: 'Lora', serif; font-size: 12px; color: #A89F8F; margin-top: 4px; }
-        .plan-commit { font-family: 'Lora', serif; font-size: 13px; color: #EDE8DC; opacity: 0.8; margin-top: 8px; }
+        .plan-psub { font-family: 'Lora', serif; font-size: 12px; color: #7a6a55; margin-top: 4px; }
+        .plan-commit { font-family: 'Lora', serif; font-size: 13px; color: #3a3020; margin-top: 8px; }
         .plan-extra { font-family: 'Syne', sans-serif; font-size: 12px; color: #C9954A; margin-top: 6px; }
-        .plan-note { font-family: 'Lora', serif; font-size: 12px; color: #A89F8F; margin-top: 10px; line-height: 1.5; font-style: italic; }
-        .plan-div { border: none; border-top: 1px solid #3A3228; margin: 18px 0; }
-        .feat-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 9px; font-family: 'Lora', serif; font-size: 13.5px; color: #EDE8DC; opacity: 0.9; line-height: 1.4; }
-        .feat-row.dim { opacity: 0.3; }
-        .feat-note { font-family: 'Lora', serif; font-size: 11px; color: #A89F8F; margin: -6px 0 9px 25px; font-style: italic; }
+        .plan-note { font-family: 'Lora', serif; font-size: 12px; color: #7a6a55; margin-top: 10px; line-height: 1.5; font-style: italic; }
+        .plan-div { border: none; border-top: 1px solid #E8E0D0; margin: 18px 0; }
+        .feat-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 9px; font-family: 'Lora', serif; font-size: 13.5px; color: #1E1E1E; line-height: 1.4; }
+        .feat-row.dim { opacity: 0.4; color: #7a6a55; }
+        .feat-note { font-family: 'Lora', serif; font-size: 11px; color: #7a6a55; margin: -6px 0 9px 25px; font-style: italic; }
         
-        .sel-btn { margin-top: 20px; width: 100%; padding: 11px; border-radius: 8px; border: 1.5px solid #3A3228; background: transparent; color: #A89F8F; font-family: 'Syne', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+        .sel-btn { margin-top: 20px; width: 100%; padding: 11px; border-radius: 8px; border: 1.5px solid #E8E0D0; background: transparent; color: #7a6a55; font-family: 'Syne', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s; }
         .sel-btn:hover { border-color: #C9954A; color: #C9954A; }
         .sel-btn.act { background: #C9954A; border-color: #C9954A; color: #1A1208; font-weight: 700; }
         
-        .dot-div { text-align: center; color: #3A3228; font-size: 20px; letter-spacing: 6px; margin: 40px 0; }
+        .dot-div { text-align: center; color: #C9954A; font-size: 20px; letter-spacing: 6px; margin: 40px 0; }
         
-        .scope-toggle { display: flex; align-items: center; gap: 10px; background: #2A2218; border: 1px solid #3A3228; border-radius: 10px; padding: 14px 18px; cursor: pointer; margin-bottom: 0; transition: border-color 0.2s; }
+        .scope-toggle { display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #E8E0D0; border-radius: 10px; padding: 14px 18px; cursor: pointer; margin-bottom: 0; transition: border-color 0.2s; }
         .scope-toggle:hover { border-color: #C9954A; }
-        .scope-toggle-label { font-family: 'Lora', serif; font-size: 14px; color: #EDE8DC; opacity: 0.8; flex: 1; }
+        .scope-toggle-label { font-family: 'Lora', serif; font-size: 14px; color: #3a3020; flex: 1; }
         .scope-toggle-arrow { font-size: 11px; color: #C9954A; transition: transform 0.2s; }
         .scope-toggle-arrow.open { transform: rotate(180deg); }
-        .scope-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; background: #2A2218; border: 1px solid #3A3228; border-top: none; border-radius: 0 0 10px 10px; padding: 24px 20px; margin-bottom: 40px; }
-        .scope-col-head { display: flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: #EDE8DC; opacity: 0.8; margin-bottom: 14px; letter-spacing: 0.04em; }
-        .scope-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-family: 'Lora', serif; font-size: 13px; color: #EDE8DC; opacity: 0.7; line-height: 1.45; }
+        .scope-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; background: #FFFFFF; border: 1px solid #E8E0D0; border-top: none; border-radius: 0 0 10px 10px; padding: 24px 20px; margin-bottom: 40px; }
+        .scope-col-head { display: flex; align-items: center; gap: 8px; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: #1E1E1E; margin-bottom: 14px; letter-spacing: 0.04em; }
+        .scope-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-family: 'Lora', serif; font-size: 13px; color: #3a3020; line-height: 1.45; }
         .scope-dot-green { width: 6px; height: 6px; border-radius: 50%; background: #4a7c4e; flex-shrink: 0; margin-top: 5px; }
         .scope-dot-amber { width: 6px; height: 6px; border-radius: 50%; background: #B85C38; flex-shrink: 0; margin-top: 5px; }
         .scope-dot-red { width: 6px; height: 6px; border-radius: 50%; background: #7c3a3a; flex-shrink: 0; margin-top: 5px; }
         
         .addons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 40px; }
-        .addon-card { background: #2A2218; border: 1.5px solid #3A3228; border-radius: 12px; padding: 18px 18px 16px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
+        .addon-card { background: #FFFFFF; border: 1.5px solid #E8E0D0; border-radius: 12px; padding: 18px 18px 16px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
         .addon-card:hover { border-color: #C9954A; }
-        .addon-card.sel { border-color: #C9954A; box-shadow: 0 0 0 3px rgba(201,149,74,0.12); }
-        .addon-chk { position: absolute; top: 14px; right: 14px; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #3A3228; background: transparent; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .addon-card.sel { border-color: #C9954A; box-shadow: 0 0 0 3px rgba(201,149,74,0.08); background: rgba(201,149,74,0.08); }
+        .addon-chk { position: absolute; top: 14px; right: 14px; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #E8E0D0; background: transparent; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .addon-card.sel .addon-chk { background: #C9954A; border-color: #C9954A; }
         .addon-top { display: flex; gap: 12px; align-items: flex-start; }
         .addon-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
         .addon-body { flex: 1; min-width: 0; }
         .addon-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
-        .addon-lbl { font-family: 'Syne', sans-serif; font-size: 13.5px; font-weight: 600; color: #EDE8DC; line-height: 1.3; }
+        .addon-lbl { font-family: 'Syne', sans-serif; font-size: 13.5px; font-weight: 600; color: #1E1E1E; line-height: 1.3; }
         .addon-price-wrap { text-align: right; flex-shrink: 0; }
         .addon-price { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #C9954A; white-space: nowrap; }
-        .addon-psub { font-family: 'Lora', serif; font-size: 10px; color: #A89F8F; }
-        .addon-desc { font-family: 'Lora', serif; font-size: 13px; color: #EDE8DC; opacity: 0.7; line-height: 1.55; }
+        .addon-psub { font-family: 'Lora', serif; font-size: 10px; color: #7a6a55; }
+        .addon-desc { font-family: 'Lora', serif; font-size: 13px; color: #3a3020; line-height: 1.55; }
         .addon-sub-badge { margin-top: 8px; font-family: 'Syne', sans-serif; font-size: 11px; color: #C9954A; background: rgba(201,149,74,0.08); border-radius: 6px; padding: 4px 8px; display: inline-block; }
-        .addon-tag { margin-top: 8px; font-family: 'Syne', sans-serif; font-size: 11px; color: #EDE8DC; opacity: 0.6; background: #1A1208; border-radius: 6px; padding: 3px 8px; display: inline-block; border: 1px solid #3A3228; }
-        .addon-scope { display: flex; gap: 7px; align-items: flex-start; margin-top: 10px; padding-top: 10px; border-top: 1px solid #3A3228; font-family: 'Lora', serif; font-size: 12px; color: #A89F8F; line-height: 1.5; }
+        .addon-tag { margin-top: 8px; font-family: 'Syne', sans-serif; font-size: 11px; color: #3a3020; background: #F5EFE0; border-radius: 6px; padding: 3px 8px; display: inline-block; border: 1px solid #E8E0D0; }
+        .addon-scope { display: flex; gap: 7px; align-items: flex-start; margin-top: 10px; padding-top: 10px; border-top: 1px solid #E8E0D0; font-family: 'Lora', serif; font-size: 12px; color: #7a6a55; line-height: 1.5; }
         
-        .sum-box { background: #2A2218; border: 1.5px solid #3A3228; border-radius: 14px; padding: 28px 28px 24px; margin-bottom: 20px; }
-        .sum-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; border-bottom: 1px solid #3A3228; }
-        .sum-lbl { font-family: 'Lora', serif; font-size: 14px; color: #EDE8DC; opacity: 0.8; }
-        .sum-val { font-family: 'Syne', sans-serif; font-size: 14px; color: #EDE8DC; text-align: right; }
+        .sum-box { background: #FFFFFF; border: 1.5px solid #E8E0D0; border-radius: 14px; padding: 28px 28px 24px; margin-bottom: 20px; }
+        .sum-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 10px 0; border-bottom: 1px solid #E8E0D0; }
+        .sum-lbl { font-family: 'Lora', serif; font-size: 14px; color: #3a3020; }
+        .sum-val { font-family: 'Syne', sans-serif; font-size: 14px; color: #1E1E1E; text-align: right; }
         .sum-total { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-top: 16px; margin-top: 4px; }
-        .sum-total-lbl { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #EDE8DC; }
+        .sum-total-lbl { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #1E1E1E; }
         .sum-total-val { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #C9954A; text-align: right; }
         .sum-var-note { font-size: 11px; color: #C9954A; margin-top: 5px; font-family: 'Lora', serif; }
-        .sum-empty { text-align: center; color: #A89F8F; font-size: 14px; padding: 24px 0; font-family: 'Lora', serif; }
-        .cta-note { margin-top: 18px; font-size: 12px; color: #A89F8F; text-align: center; line-height: 1.65; font-family: 'Lora', serif; }
+        .sum-empty { text-align: center; color: #7a6a55; font-size: 14px; padding: 24px 0; font-family: 'Lora', serif; }
+        .cta-note { margin-top: 18px; font-size: 12px; color: #7a6a55; text-align: center; line-height: 1.65; font-family: 'Lora', serif; }
       `}</style>
 
       {/* Simple Navbar */}
