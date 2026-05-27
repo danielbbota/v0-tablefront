@@ -91,7 +91,7 @@ const PLANS = [
     priceSub: "per month · starting price",
     commitment: "6-month commitment. Cancel after.",
     highlight: false,
-    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates.",
+    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates. Includes 1 menu & content update per contract period.",
     features: [
       { text: "Custom mobile-first design", included: true },
       { text: "PDF menu (open & download)", included: true },
@@ -101,7 +101,7 @@ const PLANS = [
       { text: "Basic analytics dashboard", included: true },
       { text: "30 days post-launch support", included: true },
       { text: "Training & handover session", included: true },
-      { text: "Monthly menu & content updates", included: true, note: "See scope rules below" },
+      { text: "1 menu & content update included", included: true, note: "Per contract period" },
       { text: "Ongoing maintenance & fixes", included: true },
     ],
   },
@@ -113,7 +113,7 @@ const PLANS = [
     priceSub: "per month · starting price",
     commitment: "1 month free — effective ~8% saving.",
     highlight: true,
-    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates.",
+    note: "Base includes PDF menu. Add full visual menu integration for +CHF 500 build fee and +CHF 60/mo for updates. Includes 2 menu & content updates per contract period.",
     features: [
       { text: "Custom mobile-first design", included: true },
       { text: "PDF menu (open & download)", included: true },
@@ -123,7 +123,7 @@ const PLANS = [
       { text: "Basic analytics dashboard", included: true },
       { text: "30 days post-launch support", included: true },
       { text: "Training & handover session", included: true },
-      { text: "Monthly menu & content updates", included: true, note: "See scope rules below" },
+      { text: "2 menu & content updates included", included: true, note: "Per contract period" },
       { text: "Ongoing maintenance & fixes", included: true },
     ],
     extra: "12 months billed monthly + 1 month free",
@@ -182,9 +182,9 @@ const ADDONS = [
     label: "Per-Update (Pay as You Go)",
     price: "From CHF 80",
     priceSub: null,
-    desc: "Only update your menu or design 1–2 times a year? Pay per update based on scope. No monthly commitment.",
+    desc: "Need an extra update beyond your included allowance, or on a one-time plan? Pay per update based on scope. No monthly commitment.",
     scopeNote: "Final price confirmed before each update based on what needs changing.",
-    tag: "One-time plan only",
+    tag: null,
     fixed: null,
   },
   {
@@ -311,7 +311,8 @@ export default function PricingPage() {
         .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.15; color: #1E1E1E; margin-bottom: 16px; }
         .hero-title span { color: #C9954A; }
         .hero-sub { font-family: 'Lora', serif; font-size: 16px; color: #3a3020; line-height: 1.7; max-width: 580px; margin-bottom: 32px; }
-        .strip { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 48px; }
+        .strip { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+        @media (min-width: 768px) { .strip { flex-direction: row; flex-wrap: wrap; gap: 10px 20px; } }
         .strip-item { display: flex; align-items: center; gap: 7px; font-family: 'Syne', sans-serif; font-size: 13px; color: #3a3020; }
         .sec-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: #1E1E1E; margin-bottom: 8px; }
         .sec-sub { font-family: 'Lora', serif; font-size: 14px; color: #7a6a55; margin-bottom: 28px; line-height: 1.6; }
@@ -380,7 +381,7 @@ export default function PricingPage() {
         .addon-body { flex: 1; min-width: 0; }
         .addon-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
         .addon-lbl { font-family: 'Syne', sans-serif; font-size: 13.5px; font-weight: 600; color: #1E1E1E; line-height: 1.3; }
-        .addon-price-wrap { text-align: right; flex-shrink: 0; }
+        .addon-price-wrap { text-align: right; flex-shrink: 0; padding-right: 32px; }
         .addon-price { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #C9954A; white-space: nowrap; }
         .addon-psub { font-family: 'Lora', serif; font-size: 10px; color: #7a6a55; }
         .addon-desc { font-family: 'Lora', serif; font-size: 13px; color: #3a3020; line-height: 1.55; }
