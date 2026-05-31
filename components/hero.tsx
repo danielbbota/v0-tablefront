@@ -17,10 +17,13 @@ export function Hero() {
     const video = videoRef.current
     if (!wrapper || !video) return
 
-    const handleScroll = () => {
+    const getViewportHeight = () =>
+      window.visualViewport?.height ?? window.innerHeight
+
+    const updateVideo = () => {
       const rect = wrapper.getBoundingClientRect()
       const scrolled = -rect.top
-      const total = rect.height - window.innerHeight
+      const total = rect.height - getViewportHeight()
       const progress = Math.min(Math.max(scrolled / total, 0), 1)
 
       if (video.duration && !isNaN(video.duration)) {
@@ -28,18 +31,22 @@ export function Hero() {
       }
     }
 
-    const handleLoadedMetadata = () => {
-      handleScroll()
+    const handleScroll = () => {
+      requestAnimationFrame(updateVideo)
     }
 
-    video.addEventListener("loadedmetadata", handleLoadedMetadata)
+    video.addEventListener("loadedmetadata", updateVideo)
     window.addEventListener("scroll", handleScroll, { passive: true })
-    
-    handleScroll()
+    window.visualViewport?.addEventListener("scroll", handleScroll)
+    window.visualViewport?.addEventListener("resize", handleScroll)
+
+    updateVideo()
 
     return () => {
       window.removeEventListener("scroll", handleScroll)
-      video.removeEventListener("loadedmetadata", handleLoadedMetadata)
+      window.visualViewport?.removeEventListener("scroll", handleScroll)
+      window.visualViewport?.removeEventListener("resize", handleScroll)
+      video.removeEventListener("loadedmetadata", updateVideo)
     }
   }, [])
 
@@ -50,7 +57,7 @@ export function Hero() {
       style={{ height: "150vh", marginBottom: 0, paddingBottom: 0 }}
     >
       {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      <div className="sticky top-0 w-full overflow-hidden" style={{ height: "100dvh" }}>
         {/* Full Screen Video */}
         {/* DROP tablefront-hero-keyframes.mp4 HERE */}
         <video
