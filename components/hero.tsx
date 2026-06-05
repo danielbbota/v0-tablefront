@@ -22,17 +22,22 @@ export function Hero() {
       window.visualViewport?.height ?? window.innerHeight
 
     const updateVideo = () => {
+      // Skip on mobile (video is hidden via CSS)
+      if (window.innerWidth < 768) return
+      
       const rect = wrapper.getBoundingClientRect()
       const scrolled = -rect.top
       const total = rect.height - getViewportHeight()
       
-      // Guard against division by zero (happens on mobile where height equals viewport)
+      // Guard against division by zero
       if (total <= 0) return
       
       const progress = Math.min(Math.max(scrolled / total, 0), 1)
+      const newTime = progress * video.duration
 
-      if (video.duration && !isNaN(video.duration) && isFinite(progress)) {
-        video.currentTime = progress * video.duration
+      // Only set if all values are finite and valid
+      if (isFinite(newTime) && newTime >= 0) {
+        video.currentTime = newTime
       }
     }
 
