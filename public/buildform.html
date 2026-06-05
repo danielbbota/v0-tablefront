@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  TableFront — Locked Client Content Intake Form
+  ============================================================================
+  PURPOSE: Forces COMPLETE content (logo, photos, full menu, hours, brand,
+  story, reservation tool) to arrive BEFORE any build starts. The "Submit
+  for build" button is HARD-BLOCKED until every required field is valid.
+
+  ---------------------------------------------------------------------------
+  SETUP (Daniel — do this once, ~5 minutes, then reuse per client):
+  ---------------------------------------------------------------------------
+  1. SUBMISSION: Get a free Web3Forms access key at https://web3forms.com
+     (no account needed — enter your email, they email you a key).
+     Paste it into CONFIG.web3formsKey below. Submissions land in your inbox
+     with the logo attached and a full structured summary.
+     -> If you leave it blank, the form still works: it generates a
+        downloadable JSON backup the client can email you. Nothing breaks.
+
+  2. PHOTO FOLDER: Photos (10-15, often large) are NOT emailed — that breaks.
+     Instead, create a per-client upload link:
+       - Google Drive: create a folder -> Share -> "Anyone with link can edit"
+       - or Dropbox File Request: dropbox.com/requests
+     Paste that link into CONFIG.assetFolderLink below before sending to a
+     client. The client uploads photos there and confirms in the form.
+
+  3. SEND: Host on Vercel (drag-drop the file) or just email the .html.
+     One file, no dependencies, works offline except for submit.
+  ---------------------------------------------------------------------------
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TableFront — Project Content Intake</title>
+<style>
+  :root{
+    --ink:#1f2421;        /* deep charcoal-green */
+    --ink-soft:#4a524d;
+    --line:#e3ded4;
+    --paper:#faf7f0;      /* warm cream */
+    --card:#ffffff;
+    --accent:#bd5b3d;     /* warm terracotta */
+    --accent-dark:#9c4630;
+    --gold:#c9a86a;
+    --ok:#2f7d52;
+    --bad:#c0392b;
+    --bad-bg:#fcefed;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(31,36,33,.05),0 8px 24px rgba(31,36,33,.06);
+    --font:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --serif:"Georgia","Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--font);line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:0 20px 140px}
+
+  /* ---------- Header ---------- */
+  header{padding:48px 0 8px;text-align:center}
+  .brand{font-family:var(--serif);font-size:15px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);font-weight:700}
+  header h1{font-family:var(--serif);font-size:34px;margin:10px 0 6px;font-weight:700}
+  header p{color:var(--ink-soft);font-size:15.5px;max-width:560px;margin:0 auto}
+  .why{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 20px;margin:22px auto 0;max-width:620px;font-size:14px;
+    color:var(--ink-soft);box-shadow:var(--shadow)}
+  .why b{color:var(--ink)}
+
+  /* ---------- Progress ---------- */
+  .progress-bar{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.92);
+    backdrop-filter:blur(6px);padding:14px 0 12px;margin-bottom:8px;
+    border-bottom:1px solid var(--line)}
+  .progress-inner{max-width:780px;margin:0 auto;padding:0 20px;
+    display:flex;align-items:center;gap:14px}
+  .track{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));
+    transition:width .35s ease}
+  .pct{font-size:13px;font-weight:700;color:var(--ink-soft);min-width:118px;text-align:right}
+
+  /* ---------- Sections ---------- */
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 26px 24px;margin:18px 0;box-shadow:var(--shadow)}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin:0 0 4px}
+  .sec-num{font-family:var(--serif);font-size:14px;color:var(--accent);font-weight:700;
+    border:1.5px solid var(--accent);border-radius:50%;width:28px;height:28px;
+    display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px}
+  .sec-head h2{font-size:20px;margin:0;font-family:var(--serif)}
+  .sec-sub{color:var(--ink-soft);font-size:14px;margin:2px 0 18px;padding-left:40px}
+
+  .field{margin:0 0 18px}
+  label{display:block;font-weight:600;font-size:14.5px;margin-bottom:6px}
+  label .req{color:var(--accent);margin-left:3px}
+  .hint{font-weight:400;color:var(--ink-soft);font-size:13px;margin-top:2px}
+  input[type=text],input[type=email],input[type=url],input[type=tel],
+  input[type=number],textarea,select{
+    width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:15px;background:#fff;color:var(--ink);transition:border .15s}
+  textarea{resize:vertical;min-height:84px}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+  input.invalid,textarea.invalid,select.invalid{border-color:var(--bad);background:var(--bad-bg)}
+  .err{color:var(--bad);font-size:12.5px;margin-top:5px;display:none}
+  .err.show{display:block}
+  .counter{font-size:12px;color:var(--ink-soft);text-align:right;margin-top:3px}
+
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>.field{flex:1;min-width:200px}
+
+  /* color + font */
+  .colorset{display:flex;gap:18px;flex-wrap:wrap}
+  .colorpick{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+  .colorpick input[type=color]{width:64px;height:46px;padding:0;border:1.5px solid var(--line);
+    border-radius:10px;cursor:pointer;background:#fff}
+  .colorpick span{font-size:13px;color:var(--ink-soft)}
+
+  /* hours grid */
+  .hours .hrow{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;
+    padding:7px 0;border-bottom:1px dashed var(--line)}
+  .hours .hrow:last-child{border-bottom:none}
+  .hours .day{font-weight:600;font-size:14px}
+  .hours .times{display:flex;align-items:center;gap:8px}
+  .hours .times input{padding:7px 9px}
+  .hours .closed-lbl{display:flex;align-items:center;gap:6px;font-size:13px;
+    color:var(--ink-soft);font-weight:500;white-space:nowrap}
+  .hours input[type=time]{font-family:inherit;font-size:14px;border:1.5px solid var(--line);
+    border-radius:8px;padding:7px 9px}
+  .dimmed{opacity:.4;pointer-events:none}
+
+  /* menu builder */
+  .menu-section{border:1.5px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;
+    background:#fdfcf9}
+  .menu-section-head{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+  .menu-section-head input{font-weight:700}
+  .menu-item{display:grid;grid-template-columns:1fr 96px 2fr auto;gap:8px;margin-bottom:8px;align-items:start}
+  .menu-item input,.menu-item textarea{padding:9px 10px;font-size:14px}
+  .menu-item textarea{min-height:40px}
+  @media(max-width:620px){.menu-item{grid-template-columns:1fr 1fr;}.menu-item textarea{grid-column:1/-1}}
+  .mini{font-size:12px;color:var(--ink-soft);margin-bottom:6px}
+
+  /* buttons */
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:9px;font-weight:600}
+  .btn-add{background:#fff;border:1.5px dashed var(--accent);color:var(--accent-dark);
+    padding:9px 14px;font-size:13.5px}
+  .btn-add:hover{background:#fbeee9}
+  .btn-x{background:transparent;color:var(--bad);font-size:18px;line-height:1;
+    padding:4px 8px;align-self:center}
+  .btn-x:hover{background:var(--bad-bg);border-radius:6px}
+
+  /* checklist confirm */
+  .checklist{list-style:none;padding:0;margin:0}
+  .checklist li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:14px}
+  .checklist input[type=checkbox]{margin-top:3px;width:17px;height:17px;accent-color:var(--accent);flex:0 0 auto}
+  .photo-shots{background:#fdfcf9;border:1px solid var(--line);border-radius:10px;
+    padding:12px 16px;font-size:13.5px;color:var(--ink-soft);margin:10px 0}
+  .photo-shots b{color:var(--ink)}
+
+  /* file */
+  input[type=file]{font-size:14px;width:100%;padding:10px;border:1.5px dashed var(--line);
+    border-radius:10px;background:#fff;cursor:pointer}
+
+  /* footer / submit */
+  .lockbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;
+    border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(31,36,33,.07)}
+  .lockbar-inner{max-width:780px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;gap:16px}
+  .lock-status{flex:1;font-size:13.5px;color:var(--ink-soft)}
+  .lock-status b{color:var(--ink)}
+  .btn-submit{background:var(--accent);color:#fff;padding:14px 26px;font-size:15.5px;
+    border-radius:11px;transition:background .15s,transform .05s}
+  .btn-submit:hover:not(:disabled){background:var(--accent-dark)}
+  .btn-submit:active:not(:disabled){transform:translateY(1px)}
+  .btn-submit:disabled{background:#cfc9bd;color:#fff;cursor:not-allowed}
+  .btn-ghost{background:transparent;color:var(--accent-dark);text-decoration:underline;
+    padding:8px 4px;font-size:13.5px}
+
+  .toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-120%);
+    background:var(--ink);color:#fff;padding:13px 22px;border-radius:10px;font-size:14.5px;
+    z-index:100;transition:transform .3s ease;box-shadow:0 8px 30px rgba(0,0,0,.25);max-width:90%}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast.bad{background:var(--bad)}
+
+  .done{display:none;text-align:center;padding:60px 20px}
+  .done.show{display:block}
+  .done .check{font-size:54px}
+  .done h2{font-family:var(--serif);font-size:28px;margin:10px 0}
+  .done p{color:var(--ink-soft);max-width:480px;margin:8px auto}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <div class="pct" id="pct">0% complete</div>
+  </div>
+</div>
+
+<div class="wrap" id="formWrap">
+  <header>
+    <div class="brand">TableFront</div>
+    <h1>Let's build your site</h1>
+    <p>Everything we need to design your website, in one place. The more complete this is, the faster — and better — your site comes out.</p>
+    <div class="why">
+      <b>Why this is locked:</b> a great site needs your real content. This form won't
+      submit until every essential piece is in. Fill it once, completely, and we start
+      building — no back-and-forth chasing photos or menu prices for two weeks.
+    </div>
+  </header>
+
+  <form id="intake" novalidate>
+
+  <!-- 1. VENUE BASICS -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">1</span><h2>Your venue</h2></div>
+    <div class="sec-sub">The basics — name, type, where you are, how guests reach you.</div>
+
+    <div class="field">
+      <label>Venue name<span class="req">*</span></label>
+      <input type="text" data-req name="venue_name" placeholder="e.g. Café Lumière">
+      <div class="err">Please enter your venue name.</div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Type of venue<span class="req">*</span></label>
+        <select data-req name="venue_type">
+          <option value="">Select…</option>
+          <option>Restaurant</option><option>Bar</option><option>Café</option>
+          <option>Hotel</option><option>Bistro / Brasserie</option>
+          <option>Bakery</option><option>Other</option>
+        </select>
+        <div class="err">Please choose a type.</div>
+      </div>
+      <div class="field">
+        <label>Cuisine / concept<span class="req">*</span></label>
+        <input type="text" data-req name="concept" placeholder="e.g. Modern Swiss-French, small plates">
+        <div class="err">Tell us your concept in a few words.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Full address<span class="req">*</span></label>
+      <input type="text" data-req name="address" placeholder="Street, number, postal code, city">
+      <div class="err">We need the full address for your site & map.</div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Public phone<span class="req">*</span></label>
+        <input type="tel" data-req name="phone" placeholder="+41 …">
+        <div class="err">Add a contact phone number.</div>
+      </div>
+      <div class="field">
+        <label>Public email<span class="req">*</span></label>
+        <input type="email" data-req data-email name="email" placeholder="hello@yourvenue.ch">
+        <div class="err">Add a valid public email.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Current website <span class="hint">(if any — leave blank if none)</span></label>
+      <input type="url" name="current_site" placeholder="https://…">
+    </div>
+  </section>
+
+  <!-- 2. YOUR STORY -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">2</span><h2>Your story</h2></div>
+    <div class="sec-sub">A short, real description of your place. This becomes the heart of your homepage.</div>
+
+    <div class="field">
+      <label>One-line tagline<span class="req">*</span></label>
+      <input type="text" data-req name="tagline" placeholder="e.g. Neighbourhood wine bar with a Mediterranean soul">
+      <div class="err">Give us a single line that captures the place.</div>
+    </div>
+
+    <div class="field">
+      <label>Your story — 2 to 3 sentences<span class="req">*</span></label>
+      <textarea data-req data-min="120" name="story" maxlength="600"
+        placeholder="Who you are, what makes the place special, the feeling guests get. Write it the way you'd tell a friend."></textarea>
+      <div class="counter"><span data-count>0</span> / 120 min</div>
+      <div class="err">Please write at least 120 characters (2–3 real sentences).</div>
+    </div>
+  </section>
+
+  <!-- 3. BRAND LOOK -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">3</span><h2>Your look</h2></div>
+    <div class="sec-sub">Logo, colours, and fonts so the site feels unmistakably yours.</div>
+
+    <div class="field">
+      <label>Logo file<span class="req">*</span></label>
+      <div class="hint">PNG or SVG with a transparent background if you have it. Highest resolution you've got.</div>
+      <input type="file" data-req-file name="logo" accept=".png,.svg,.jpg,.jpeg,.pdf">
+      <div class="err">Please attach your logo file.</div>
+    </div>
+
+    <div class="field">
+      <label>Brand colours<span class="req">*</span></label>
+      <div class="hint">Pick the closest you can. Not sure? Pick your main colour and we'll refine it.</div>
+      <div class="colorset" style="margin-top:8px">
+        <div class="colorpick"><input type="color" name="color_primary" value="#bd5b3d"><span>Primary</span></div>
+        <div class="colorpick"><input type="color" name="color_secondary" value="#1f2421"><span>Secondary</span></div>
+        <div class="colorpick"><input type="color" name="color_accent" value="#c9a86a"><span>Accent</span></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Font / typography feel<span class="req">*</span></label>
+      <select data-req name="font_feel">
+        <option value="">Select the vibe…</option>
+        <option>Classic & elegant (serif)</option>
+        <option>Clean & modern (sans-serif)</option>
+        <option>Warm & handwritten touches</option>
+        <option>Bold & contemporary</option>
+        <option>We have specific brand fonts (note them below)</option>
+      </select>
+      <div class="err">Choose the typography feel.</div>
+      <input type="text" name="font_notes" placeholder="Specific font names, if you have brand fonts" style="margin-top:8px">
+    </div>
+  </section>
+
+  <!-- 4. PHOTOS -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">4</span><h2>Photos</h2></div>
+    <div class="sec-sub">Real photos of your venue, food and atmosphere. This is what makes the site sell.</div>
+
+    <div class="photo-shots">
+      <b>We need 10–15 photos.</b> Aim for a mix:
+      exterior / storefront · interior / atmosphere · 4–6 hero food or drink shots ·
+      a detail or two (table setting, bar, signage) · ideally one of the team or you.
+      Landscape, well-lit, no heavy filters. Phone photos are fine if they're sharp.
+    </div>
+
+    <div class="field" id="photoLinkField">
+      <label>Upload your photos here, then paste the folder link<span class="req">*</span></label>
+      <div class="hint" id="folderHint"></div>
+      <input type="url" data-req data-url name="photo_folder"
+        placeholder="Paste the shared folder link (Google Drive / Dropbox / WeTransfer)">
+      <div class="err">Paste the link to the folder where you uploaded your photos.</div>
+    </div>
+
+    <div class="field">
+      <label>How many photos did you upload?<span class="req">*</span></label>
+      <input type="number" data-req data-min-num="10" min="0" name="photo_count"
+        placeholder="Minimum 10" style="max-width:180px">
+      <div class="err">We need at least 10 photos to build a strong site.</div>
+    </div>
+
+    <ul class="checklist">
+      <li><input type="checkbox" data-req-check name="photo_confirm">
+        <span>I confirm the folder is shared so TableFront can open it, and it contains
+        at least 10 photos I own the rights to use.</span></li>
+    </ul>
+    <div class="err" data-check-err>Please confirm your photos are uploaded and accessible.</div>
+  </section>
+
+  <!-- 5. MENU -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">5</span><h2>Your menu</h2></div>
+    <div class="sec-sub">Upload your full menu as a PDF. Make sure it's your current, complete menu — with prices.</div>
+
+    <div class="field">
+      <label>Menu PDF<span class="req">*</span></label>
+      <div class="hint">One PDF with everything (food &amp; drinks). If your menu is an image or document, export or print it to PDF first.</div>
+      <input type="file" data-req-file name="menu_pdf" accept="application/pdf,.pdf">
+      <div class="err" id="menuErr">Please attach your menu as a PDF.</div>
+    </div>
+
+    <ul class="checklist">
+      <li><input type="checkbox" data-req-check-menu name="menu_confirm">
+        <span>I confirm this is the complete, up-to-date menu and that all prices are current.</span></li>
+    </ul>
+    <div class="err" data-menu-check-err>Please confirm the PDF is your complete, current menu.</div>
+  </section>
+
+  <!-- 6. HOURS -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">6</span><h2>Opening hours</h2></div>
+    <div class="sec-sub">Set your hours. Tick "Closed" for any day you're not open.</div>
+    <div class="hours" id="hoursGrid"></div>
+    <div class="err" id="hoursErr" style="margin-top:10px">Please set open & close times for every day that isn't marked closed.</div>
+  </section>
+
+  <!-- 7. BOOKINGS & ORDERING -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">7</span><h2>Bookings & ordering</h2></div>
+    <div class="sec-sub">How guests reserve a table or order — so we can wire the buttons to the right place.</div>
+
+    <div class="field">
+      <label>Do you take reservations?<span class="req">*</span></label>
+      <select data-req name="res_mode" id="resMode">
+        <option value="">Select…</option>
+        <option value="tool">Yes — through a tool (OpenTable, Bookatable, etc.)</option>
+        <option value="phone">Yes — by phone / email only</option>
+        <option value="none">No reservations</option>
+      </select>
+      <div class="err">Let us know how reservations work.</div>
+    </div>
+
+    <div class="field hidden" id="resToolField">
+      <label>Reservation tool & link<span class="req">*</span></label>
+      <input type="text" data-url-soft name="res_tool" placeholder="Tool name + booking link (e.g. OpenTable — https://…)">
+      <div class="err">Add the reservation tool name and its booking link.</div>
+    </div>
+
+    <div class="field">
+      <label>Online ordering / delivery links <span class="hint">(optional — Uber Eats, Just Eat, your own, etc.)</span></label>
+      <input type="text" name="ordering" placeholder="Paste any links, or leave blank">
+    </div>
+  </section>
+
+  <!-- 8. ONLINE PRESENCE -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">8</span><h2>Online presence & domain</h2></div>
+    <div class="sec-sub">Your socials to link, and what web address the site should live at.</div>
+
+    <div class="row">
+      <div class="field">
+        <label>Instagram <span class="hint">(optional)</span></label>
+        <input type="text" name="instagram" placeholder="@handle or link">
+      </div>
+      <div class="field">
+        <label>Facebook <span class="hint">(optional)</span></label>
+        <input type="text" name="facebook" placeholder="link">
+      </div>
+    </div>
+    <div class="field">
+      <label>Google Business / TripAdvisor / other review links <span class="hint">(optional)</span></label>
+      <input type="text" name="reviews" placeholder="Paste any links">
+    </div>
+
+    <div class="field">
+      <label>Domain for the site<span class="req">*</span></label>
+      <select data-req name="domain_status" id="domainStatus">
+        <option value="">Select…</option>
+        <option value="have">I already own a domain</option>
+        <option value="need">I need help getting one</option>
+      </select>
+      <div class="err">Tell us about your domain.</div>
+    </div>
+    <div class="field hidden" id="domainField">
+      <label>What's the domain / what would you like?<span class="req">*</span></label>
+      <input type="text" data-url-soft name="domain_value" placeholder="e.g. cafelumiere.ch">
+      <div class="err">Enter your domain (or your preferred name).</div>
+    </div>
+  </section>
+
+  <!-- 9. ANYTHING ELSE -->
+  <section data-section>
+    <div class="sec-head"><span class="sec-num">9</span><h2>Anything else</h2></div>
+    <div class="sec-sub">Examples of sites you love, must-have features, things to avoid — anything that helps.</div>
+    <div class="field">
+      <textarea name="notes" placeholder="Optional, but helpful. Links to sites you like are gold."></textarea>
+    </div>
+  </section>
+
+  </form>
+</div>
+
+<!-- DONE STATE -->
+<div class="done" id="doneState">
+  <div class="check">🎉</div>
+  <h2>That's everything — thank you!</h2>
+  <p>Your content is complete and on its way to TableFront. We'll review it and get
+     started on your build. You'll hear from us shortly.</p>
+  <p style="margin-top:18px;font-size:13.5px">If anything was missing, we'll reach out — but you've given us a full set, so we should be straight into building.</p>
+</div>
+
+<!-- LOCK BAR -->
+<div class="lockbar" id="lockbar">
+  <div class="lockbar-inner">
+    <div class="lock-status" id="lockStatus">🔒 <b>Locked</b> — complete every required field to unlock submit.</div>
+    <button type="button" class="btn-ghost" id="backupBtn">Download my answers</button>
+    <button type="submit" form="intake" class="btn-submit" id="submitBtn" disabled>🔒 Submit for build</button>
+  </div>
+</div>
+
+<script>
+/* ===================== CONFIG (Daniel: edit these two) ===================== */
+const CONFIG = {
+  web3formsKey: "",   // <-- paste your Web3Forms access key (see top comment). Blank = JSON-download fallback.
+  assetFolderLink: "" // <-- paste a per-client Drive/Dropbox upload link. Blank = generic instructions.
+};
+/* ========================================================================== */
+
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const form = document.getElementById('intake');
+
+/* ---------- Build hours grid ---------- */
+const hoursGrid = document.getElementById('hoursGrid');
+DAYS.forEach((day,i)=>{
+  const row=document.createElement('div');
+  row.className='hrow';
+  row.innerHTML=`
+    <div class="day">${day}</div>
+    <div class="times" data-times>
+      <input type="time" data-open value="${i<6?'09:00':''}">
+      <span>–</span>
+      <input type="time" data-close value="${i<6?'22:00':''}">
+    </div>
+    <label class="closed-lbl"><input type="checkbox" data-closed> Closed</label>`;
+  hoursGrid.appendChild(row);
+});
+hoursGrid.addEventListener('change',e=>{
+  if(e.target.matches('[data-closed]')){
+    const times=e.target.closest('.hrow').querySelector('[data-times]');
+    times.classList.toggle('dimmed',e.target.checked);
+  }
+  revalidate();
+});
+hoursGrid.addEventListener('input',revalidate);
+
+/* ---------- Photo folder hint ---------- */
+const folderHint=document.getElementById('folderHint');
+folderHint.innerHTML = CONFIG.assetFolderLink
+  ? `Upload them to your folder: <a href="${CONFIG.assetFolderLink}" target="_blank" rel="noopener">open upload folder ↗</a> — then paste that same link below to confirm.`
+  : `Put all photos in one shared folder (Google Drive, Dropbox or a WeTransfer link), set it so anyone with the link can view, then paste the link below.`;
+
+/* ---------- Conditional fields ---------- */
+const resMode=document.getElementById('resMode');
+const resToolField=document.getElementById('resToolField');
+resMode.addEventListener('change',()=>{
+  resToolField.classList.toggle('hidden',resMode.value!=='tool');revalidate();
+});
+const domainStatus=document.getElementById('domainStatus');
+const domainField=document.getElementById('domainField');
+domainStatus.addEventListener('change',()=>{
+  domainField.classList.toggle('hidden',!domainStatus.value);revalidate();
+});
+
+/* ---------- Validation helpers ---------- */
+const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const URL_RE=/^https?:\/\/.+\..+/i;
+function isVisible(el){return !!(el.offsetParent!==null);}
+
+function validateField(el){
+  if(!isVisible(el)) return true;            // skip hidden conditional fields
+  let ok=true;const v=(el.value||'').trim();
+  if(el.hasAttribute('data-req')||el.hasAttribute('data-req-file')){
+    if(el.type==='file') ok=el.files.length>0;
+    else ok=v.length>0;
+  }
+  if(ok&&el.hasAttribute('data-email')) ok=EMAIL_RE.test(v);
+  if(ok&&el.hasAttribute('data-url')&&v) ok=URL_RE.test(v);
+  if(ok&&el.hasAttribute('data-url-soft')&&isVisible(el)) ok=v.length>0;
+  if(ok&&el.hasAttribute('data-min')) ok=v.length>=+el.getAttribute('data-min');
+  if(ok&&el.hasAttribute('data-min-num')) ok=(+v)>=+el.getAttribute('data-min-num');
+  return ok;
+}
+
+function checkMenu(){
+  // The PDF file itself is validated via [data-req-file] in the standard loop;
+  // this check covers the "complete & current" confirmation.
+  return form.querySelector('[data-req-check-menu]').checked;
+}
+function checkHours(){
+  let ok=true;
+  hoursGrid.querySelectorAll('.hrow').forEach(r=>{
+    if(r.querySelector('[data-closed]').checked) return;
+    const o=r.querySelector('[data-open]').value, c=r.querySelector('[data-close]').value;
+    if(!o||!c) ok=false;
+  });
+  return ok;
+}
+
+/* ---------- Master revalidate ---------- */
+const submitBtn=document.getElementById('submitBtn');
+const lockStatus=document.getElementById('lockStatus');
+
+/* Readable label for a field: its <label> text (minus the asterisk), with section name. */
+function fieldLabel(el){
+  const lab=el.closest('.field')?.querySelector('label');
+  let txt=lab?lab.textContent.replace('*','').replace(/\(.*?\)/g,'').trim():(el.name||'Field');
+  const sec=el.closest('section');
+  const secName=sec?sec.querySelector('h2')?.textContent.trim():'';
+  return secName?`${secName} — ${txt}`:txt;
+}
+
+/* Returns {ok, missing:[{label, el}]} */
+function gatherChecks(){
+  const out={ok:true,total:0,missing:[]};
+  const add=(pass,label,el)=>{out.total++;if(!pass){out.ok=false;out.missing.push({label,el});}};
+
+  form.querySelectorAll('[data-req],[data-req-file],[data-url-soft]').forEach(el=>{
+    add(validateField(el), fieldLabel(el), el);
+  });
+  const cb=form.querySelector('[data-req-check]');
+  add(cb.checked,'Photos — confirm uploaded & accessible',cb);
+  add(checkMenu(),'Your menu — confirm the PDF is complete & current',
+      form.querySelector('[data-req-check-menu]'));
+  add(checkHours(),'Opening hours — set times for every day, or mark it Closed',
+      document.getElementById('hoursGrid'));
+  return out;
+}
+
+function revalidate(){
+  const r=gatherChecks();
+  const passed=r.total-r.missing.length;
+  const pct=Math.round(passed/r.total*100);
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('pct').textContent=pct+'% complete';
+
+  submitBtn.disabled=!r.ok;
+  submitBtn.textContent=r.ok?'✓ Submit for build':'🔒 Submit for build';
+
+  if(r.ok){
+    lockStatus.innerHTML='🔓 <b>Ready.</b> Everything’s complete — you can submit.';
+  }else{
+    const n=r.missing.length;
+    lockStatus.innerHTML=
+      `🔒 <b>${n} item${n===1?'':'s'}</b> still need${n===1?'s':''} attention. `
+      +`<a href="#" id="jumpMissing" style="color:var(--accent-dark);font-weight:700;white-space:nowrap">→ take me to the next one</a>`;
+    const jump=document.getElementById('jumpMissing');
+    if(jump) jump.onclick=(ev)=>{ev.preventDefault();showErrors();
+      const t=r.missing[0].el;
+      t.scrollIntoView({behavior:'smooth',block:'center'});
+      if(t.focus)try{t.focus({preventScroll:true});}catch(_){}};
+  }
+  return r.ok;
+}
+
+/* live counters + live validation */
+form.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.hasAttribute('data-min')){
+    const c=el.closest('.field').querySelector('[data-count]');
+    if(c)c.textContent=el.value.trim().length;
+  }
+  revalidate();
+});
+form.addEventListener('change',revalidate);
+
+/* ---------- Show all errors (on failed submit) ---------- */
+function showErrors(){
+  form.querySelectorAll('[data-req],[data-req-file],[data-url-soft],[data-email],[data-url]').forEach(el=>{
+    const ok=validateField(el);
+    el.classList.toggle('invalid',!ok&&isVisible(el));
+    const err=el.closest('.field')?.querySelector('.err');
+    if(err&&!el.closest('.field').querySelector('[data-req-check]')) err.classList.toggle('show',!ok&&isVisible(el));
+  });
+  const cb=form.querySelector('[data-req-check]');
+  document.querySelector('[data-check-err]').classList.toggle('show',!cb.checked);
+  document.querySelector('[data-menu-check-err]').classList.toggle('show',!checkMenu());
+  document.getElementById('hoursErr').classList.toggle('show',!checkHours());
+}
+
+/* ---------- Gather data ---------- */
+function gatherData(){
+  const d={};
+  form.querySelectorAll('input,select,textarea').forEach(el=>{
+    if(el.name && el.type!=='file' && el.type!=='checkbox')
+      d[el.name]=el.value.trim();
+  });
+  // menu (PDF upload)
+  const menuFile=form.querySelector('[name="menu_pdf"]').files[0];
+  d.menu_file=menuFile?menuFile.name:'';
+  d.menu_confirmed=form.querySelector('[data-req-check-menu]').checked;
+  // hours
+  d.hours={};
+  hoursGrid.querySelectorAll('.hrow').forEach((r,i)=>{
+    if(r.querySelector('[data-closed]').checked) d.hours[DAYS[i]]='Closed';
+    else d.hours[DAYS[i]]=`${r.querySelector('[data-open]').value} – ${r.querySelector('[data-close]').value}`;
+  });
+  return d;
+}
+function dataToText(d){
+  let t=`TABLEFRONT — CLIENT CONTENT INTAKE\n${'='.repeat(40)}\n\n`;
+  const map={venue_name:'Venue',venue_type:'Type',concept:'Concept',address:'Address',
+    phone:'Phone',email:'Email',current_site:'Current site',tagline:'Tagline',story:'Story',
+    font_feel:'Font feel',font_notes:'Font notes',color_primary:'Primary colour',
+    color_secondary:'Secondary colour',color_accent:'Accent colour',
+    photo_folder:'Photo folder',photo_count:'Photo count',res_mode:'Reservations',
+    res_tool:'Reservation tool',ordering:'Ordering links',instagram:'Instagram',
+    facebook:'Facebook',reviews:'Review links',domain_status:'Domain status',
+    domain_value:'Domain',notes:'Notes'};
+  Object.keys(map).forEach(k=>{if(d[k])t+=`${map[k]}: ${d[k]}\n`;});
+  t+=`\nHOURS\n${'-'.repeat(20)}\n`;
+  Object.entries(d.hours).forEach(([day,h])=>t+=`${day}: ${h}\n`);
+  t+=`\nMENU\n${'-'.repeat(20)}\n`;
+  t+=`Menu PDF: ${d.menu_file||'(not attached)'}\n`;
+  t+=`Confirmed complete & current: ${d.menu_confirmed?'Yes':'No'}\n`;
+  return t;
+}
+
+/* ---------- Backup download ---------- */
+document.getElementById('backupBtn').onclick=()=>{
+  const d=gatherData();
+  const blob=new Blob([dataToText(d)+'\n\n--- RAW ---\n'+JSON.stringify(d,null,2)],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`TableFront-intake-${(d.venue_name||'client').replace(/\s+/g,'-')}.txt`;
+  a.click();
+  toast('Saved a copy of your answers.');
+};
+
+/* ---------- Toast ---------- */
+let toastT;
+function toast(msg,bad){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.toggle('bad',!!bad);el.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+/* ---------- Submit ---------- */
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!revalidate()){
+    showErrors();
+    toast('Some required content is still missing.',true);
+    const firstBad=form.querySelector('.invalid,.err.show');
+    if(firstBad)firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const data=gatherData();
+  submitBtn.disabled=true;submitBtn.textContent='Sending…';
+
+  try{
+    if(CONFIG.web3formsKey){
+      const fd=new FormData();
+      fd.append('access_key',CONFIG.web3formsKey);
+      fd.append('subject',`New TableFront intake — ${data.venue_name||'client'}`);
+      fd.append('from_name','TableFront Intake Form');
+      fd.append('summary',dataToText(data));
+      fd.append('data_json',JSON.stringify(data));
+      const logo=form.querySelector('input[name="logo"]');
+      if(logo.files[0]) fd.append('logo',logo.files[0]);
+      const menuPdf=form.querySelector('input[name="menu_pdf"]');
+      if(menuPdf.files[0]) fd.append('menu_pdf',menuPdf.files[0]);
+      const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});
+      if(!res.ok) throw new Error('network');
+    }else{
+      // Fallback: trigger backup download so nothing is lost
+      document.getElementById('backupBtn').click();
+    }
+    document.getElementById('formWrap').classList.add('hidden');
+    document.getElementById('lockbar').classList.add('hidden');
+    document.querySelector('.progress-bar').classList.add('hidden');
+    document.getElementById('doneState').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    submitBtn.disabled=false;submitBtn.textContent='✓ Submit for build';
+    document.getElementById('backupBtn').click();
+    toast('Couldn’t send automatically — we saved your answers as a file. Please email it to us.',true);
+  }
+});
+
+/* initial paint */
+revalidate();
+</script>
+</body>
+</html>

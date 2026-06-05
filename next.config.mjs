@@ -6,6 +6,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/buildform',
+        destination: '/buildform.html',
+      },
+    ]
+  },
 }
 
 export default nextConfig
