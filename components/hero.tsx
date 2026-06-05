@@ -25,9 +25,13 @@ export function Hero() {
       const rect = wrapper.getBoundingClientRect()
       const scrolled = -rect.top
       const total = rect.height - getViewportHeight()
+      
+      // Guard against division by zero (happens on mobile where height equals viewport)
+      if (total <= 0) return
+      
       const progress = Math.min(Math.max(scrolled / total, 0), 1)
 
-      if (video.duration && !isNaN(video.duration)) {
+      if (video.duration && !isNaN(video.duration) && isFinite(progress)) {
         video.currentTime = progress * video.duration
       }
     }
