@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
 import { t } from "@/lib/translations"
@@ -11,23 +11,9 @@ export function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { currentLang } = useLanguage()
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.innerWidth < 768
-  )
 
-  // Handle resize to update mobile state
+  // Desktop scroll scrubbing logic - only affects video which is hidden on mobile via CSS
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  // Desktop scroll scrubbing logic
-  useEffect(() => {
-    if (isMobile) return
-
     const wrapper = wrapperRef.current
     const video = videoRef.current
     if (!wrapper || !video) return
@@ -63,16 +49,38 @@ export function Hero() {
       window.visualViewport?.removeEventListener("resize", handleScroll)
       video.removeEventListener("loadedmetadata", updateVideo)
     }
-  }, [isMobile])
+  }, [])
 
-  // Shared content overlay
-  const ContentOverlay = () => (
-    <>
-      {/* Dark Gradient Overlay for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+  return (
+    <section 
+      ref={wrapperRef}
+      className="relative w-full overflow-hidden h-screen md:h-[150vh]"
+    >
+      {/* Mobile: Static poster image - visible only on mobile */}
+      <img
+        src="/tablefront-hero-poster.jpg"
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover z-0 block md:hidden"
+      />
 
-      {/* Content Overlay - Centered Text */}
-      <div className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0">
+      {/* Desktop: Sticky scroll wrapper with video - visible only on desktop */}
+      <div className="hidden md:block sticky top-0 w-full overflow-hidden h-dvh">
+        <video
+          ref={videoRef}
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="/videos/tablefront-hero-keyframes.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Dark Gradient Overlay - shared, z-index: 1 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-[1]" />
+
+      {/* Content Overlay - shared, z-index: 2 */}
+      <div className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0 z-[2]">
         <div className="mx-auto max-w-4xl px-6 text-center">
           {/* Headline */}
           <h1 
@@ -113,95 +121,6 @@ export function Hero() {
           <span className="font-mono text-xs uppercase tracking-wider text-white/60">{t("hero_scroll", currentLang)}</span>
           <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />
         </div>
-      </div>
-    </>
-  )
-
-  // Mobile: Static image, no scroll scrubbing, height: 100vh
-  if (isMobile) {
-    return (
-      <section 
-        className="relative w-full overflow-hidden"
-        style={{ height: "100vh" }}
-      >
-        {/* Static poster image for mobile - z-index: 0 */}
-        <img
-          src="/tablefront-hero-poster.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ zIndex: 0 }}
-        />
-        {/* Dark Gradient Overlay - z-index: 1 */}
-        <div 
-          className="absolute inset-0"
-          style={{ 
-            zIndex: 1,
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))" 
-          }}
-        />
-        {/* Content Overlay - z-index: 2 */}
-        <div 
-          className="absolute inset-0 flex items-center justify-center pt-[100px]"
-          style={{ zIndex: 2 }}
-        >
-          <div className="mx-auto max-w-4xl px-6 text-center">
-            {/* Headline */}
-            <h1 
-              className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
-              style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
-            >
-              {t("hero_headline_1", currentLang)}
-              <br />
-              <span className="text-primary">{t("hero_headline_2", currentLang)}</span>
-            </h1>
-
-            {/* Subheadline */}
-            <p className="mx-auto mb-10 max-w-2xl font-sans text-lg leading-relaxed text-white/80 text-pretty">
-              {t("hero_sub", currentLang)}
-            </p>
-
-            {/* CTA */}
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary px-8 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
-            >
-              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                {t("hero_cta", currentLang)}
-              </a>
-            </Button>
-
-            {/* Small Text Below Button */}
-            <p className="mb-24 mt-4 font-sans text-sm text-white/60">
-              {t("hero_sub_cta", currentLang)}
-            </p>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  // Desktop: Scroll scrubbing video with sticky wrapper
-  return (
-    <section 
-      ref={wrapperRef}
-      className="relative"
-      style={{ height: "150vh", marginBottom: 0, paddingBottom: 0 }}
-    >
-      {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
-      <div className="sticky top-0 w-full overflow-hidden" style={{ height: "100dvh" }}>
-        {/* Full Screen Video */}
-        <video
-          ref={videoRef}
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src="/videos/tablefront-hero-keyframes.mp4" type="video/mp4" />
-        </video>
-
-        <ContentOverlay />
       </div>
     </section>
   )
