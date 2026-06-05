@@ -120,14 +120,63 @@ export function Hero() {
   // Mobile: Static image, no scroll scrubbing, height: 100vh
   if (isMobile) {
     return (
-      <section className="relative h-[100vh]">
-        {/* Static poster image for mobile */}
+      <section 
+        className="relative w-full overflow-hidden"
+        style={{ height: "100vh" }}
+      >
+        {/* Static poster image for mobile - z-index: 0 */}
         <img
           src="/tablefront-hero-poster.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ zIndex: 0 }}
         />
-        <ContentOverlay />
+        {/* Dark Gradient Overlay - z-index: 1 */}
+        <div 
+          className="absolute inset-0"
+          style={{ 
+            zIndex: 1,
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6))" 
+          }}
+        />
+        {/* Content Overlay - z-index: 2 */}
+        <div 
+          className="absolute inset-0 flex items-center justify-center pt-[100px]"
+          style={{ zIndex: 2 }}
+        >
+          <div className="mx-auto max-w-4xl px-6 text-center">
+            {/* Headline */}
+            <h1 
+              className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
+              style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
+            >
+              {t("hero_headline_1", currentLang)}
+              <br />
+              <span className="text-primary">{t("hero_headline_2", currentLang)}</span>
+            </h1>
+
+            {/* Subheadline */}
+            <p className="mx-auto mb-10 max-w-2xl font-sans text-lg leading-relaxed text-white/80 text-pretty">
+              {t("hero_sub", currentLang)}
+            </p>
+
+            {/* CTA */}
+            <Button
+              asChild
+              size="lg"
+              className="bg-primary px-8 py-6 font-mono text-base uppercase tracking-wider text-primary-foreground hover:bg-primary/90"
+            >
+              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+                {t("hero_cta", currentLang)}
+              </a>
+            </Button>
+
+            {/* Small Text Below Button */}
+            <p className="mb-24 mt-4 font-sans text-sm text-white/60">
+              {t("hero_sub_cta", currentLang)}
+            </p>
+          </div>
+        </div>
       </section>
     )
   }
