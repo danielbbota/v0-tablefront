@@ -26,8 +26,11 @@ export function Hero() {
       const total = rect.height - getViewportHeight()
       const progress = Math.min(Math.max(scrolled / total, 0), 1)
 
-      if (video.duration && !isNaN(video.duration)) {
-        video.currentTime = progress * video.duration
+      if (video.duration && isFinite(video.duration) && !isNaN(video.duration)) {
+        const newTime = progress * video.duration
+        if (isFinite(newTime) && newTime >= 0) {
+          video.currentTime = newTime
+        }
       }
     }
 
@@ -51,33 +54,49 @@ export function Hero() {
   }, [])
 
   return (
-    <section 
+    <section
       ref={wrapperRef}
       className="relative"
       style={{ height: "150vh", marginBottom: 0, paddingBottom: 0 }}
     >
       {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
       <div className="sticky top-0 w-full overflow-hidden" style={{ height: "100dvh" }}>
-        {/* Full Screen Video */}
+
+        {/* MOBILE ONLY: Static poster image (hidden on md and above) */}
+        <img
+          src="/tablefront-hero-poster.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover md:hidden"
+          style={{ zIndex: 0 }}
+        />
+
+        {/* DESKTOP ONLY: Scroll-scrubbed video (hidden below md) */}
         {/* DROP tablefront-hero-keyframes.mp4 HERE */}
         <video
           ref={videoRef}
           muted
           playsInline
           preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover hidden md:block"
+          style={{ zIndex: 0 }}
         >
           <source src="/videos/tablefront-hero-keyframes.mp4" type="video/mp4" />
         </video>
 
         {/* Dark Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"
+          style={{ zIndex: 1 }}
+        />
 
         {/* Content Overlay - Centered Text */}
-        <div className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0">
+        <div
+          className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0"
+          style={{ zIndex: 2 }}
+        >
           <div className="mx-auto max-w-4xl px-6 text-center">
             {/* Headline */}
-            <h1 
+            <h1
               className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
               style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
             >
@@ -110,9 +129,14 @@ export function Hero() {
         </div>
 
         {/* Scroll Indicator - Hidden on mobile */}
-        <div className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block">
+        <div
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
+          style={{ zIndex: 2 }}
+        >
           <div className="flex flex-col items-center gap-2">
-            <span className="font-mono text-xs uppercase tracking-wider text-white/60">{t("hero_scroll", currentLang)}</span>
+            <span className="font-mono text-xs uppercase tracking-wider text-white/60">
+              {t("hero_scroll", currentLang)}
+            </span>
             <div className="h-12 w-px bg-gradient-to-b from-primary to-transparent" />
           </div>
         </div>
