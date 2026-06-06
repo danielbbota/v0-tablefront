@@ -59,10 +59,9 @@ export function Hero() {
       className="relative"
       style={{ height: "150vh", marginBottom: 0, paddingBottom: 0 }}
     >
-      {/* Sticky Container - pinned to viewport while scrolling through wrapper */}
       <div className="sticky top-0 w-full overflow-hidden" style={{ height: "100dvh" }}>
 
-        {/* MOBILE ONLY: Static poster image (hidden on md and above) */}
+        {/* MOBILE ONLY: Static background image */}
         <img
           src="/tablefront-hero-poster.jpg"
           alt=""
@@ -70,8 +69,7 @@ export function Hero() {
           style={{ zIndex: 0 }}
         />
 
-        {/* DESKTOP ONLY: Scroll-scrubbed video (hidden below md) */}
-        {/* DROP tablefront-hero-keyframes.mp4 HERE */}
+        {/* DESKTOP ONLY: Scroll-scrubbed video */}
         <video
           ref={videoRef}
           muted
@@ -83,19 +81,18 @@ export function Hero() {
           <source src="/videos/tablefront-hero-keyframes.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark Gradient Overlay for Text Readability */}
+        {/* Dark Gradient Overlay */}
         <div
           className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"
           style={{ zIndex: 1 }}
         />
 
-        {/* Content Overlay - Centered Text */}
+        {/* Content */}
         <div
           className="absolute inset-0 flex items-center justify-center pt-[100px] md:pt-0"
           style={{ zIndex: 2 }}
         >
           <div className="mx-auto max-w-4xl px-6 text-center">
-            {/* Headline */}
             <h1
               className="mb-6 font-serif font-bold leading-tight tracking-tight text-white text-balance"
               style={{ fontSize: "clamp(32px, 8vw, 48px)" }}
@@ -105,12 +102,10 @@ export function Hero() {
               <span className="text-primary">{t("hero_headline_2", currentLang)}</span>
             </h1>
 
-            {/* Subheadline */}
             <p className="mx-auto mb-10 max-w-2xl font-sans text-lg leading-relaxed text-white/80 md:text-xl text-pretty">
               {t("hero_sub", currentLang)}
             </p>
 
-            {/* CTA */}
             <Button
               asChild
               size="lg"
@@ -121,14 +116,13 @@ export function Hero() {
               </a>
             </Button>
 
-            {/* Small Text Below Button */}
             <p className="mb-24 mt-4 font-sans text-sm text-white/60 md:mb-0">
               {t("hero_sub_cta", currentLang)}
             </p>
           </div>
         </div>
 
-        {/* Scroll Indicator - Hidden on mobile */}
+        {/* Scroll Indicator - Desktop only */}
         <div
           className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
           style={{ zIndex: 2 }}
