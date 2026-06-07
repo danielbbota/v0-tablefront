@@ -13,16 +13,17 @@
   1. SUBMISSION: Get a free Web3Forms access key at https://web3forms.com
      (no account needed — enter your email, they email you a key).
      Paste it into CONFIG.web3formsKey below. Submissions land in your inbox
-     with the logo attached and a full structured summary.
+     with a full structured summary.
      -> If you leave it blank, the form still works: it generates a
-        downloadable JSON backup the client can email you. Nothing breaks.
+        downloadable text backup the client can email you. Nothing breaks.
 
-  2. PHOTO FOLDER: Photos (10-15, often large) are NOT emailed — that breaks.
+  2. PHOTO FOLDER: Photos (10-15, often large) should NOT be emailed.
      Instead, create a per-client upload link:
        - Google Drive: create a folder -> Share -> "Anyone with link can edit"
        - or Dropbox File Request: dropbox.com/requests
      Paste that link into CONFIG.assetFolderLink below before sending to a
      client. The client uploads photos there and confirms in the form.
+     (Logo and menu PDF are now collected as links — no attachments needed.)
 
   3. SEND: Host on Vercel (drag-drop the file) or just email the .html.
      One file, no dependencies, works offline except for submit.
@@ -35,12 +36,12 @@
 <title>TableFront — Project Content Intake</title>
 <style>
   :root{
-    --ink:#1f2421;        /* deep charcoal-green */
+    --ink:#1f2421;
     --ink-soft:#4a524d;
     --line:#e3ded4;
-    --paper:#faf7f0;      /* warm cream */
+    --paper:#faf7f0;
     --card:#ffffff;
-    --accent:#bd5b3d;     /* warm terracotta */
+    --accent:#bd5b3d;
     --accent-dark:#9c4630;
     --gold:#c9a86a;
     --ok:#2f7d52;
@@ -59,7 +60,7 @@
   .wrap{max-width:780px;margin:0 auto;padding:0 20px 140px}
 
   /* ---------- Header ---------- */
-  header{padding:48px 0 8px;text-align:center}
+  header{padding:36px 0 8px;text-align:center}
   .brand{font-family:var(--serif);font-size:15px;letter-spacing:.22em;
     text-transform:uppercase;color:var(--accent);font-weight:700}
   header h1{font-family:var(--serif);font-size:34px;margin:10px 0 6px;font-weight:700}
@@ -68,6 +69,15 @@
     padding:16px 20px;margin:22px auto 0;max-width:620px;font-size:14px;
     color:var(--ink-soft);box-shadow:var(--shadow)}
   .why b{color:var(--ink)}
+
+  /* ---------- Language switcher ---------- */
+  .lang-switch{display:flex;align-items:center;justify-content:center;gap:2px;margin-bottom:14px}
+  .lang-btn{background:transparent;border:none;font-family:var(--font);font-size:12.5px;
+    font-weight:700;letter-spacing:.1em;color:var(--ink-soft);cursor:pointer;
+    padding:5px 9px;border-radius:7px;transition:color .12s,background .12s}
+  .lang-btn.active{color:var(--accent);background:rgba(189,91,61,.09)}
+  .lang-btn:hover:not(.active){color:var(--ink);background:rgba(31,36,33,.05)}
+  .lang-sep{color:var(--line);font-size:13px;user-select:none}
 
   /* ---------- Progress ---------- */
   .progress-bar{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.92);
@@ -156,10 +166,6 @@
     padding:12px 16px;font-size:13.5px;color:var(--ink-soft);margin:10px 0}
   .photo-shots b{color:var(--ink)}
 
-  /* file */
-  input[type=file]{font-size:14px;width:100%;padding:10px;border:1.5px dashed var(--line);
-    border-radius:10px;background:#fff;cursor:pointer}
-
   /* footer / submit */
   .lockbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;
     border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(31,36,33,.07)}
@@ -202,10 +208,17 @@
 
 <div class="wrap" id="formWrap">
   <header>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="pt">PT</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="de">DE</button>
+    </div>
     <div class="brand">TableFront</div>
-    <h1>Let's build your site</h1>
-    <p>Everything we need to design your website, in one place. The more complete this is, the faster — and better — your site comes out.</p>
-    <div class="why">
+    <h1 data-i18n="h1">Let's build your site</h1>
+    <p data-i18n="header_desc">Everything we need to design your website, in one place. The more complete this is, the faster — and better — your site comes out.</p>
+    <div class="why" data-i18n-html="why_box">
       <b>Why this is locked:</b> a great site needs your real content. This form won't
       submit until every essential piece is in. Fill it once, completely, and we start
       building — no back-and-forth chasing photos or menu prices for two weeks.
@@ -216,121 +229,126 @@
 
   <!-- 1. VENUE BASICS -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">1</span><h2>Your venue</h2></div>
-    <div class="sec-sub">The basics — name, type, where you are, how guests reach you.</div>
+    <div class="sec-head"><span class="sec-num">1</span><h2 data-i18n="sec1_title">Your venue</h2></div>
+    <div class="sec-sub" data-i18n="sec1_sub">The basics — name, type, where you are, how guests reach you.</div>
 
     <div class="field">
-      <label>Venue name<span class="req">*</span></label>
-      <input type="text" data-req name="venue_name" placeholder="e.g. Café Lumière">
-      <div class="err">Please enter your venue name.</div>
+      <label><span data-i18n="venue_name_label">Venue name</span><span class="req">*</span></label>
+      <input type="text" data-req name="venue_name" data-i18n-ph="venue_name_ph" placeholder="e.g. Café Lumière">
+      <div class="err" data-i18n="venue_name_err">Please enter your venue name.</div>
     </div>
 
     <div class="row">
       <div class="field">
-        <label>Type of venue<span class="req">*</span></label>
+        <label><span data-i18n="venue_type_label">Type of venue</span><span class="req">*</span></label>
         <select data-req name="venue_type">
           <option value="">Select…</option>
-          <option>Restaurant</option><option>Bar</option><option>Café</option>
-          <option>Hotel</option><option>Bistro / Brasserie</option>
-          <option>Bakery</option><option>Other</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Bar">Bar</option>
+          <option value="Café">Café</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Bistro / Brasserie">Bistro / Brasserie</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Other">Other</option>
         </select>
-        <div class="err">Please choose a type.</div>
+        <div class="err" data-i18n="venue_type_err">Please choose a type.</div>
       </div>
       <div class="field">
-        <label>Cuisine / concept<span class="req">*</span></label>
-        <input type="text" data-req name="concept" placeholder="e.g. Modern Swiss-French, small plates">
-        <div class="err">Tell us your concept in a few words.</div>
+        <label><span data-i18n="concept_label">Cuisine / concept</span><span class="req">*</span></label>
+        <input type="text" data-req name="concept" data-i18n-ph="concept_ph" placeholder="e.g. Modern Swiss-French, small plates">
+        <div class="err" data-i18n="concept_err">Tell us your concept in a few words.</div>
       </div>
     </div>
 
     <div class="field">
-      <label>Full address<span class="req">*</span></label>
-      <input type="text" data-req name="address" placeholder="Street, number, postal code, city">
-      <div class="err">We need the full address for your site & map.</div>
+      <label><span data-i18n="address_label">Full address</span><span class="req">*</span></label>
+      <input type="text" data-req name="address" data-i18n-ph="address_ph" placeholder="Street, number, postal code, city">
+      <div class="err" data-i18n="address_err">We need the full address for your site &amp; map.</div>
     </div>
 
     <div class="row">
       <div class="field">
-        <label>Public phone<span class="req">*</span></label>
-        <input type="tel" data-req name="phone" placeholder="+41 …">
-        <div class="err">Add a contact phone number.</div>
+        <label><span data-i18n="phone_label">Public phone</span><span class="req">*</span></label>
+        <input type="tel" data-req name="phone" data-i18n-ph="phone_ph" placeholder="+41 …">
+        <div class="err" data-i18n="phone_err">Add a contact phone number.</div>
       </div>
       <div class="field">
-        <label>Public email<span class="req">*</span></label>
-        <input type="email" data-req data-email name="email" placeholder="hello@yourvenue.ch">
-        <div class="err">Add a valid public email.</div>
+        <label><span data-i18n="email_label">Public email</span><span class="req">*</span></label>
+        <input type="email" data-req data-email name="email" data-i18n-ph="email_ph" placeholder="hello@yourvenue.ch">
+        <div class="err" data-i18n="email_err">Add a valid public email.</div>
       </div>
     </div>
 
     <div class="field">
-      <label>Current website <span class="hint">(if any — leave blank if none)</span></label>
-      <input type="url" name="current_site" placeholder="https://…">
+      <label><span data-i18n="current_site_label">Current website</span> <span class="hint" data-i18n="current_site_hint">(if any — leave blank if none)</span></label>
+      <input type="url" name="current_site" data-i18n-ph="current_site_ph" placeholder="https://…">
     </div>
   </section>
 
   <!-- 2. YOUR STORY -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">2</span><h2>Your story</h2></div>
-    <div class="sec-sub">A short, real description of your place. This becomes the heart of your homepage.</div>
+    <div class="sec-head"><span class="sec-num">2</span><h2 data-i18n="sec2_title">Your story</h2></div>
+    <div class="sec-sub" data-i18n="sec2_sub">A short, real description of your place. This becomes the heart of your homepage.</div>
 
     <div class="field">
-      <label>One-line tagline<span class="req">*</span></label>
-      <input type="text" data-req name="tagline" placeholder="e.g. Neighbourhood wine bar with a Mediterranean soul">
-      <div class="err">Give us a single line that captures the place.</div>
+      <label><span data-i18n="tagline_label">One-line tagline</span><span class="req">*</span></label>
+      <input type="text" data-req name="tagline" data-i18n-ph="tagline_ph" placeholder="e.g. Neighbourhood wine bar with a Mediterranean soul">
+      <div class="err" data-i18n="tagline_err">Give us a single line that captures the place.</div>
     </div>
 
     <div class="field">
-      <label>Your story — 2 to 3 sentences<span class="req">*</span></label>
+      <label><span data-i18n="story_label">Your story — 2 to 3 sentences</span><span class="req">*</span></label>
       <textarea data-req data-min="120" name="story" maxlength="600"
+        data-i18n-ph="story_ph"
         placeholder="Who you are, what makes the place special, the feeling guests get. Write it the way you'd tell a friend."></textarea>
-      <div class="counter"><span data-count>0</span> / 120 min</div>
-      <div class="err">Please write at least 120 characters (2–3 real sentences).</div>
+      <div class="counter"><span data-count>0</span> / <span data-i18n="story_counter_min">120 min</span></div>
+      <div class="err" data-i18n="story_err">Please write at least 120 characters (2–3 real sentences).</div>
     </div>
   </section>
 
   <!-- 3. BRAND LOOK -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">3</span><h2>Your look</h2></div>
-    <div class="sec-sub">Logo, colours, and fonts so the site feels unmistakably yours.</div>
+    <div class="sec-head"><span class="sec-num">3</span><h2 data-i18n="sec3_title">Your look</h2></div>
+    <div class="sec-sub" data-i18n="sec3_sub">Logo, colours, and fonts so the site feels unmistakably yours.</div>
 
     <div class="field">
-      <label>Logo file<span class="req">*</span></label>
-      <div class="hint">PNG or SVG with a transparent background if you have it. Highest resolution you've got.</div>
-      <input type="file" data-req-file name="logo" accept=".png,.svg,.jpg,.jpeg,.pdf">
-      <div class="err">Please attach your logo file.</div>
+      <label><span data-i18n="logo_label">Logo file</span><span class="req">*</span></label>
+      <div class="hint" data-i18n="logo_hint">Upload your logo to Google Drive, set sharing to 'Anyone with the link can view', then paste the link here.</div>
+      <input type="text" data-req name="logo_link" data-i18n-ph="logo_ph" placeholder="Paste your logo link (Google Drive, Dropbox, etc.)" style="margin-top:8px">
+      <div class="err" data-i18n="logo_err">Please paste a link to your logo file.</div>
     </div>
 
     <div class="field">
-      <label>Brand colours<span class="req">*</span></label>
-      <div class="hint">Pick the closest you can. Not sure? Pick your main colour and we'll refine it.</div>
+      <label data-i18n="colors_label">Brand colours<span class="req">*</span></label>
+      <div class="hint" data-i18n="colors_hint">Pick the closest you can. Not sure? Pick your main colour and we'll refine it.</div>
       <div class="colorset" style="margin-top:8px">
-        <div class="colorpick"><input type="color" name="color_primary" value="#bd5b3d"><span>Primary</span></div>
-        <div class="colorpick"><input type="color" name="color_secondary" value="#1f2421"><span>Secondary</span></div>
-        <div class="colorpick"><input type="color" name="color_accent" value="#c9a86a"><span>Accent</span></div>
+        <div class="colorpick"><input type="color" name="color_primary" value="#bd5b3d"><span data-i18n="color_primary">Primary</span></div>
+        <div class="colorpick"><input type="color" name="color_secondary" value="#1f2421"><span data-i18n="color_secondary">Secondary</span></div>
+        <div class="colorpick"><input type="color" name="color_accent" value="#c9a86a"><span data-i18n="color_accent">Accent</span></div>
       </div>
     </div>
 
     <div class="field">
-      <label>Font / typography feel<span class="req">*</span></label>
+      <label><span data-i18n="font_feel_label">Font / typography feel</span><span class="req">*</span></label>
       <select data-req name="font_feel">
         <option value="">Select the vibe…</option>
-        <option>Classic & elegant (serif)</option>
-        <option>Clean & modern (sans-serif)</option>
-        <option>Warm & handwritten touches</option>
-        <option>Bold & contemporary</option>
-        <option>We have specific brand fonts (note them below)</option>
+        <option value="classic-serif">Classic &amp; elegant (serif)</option>
+        <option value="clean-sans">Clean &amp; modern (sans-serif)</option>
+        <option value="warm-handwritten">Warm &amp; handwritten touches</option>
+        <option value="bold-contemporary">Bold &amp; contemporary</option>
+        <option value="custom-fonts">We have specific brand fonts (note them below)</option>
       </select>
-      <div class="err">Choose the typography feel.</div>
-      <input type="text" name="font_notes" placeholder="Specific font names, if you have brand fonts" style="margin-top:8px">
+      <div class="err" data-i18n="font_feel_err">Choose the typography feel.</div>
+      <input type="text" name="font_notes" data-i18n-ph="font_notes_ph" placeholder="Specific font names, if you have brand fonts" style="margin-top:8px">
     </div>
   </section>
 
   <!-- 4. PHOTOS -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">4</span><h2>Photos</h2></div>
-    <div class="sec-sub">Real photos of your venue, food and atmosphere. This is what makes the site sell.</div>
+    <div class="sec-head"><span class="sec-num">4</span><h2 data-i18n="sec4_title">Photos</h2></div>
+    <div class="sec-sub" data-i18n="sec4_sub">Real photos of your venue, food and atmosphere. This is what makes the site sell.</div>
 
-    <div class="photo-shots">
+    <div class="photo-shots" data-i18n-html="photo_shots_box">
       <b>We need 10–15 photos.</b> Aim for a mix:
       exterior / storefront · interior / atmosphere · 4–6 hero food or drink shots ·
       a detail or two (table setting, bar, signage) · ideally one of the team or you.
@@ -338,125 +356,127 @@
     </div>
 
     <div class="field" id="photoLinkField">
-      <label>Upload your photos here, then paste the folder link<span class="req">*</span></label>
+      <label><span data-i18n="photo_link_label">Upload your photos here, then paste the folder link</span><span class="req">*</span></label>
       <div class="hint" id="folderHint"></div>
       <input type="url" data-req data-url name="photo_folder"
+        data-i18n-ph="photo_link_ph"
         placeholder="Paste the shared folder link (Google Drive / Dropbox / WeTransfer)">
-      <div class="err">Paste the link to the folder where you uploaded your photos.</div>
+      <div class="err" data-i18n="photo_link_err">Paste the link to the folder where you uploaded your photos.</div>
     </div>
 
     <div class="field">
-      <label>How many photos did you upload?<span class="req">*</span></label>
+      <label><span data-i18n="photo_count_label">How many photos did you upload?</span><span class="req">*</span></label>
       <input type="number" data-req data-min-num="10" min="0" name="photo_count"
+        data-i18n-ph="photo_count_ph"
         placeholder="Minimum 10" style="max-width:180px">
-      <div class="err">We need at least 10 photos to build a strong site.</div>
+      <div class="err" data-i18n="photo_count_err">We need at least 10 photos to build a strong site.</div>
     </div>
 
     <ul class="checklist">
       <li><input type="checkbox" data-req-check name="photo_confirm">
-        <span>I confirm the folder is shared so TableFront can open it, and it contains
+        <span data-i18n="photo_confirm_text">I confirm the folder is shared so TableFront can open it, and it contains
         at least 10 photos I own the rights to use.</span></li>
     </ul>
-    <div class="err" data-check-err>Please confirm your photos are uploaded and accessible.</div>
+    <div class="err" data-check-err data-i18n="photo_check_err">Please confirm your photos are uploaded and accessible.</div>
   </section>
 
   <!-- 5. MENU -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">5</span><h2>Your menu</h2></div>
-    <div class="sec-sub">Upload your full menu as a PDF. Make sure it's your current, complete menu — with prices.</div>
+    <div class="sec-head"><span class="sec-num">5</span><h2 data-i18n="sec5_title">Your menu</h2></div>
+    <div class="sec-sub" data-i18n="sec5_sub">Share your full menu as a PDF link. Make sure it's your current, complete menu — with prices.</div>
 
     <div class="field">
-      <label>Menu PDF<span class="req">*</span></label>
-      <div class="hint">One PDF with everything (food &amp; drinks). If your menu is an image or document, export or print it to PDF first.</div>
-      <input type="file" data-req-file name="menu_pdf" accept="application/pdf,.pdf">
-      <div class="err" id="menuErr">Please attach your menu as a PDF.</div>
+      <label><span data-i18n="menu_label">Menu PDF link</span><span class="req">*</span></label>
+      <div class="hint" data-i18n="menu_hint">Upload your menu PDF to Google Drive, set sharing to 'Anyone with the link can view', then paste the link here.</div>
+      <input type="text" data-req name="menu_pdf_link" data-i18n-ph="menu_ph" placeholder="Paste your menu PDF link (Google Drive, Dropbox, etc.)" style="margin-top:8px">
+      <div class="err" id="menuErr" data-i18n="menu_err">Please paste a link to your menu PDF.</div>
     </div>
 
     <ul class="checklist">
       <li><input type="checkbox" data-req-check-menu name="menu_confirm">
-        <span>I confirm this is the complete, up-to-date menu and that all prices are current.</span></li>
+        <span data-i18n="menu_confirm_text">I confirm this is the complete, up-to-date menu and that all prices are current.</span></li>
     </ul>
-    <div class="err" data-menu-check-err>Please confirm the PDF is your complete, current menu.</div>
+    <div class="err" data-menu-check-err data-i18n="menu_check_err">Please confirm the PDF link is your complete, current menu.</div>
   </section>
 
   <!-- 6. HOURS -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">6</span><h2>Opening hours</h2></div>
-    <div class="sec-sub">Set your hours. Tick "Closed" for any day you're not open.</div>
+    <div class="sec-head"><span class="sec-num">6</span><h2 data-i18n="sec6_title">Opening hours</h2></div>
+    <div class="sec-sub" data-i18n="sec6_sub">Set your hours. Tick "Closed" for any day you're not open.</div>
     <div class="hours" id="hoursGrid"></div>
-    <div class="err" id="hoursErr" style="margin-top:10px">Please set open & close times for every day that isn't marked closed.</div>
+    <div class="err" id="hoursErr" style="margin-top:10px" data-i18n="hours_err">Please set open &amp; close times for every day that isn't marked closed.</div>
   </section>
 
   <!-- 7. BOOKINGS & ORDERING -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">7</span><h2>Bookings & ordering</h2></div>
-    <div class="sec-sub">How guests reserve a table or order — so we can wire the buttons to the right place.</div>
+    <div class="sec-head"><span class="sec-num">7</span><h2 data-i18n="sec7_title">Bookings &amp; ordering</h2></div>
+    <div class="sec-sub" data-i18n="sec7_sub">How guests reserve a table or order — so we can wire the buttons to the right place.</div>
 
     <div class="field">
-      <label>Do you take reservations?<span class="req">*</span></label>
+      <label><span data-i18n="res_mode_label">Do you take reservations?</span><span class="req">*</span></label>
       <select data-req name="res_mode" id="resMode">
         <option value="">Select…</option>
         <option value="tool">Yes — through a tool (OpenTable, Bookatable, etc.)</option>
         <option value="phone">Yes — by phone / email only</option>
         <option value="none">No reservations</option>
       </select>
-      <div class="err">Let us know how reservations work.</div>
+      <div class="err" data-i18n="res_mode_err">Let us know how reservations work.</div>
     </div>
 
     <div class="field hidden" id="resToolField">
-      <label>Reservation tool & link<span class="req">*</span></label>
-      <input type="text" data-url-soft name="res_tool" placeholder="Tool name + booking link (e.g. OpenTable — https://…)">
-      <div class="err">Add the reservation tool name and its booking link.</div>
+      <label><span data-i18n="res_tool_label">Reservation tool &amp; link</span><span class="req">*</span></label>
+      <input type="text" data-url-soft name="res_tool" data-i18n-ph="res_tool_ph" placeholder="Tool name + booking link (e.g. OpenTable — https://…)">
+      <div class="err" data-i18n="res_tool_err">Add the reservation tool name and its booking link.</div>
     </div>
 
     <div class="field">
-      <label>Online ordering / delivery links <span class="hint">(optional — Uber Eats, Just Eat, your own, etc.)</span></label>
-      <input type="text" name="ordering" placeholder="Paste any links, or leave blank">
+      <label><span data-i18n="ordering_label">Online ordering / delivery links</span> <span class="hint" data-i18n="ordering_hint">(optional — Uber Eats, Just Eat, your own, etc.)</span></label>
+      <input type="text" name="ordering" data-i18n-ph="ordering_ph" placeholder="Paste any links, or leave blank">
     </div>
   </section>
 
   <!-- 8. ONLINE PRESENCE -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">8</span><h2>Online presence & domain</h2></div>
-    <div class="sec-sub">Your socials to link, and what web address the site should live at.</div>
+    <div class="sec-head"><span class="sec-num">8</span><h2 data-i18n="sec8_title">Online presence &amp; domain</h2></div>
+    <div class="sec-sub" data-i18n="sec8_sub">Your socials to link, and what web address the site should live at.</div>
 
     <div class="row">
       <div class="field">
-        <label>Instagram <span class="hint">(optional)</span></label>
-        <input type="text" name="instagram" placeholder="@handle or link">
+        <label><span data-i18n="instagram_label">Instagram</span> <span class="hint" data-i18n="optional">(optional)</span></label>
+        <input type="text" name="instagram" data-i18n-ph="instagram_ph" placeholder="@handle or link">
       </div>
       <div class="field">
-        <label>Facebook <span class="hint">(optional)</span></label>
-        <input type="text" name="facebook" placeholder="link">
+        <label><span data-i18n="facebook_label">Facebook</span> <span class="hint" data-i18n="optional">(optional)</span></label>
+        <input type="text" name="facebook" data-i18n-ph="facebook_ph" placeholder="link">
       </div>
     </div>
     <div class="field">
-      <label>Google Business / TripAdvisor / other review links <span class="hint">(optional)</span></label>
-      <input type="text" name="reviews" placeholder="Paste any links">
+      <label><span data-i18n="reviews_label">Google Business / TripAdvisor / other review links</span> <span class="hint" data-i18n="optional">(optional)</span></label>
+      <input type="text" name="reviews" data-i18n-ph="reviews_ph" placeholder="Paste any links">
     </div>
 
     <div class="field">
-      <label>Domain for the site<span class="req">*</span></label>
+      <label><span data-i18n="domain_label">Domain for the site</span><span class="req">*</span></label>
       <select data-req name="domain_status" id="domainStatus">
         <option value="">Select…</option>
         <option value="have">I already own a domain</option>
         <option value="need">I need help getting one</option>
       </select>
-      <div class="err">Tell us about your domain.</div>
+      <div class="err" data-i18n="domain_err">Tell us about your domain.</div>
     </div>
     <div class="field hidden" id="domainField">
-      <label>What's the domain / what would you like?<span class="req">*</span></label>
-      <input type="text" data-url-soft name="domain_value" placeholder="e.g. cafelumiere.ch">
-      <div class="err">Enter your domain (or your preferred name).</div>
+      <label><span data-i18n="domain_value_label">What's the domain / what would you like?</span><span class="req">*</span></label>
+      <input type="text" data-url-soft name="domain_value" data-i18n-ph="domain_value_ph" placeholder="e.g. cafelumiere.ch">
+      <div class="err" data-i18n="domain_value_err">Enter your domain (or your preferred name).</div>
     </div>
   </section>
 
   <!-- 9. ANYTHING ELSE -->
   <section data-section>
-    <div class="sec-head"><span class="sec-num">9</span><h2>Anything else</h2></div>
-    <div class="sec-sub">Examples of sites you love, must-have features, things to avoid — anything that helps.</div>
+    <div class="sec-head"><span class="sec-num">9</span><h2 data-i18n="sec9_title">Anything else</h2></div>
+    <div class="sec-sub" data-i18n="sec9_sub">Examples of sites you love, must-have features, things to avoid — anything that helps.</div>
     <div class="field">
-      <textarea name="notes" placeholder="Optional, but helpful. Links to sites you like are gold."></textarea>
+      <textarea name="notes" data-i18n-ph="notes_ph" placeholder="Optional, but helpful. Links to sites you like are gold."></textarea>
     </div>
   </section>
 
@@ -465,293 +485,820 @@
 
 <!-- DONE STATE -->
 <div class="done" id="doneState">
-  <div class="check">🎉</div>
-  <h2>That's everything — thank you!</h2>
-  <p>Your content is complete and on its way to TableFront. We'll review it and get
+  <div class="check" data-i18n="done_emoji">🎉</div>
+  <h2 data-i18n="done_h2">That's everything — thank you!</h2>
+  <p data-i18n="done_p1">Your content is complete and on its way to TableFront. We'll review it and get
      started on your build. You'll hear from us shortly.</p>
-  <p style="margin-top:18px;font-size:13.5px">If anything was missing, we'll reach out — but you've given us a full set, so we should be straight into building.</p>
+  <p style="margin-top:18px;font-size:13.5px" data-i18n="done_p2">If anything was missing, we'll reach out — but you've given us a full set, so we should be straight into building.</p>
 </div>
 
 <!-- LOCK BAR -->
 <div class="lockbar" id="lockbar">
   <div class="lockbar-inner">
-    <div class="lock-status" id="lockStatus">🔒 <b>Locked</b> — complete every required field to unlock submit.</div>
+    <div class="lock-status" id="lockStatus"></div>
     <button type="button" class="btn-ghost" id="backupBtn">Download my answers</button>
-    <button type="submit" form="intake" class="btn-submit" id="submitBtn" disabled>🔒 Submit for build</button>
+    <button type="submit" form="intake" class="btn-submit" id="submitBtn" disabled></button>
   </div>
 </div>
 
 <script>
-/* ===================== CONFIG (Daniel: edit these two) ===================== */
+/* ===================== CONFIG ===================== */
 const CONFIG = {
-  web3formsKey: "",   // <-- paste your Web3Forms access key (see top comment). Blank = JSON-download fallback.
-  assetFolderLink: "" // <-- paste a per-client Drive/Dropbox upload link. Blank = generic instructions.
+  web3formsKey: "",   // paste your Web3Forms access key. Blank = JSON-download fallback.
+  assetFolderLink: "" // optional: per-client Drive/Dropbox photo upload folder link
 };
-/* ========================================================================== */
 
-const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+/* ===================== TRANSLATIONS ===================== */
+const LANG = {
+  en: {
+    h1: "Let's build your site",
+    header_desc: "Everything we need to design your website, in one place. The more complete this is, the faster — and better — your site comes out.",
+    why_box: "<b>Why this is locked:</b> a great site needs your real content. This form won't submit until every essential piece is in. Fill it once, completely, and we start building — no back-and-forth chasing photos or menu prices for two weeks.",
+
+    pct: n => `${n}% complete`,
+
+    sec1_title: "Your venue",
+    sec1_sub: "The basics — name, type, where you are, how guests reach you.",
+    venue_name_label: "Venue name",
+    venue_name_ph: "e.g. Café Lumière",
+    venue_name_err: "Please enter your venue name.",
+    venue_type_label: "Type of venue",
+    venue_type_err: "Please choose a type.",
+    venue_type_opts: ["Select…","Restaurant","Bar","Café","Hotel","Bistro / Brasserie","Bakery","Other"],
+    concept_label: "Cuisine / concept",
+    concept_ph: "e.g. Modern Swiss-French, small plates",
+    concept_err: "Tell us your concept in a few words.",
+    address_label: "Full address",
+    address_ph: "Street, number, postal code, city",
+    address_err: "We need the full address for your site & map.",
+    phone_label: "Public phone",
+    phone_ph: "+41 …",
+    phone_err: "Add a contact phone number.",
+    email_label: "Public email",
+    email_ph: "hello@yourvenue.ch",
+    email_err: "Add a valid public email.",
+    current_site_label: "Current website",
+    current_site_hint: "(if any — leave blank if none)",
+    current_site_ph: "https://…",
+
+    sec2_title: "Your story",
+    sec2_sub: "A short, real description of your place. This becomes the heart of your homepage.",
+    tagline_label: "One-line tagline",
+    tagline_ph: "e.g. Neighbourhood wine bar with a Mediterranean soul",
+    tagline_err: "Give us a single line that captures the place.",
+    story_label: "Your story — 2 to 3 sentences",
+    story_ph: "Who you are, what makes the place special, the feeling guests get. Write it the way you'd tell a friend.",
+    story_err: "Please write at least 120 characters (2–3 real sentences).",
+    story_counter_min: "120 min",
+
+    sec3_title: "Your look",
+    sec3_sub: "Logo, colours, and fonts so the site feels unmistakably yours.",
+    logo_label: "Logo file",
+    logo_hint: "Upload your logo to Google Drive, set sharing to 'Anyone with the link can view', then paste the link here.",
+    logo_ph: "Paste your logo link (Google Drive, Dropbox, etc.)",
+    logo_err: "Please paste a link to your logo file.",
+    colors_label: "Brand colours",
+    colors_hint: "Pick the closest you can. Not sure? Pick your main colour and we'll refine it.",
+    color_primary: "Primary",
+    color_secondary: "Secondary",
+    color_accent: "Accent",
+    font_feel_label: "Font / typography feel",
+    font_feel_err: "Choose the typography feel.",
+    font_feel_opts: ["Select the vibe…","Classic & elegant (serif)","Clean & modern (sans-serif)","Warm & handwritten touches","Bold & contemporary","We have specific brand fonts (note them below)"],
+    font_notes_ph: "Specific font names, if you have brand fonts",
+
+    sec4_title: "Photos",
+    sec4_sub: "Real photos of your venue, food and atmosphere. This is what makes the site sell.",
+    photo_shots_box: "<b>We need 10–15 photos.</b> Aim for a mix: exterior / storefront · interior / atmosphere · 4–6 hero food or drink shots · a detail or two (table setting, bar, signage) · ideally one of the team or you. Landscape, well-lit, no heavy filters. Phone photos are fine if they're sharp.",
+    photo_link_label: "Upload your photos here, then paste the folder link",
+    photo_link_ph: "Paste the shared folder link (Google Drive / Dropbox / WeTransfer)",
+    photo_link_err: "Paste the link to the folder where you uploaded your photos.",
+    folder_hint_link: l => `Upload them to your folder: <a href="${l}" target="_blank" rel="noopener">open upload folder ↗</a> — then paste that same link below to confirm.`,
+    folder_hint_generic: "Put all photos in one shared folder (Google Drive, Dropbox or a WeTransfer link), set it so anyone with the link can view, then paste the link below.",
+    photo_count_label: "How many photos did you upload?",
+    photo_count_ph: "Minimum 10",
+    photo_count_err: "We need at least 10 photos to build a strong site.",
+    photo_confirm_text: "I confirm the folder is shared so TableFront can open it, and it contains at least 10 photos I own the rights to use.",
+    photo_check_err: "Please confirm your photos are uploaded and accessible.",
+
+    sec5_title: "Your menu",
+    sec5_sub: "Share your full menu as a PDF link. Make sure it's your current, complete menu — with prices.",
+    menu_label: "Menu PDF link",
+    menu_hint: "Upload your menu PDF to Google Drive, set sharing to 'Anyone with the link can view', then paste the link here.",
+    menu_ph: "Paste your menu PDF link (Google Drive, Dropbox, etc.)",
+    menu_err: "Please paste a link to your menu PDF.",
+    menu_confirm_text: "I confirm this is the complete, up-to-date menu and that all prices are current.",
+    menu_check_err: "Please confirm the PDF link is your complete, current menu.",
+
+    sec6_title: "Opening hours",
+    sec6_sub: 'Set your hours. Tick "Closed" for any day you\'re not open.',
+    days: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    closed_label: "Closed",
+    hours_err: "Please set open & close times for every day that isn't marked closed.",
+
+    sec7_title: "Bookings & ordering",
+    sec7_sub: "How guests reserve a table or order — so we can wire the buttons to the right place.",
+    res_mode_label: "Do you take reservations?",
+    res_mode_err: "Let us know how reservations work.",
+    res_mode_opts: [
+      {v:"",       t:"Select…"},
+      {v:"tool",   t:"Yes — through a tool (OpenTable, Bookatable, etc.)"},
+      {v:"phone",  t:"Yes — by phone / email only"},
+      {v:"none",   t:"No reservations"}
+    ],
+    res_tool_label: "Reservation tool & link",
+    res_tool_err: "Add the reservation tool name and its booking link.",
+    res_tool_ph: "Tool name + booking link (e.g. OpenTable — https://…)",
+    ordering_label: "Online ordering / delivery links",
+    ordering_hint: "(optional — Uber Eats, Just Eat, your own, etc.)",
+    ordering_ph: "Paste any links, or leave blank",
+
+    sec8_title: "Online presence & domain",
+    sec8_sub: "Your socials to link, and what web address the site should live at.",
+    instagram_label: "Instagram",
+    instagram_ph: "@handle or link",
+    facebook_label: "Facebook",
+    facebook_ph: "link",
+    reviews_label: "Google Business / TripAdvisor / other review links",
+    reviews_ph: "Paste any links",
+    domain_label: "Domain for the site",
+    domain_err: "Tell us about your domain.",
+    domain_opts: [
+      {v:"",     t:"Select…"},
+      {v:"have", t:"I already own a domain"},
+      {v:"need", t:"I need help getting one"}
+    ],
+    domain_value_label: "What's the domain / what would you like?",
+    domain_value_err: "Enter your domain (or your preferred name).",
+    domain_value_ph: "e.g. cafelumiere.ch",
+
+    sec9_title: "Anything else",
+    sec9_sub: "Examples of sites you love, must-have features, things to avoid — anything that helps.",
+    notes_ph: "Optional, but helpful. Links to sites you like are gold.",
+
+    done_emoji: "🎉",
+    done_h2: "That's everything — thank you!",
+    done_p1: "Your content is complete and on its way to TableFront. We'll review it and get started on your build. You'll hear from us shortly.",
+    done_p2: "If anything was missing, we'll reach out — but you've given us a full set, so we should be straight into building.",
+
+    backup_btn: "Download my answers",
+    submit_locked: "🔒 Submit for build",
+    submit_ready: "✓ Submit for build",
+    submit_sending: "Sending…",
+    lock_locked: "🔒 <b>Locked</b> — complete every required field to unlock submit.",
+    lock_ready: "🔓 <b>Ready.</b> Everything's complete — you can submit.",
+    lock_missing: n => `🔒 <b>${n} item${n===1?'':'s'}</b> still need${n===1?'s':''} attention. `,
+    jump_link: "→ take me to the next one",
+    toast_saved: "Saved a copy of your answers.",
+    toast_missing: "Some required content is still missing.",
+    toast_error: "Couldn't send automatically — we saved your answers as a file. Please email it to us.",
+    optional: "(optional)"
+  },
+
+  pt: {
+    h1: "Vamos construir o seu site",
+    header_desc: "Tudo o que precisamos para desenhar o seu website, num só lugar. Quanto mais completo estiver, mais rápido — e melhor — fica o seu site.",
+    why_box: "<b>Porquê está bloqueado:</b> um site de qualidade precisa do seu conteúdo real. Este formulário não pode ser submetido enquanto não estiver tudo preenchido. Preencha uma vez, completamente, e começamos a construir — sem perder duas semanas à espera de fotos ou preços do menu.",
+
+    pct: n => `${n}% concluído`,
+
+    sec1_title: "O seu estabelecimento",
+    sec1_sub: "O básico — nome, tipo, localização e contactos.",
+    venue_name_label: "Nome do estabelecimento",
+    venue_name_ph: "ex. Café Lumière",
+    venue_name_err: "Por favor introduza o nome do estabelecimento.",
+    venue_type_label: "Tipo de estabelecimento",
+    venue_type_err: "Por favor escolha um tipo.",
+    venue_type_opts: ["Selecionar…","Restaurante","Bar","Café","Hotel","Bistrô / Brasserie","Padaria","Outro"],
+    concept_label: "Cozinha / conceito",
+    concept_ph: "ex. Cozinha suíça-francesa moderna, petiscos",
+    concept_err: "Descreva o conceito em poucas palavras.",
+    address_label: "Morada completa",
+    address_ph: "Rua, número, código postal, cidade",
+    address_err: "Precisamos da morada completa para o site e o mapa.",
+    phone_label: "Telefone público",
+    phone_ph: "+351 …",
+    phone_err: "Adicione um número de contacto.",
+    email_label: "Email público",
+    email_ph: "ola@oseulocal.pt",
+    email_err: "Adicione um email público válido.",
+    current_site_label: "Website atual",
+    current_site_hint: "(se tiver — deixe em branco se não tiver)",
+    current_site_ph: "https://…",
+
+    sec2_title: "A sua história",
+    sec2_sub: "Uma descrição curta e autêntica do seu espaço. Isto torna-se o coração da sua página inicial.",
+    tagline_label: "Slogan numa linha",
+    tagline_ph: "ex. Bar de vinhos de bairro com alma mediterrânica",
+    tagline_err: "Dê-nos uma linha que capture o espaço.",
+    story_label: "A sua história — 2 a 3 frases",
+    story_ph: "Quem são, o que torna o espaço especial, a sensação que os clientes têm. Escreva como se estivesse a contar a um amigo.",
+    story_err: "Por favor escreva pelo menos 120 caracteres (2–3 frases reais).",
+    story_counter_min: "120 mín.",
+
+    sec3_title: "A sua identidade visual",
+    sec3_sub: "Logótipo, cores e tipografia para que o site seja inconfundivelmente seu.",
+    logo_label: "Ficheiro do logótipo",
+    logo_hint: "Carregue o seu logótipo para o Google Drive, defina a partilha como 'Qualquer pessoa com o link pode ver' e depois cole aqui o link.",
+    logo_ph: "Cole o link do seu logótipo (Google Drive, Dropbox, etc.)",
+    logo_err: "Por favor cole um link para o ficheiro do logótipo.",
+    colors_label: "Cores da marca",
+    colors_hint: "Escolha as mais próximas. Não tem a certeza? Escolha a cor principal e nós refinamos.",
+    color_primary: "Principal",
+    color_secondary: "Secundária",
+    color_accent: "Destaque",
+    font_feel_label: "Tipografia / estilo visual",
+    font_feel_err: "Escolha o estilo tipográfico.",
+    font_feel_opts: ["Selecione o estilo…","Clássico e elegante (serif)","Limpo e moderno (sans-serif)","Caloroso com toques manuscritos","Arrojado e contemporâneo","Temos fontes de marca específicas (indicar abaixo)"],
+    font_notes_ph: "Nomes de fontes específicas, se tiver fontes de marca",
+
+    sec4_title: "Fotos",
+    sec4_sub: "Fotos reais do seu espaço, comida e ambiente. É o que faz o site vender.",
+    photo_shots_box: "<b>Precisamos de 10 a 15 fotos.</b> Tente incluir: exterior / fachada · interior / ambiente · 4 a 6 fotos de comida ou bebida em destaque · um ou dois pormenores (mesa posta, bar, sinalização) · idealmente uma da equipa ou de si. Formato paisagem, boa iluminação, sem filtros excessivos. Fotos de telemóvel são aceites se forem nítidas.",
+    photo_link_label: "Carregue as suas fotos e depois cole o link da pasta",
+    photo_link_ph: "Cole o link da pasta partilhada (Google Drive / Dropbox / WeTransfer)",
+    photo_link_err: "Cole o link da pasta onde carregou as suas fotos.",
+    folder_hint_link: l => `Carregue para a sua pasta: <a href="${l}" target="_blank" rel="noopener">abrir pasta de upload ↗</a> — depois cole esse mesmo link abaixo para confirmar.`,
+    folder_hint_generic: "Coloque todas as fotos numa pasta partilhada (Google Drive, Dropbox ou WeTransfer), defina-a para qualquer pessoa com o link poder ver, e depois cole o link abaixo.",
+    photo_count_label: "Quantas fotos carregou?",
+    photo_count_ph: "Mínimo 10",
+    photo_count_err: "Precisamos de pelo menos 10 fotos para construir um site forte.",
+    photo_confirm_text: "Confirmo que a pasta está partilhada para a TableFront poder aceder, e que contém pelo menos 10 fotos cujos direitos de utilização me pertencem.",
+    photo_check_err: "Por favor confirme que as fotos foram carregadas e estão acessíveis.",
+
+    sec5_title: "O seu menu",
+    sec5_sub: "Partilhe o seu menu completo como link para PDF. Certifique-se de que está atualizado e completo — com preços.",
+    menu_label: "Link do menu em PDF",
+    menu_hint: "Carregue o seu menu em PDF para o Google Drive, defina a partilha como 'Qualquer pessoa com o link pode ver' e depois cole aqui o link.",
+    menu_ph: "Cole o link do menu PDF (Google Drive, Dropbox, etc.)",
+    menu_err: "Por favor cole um link para o menu em PDF.",
+    menu_confirm_text: "Confirmo que este é o menu completo e atualizado, com todos os preços corretos.",
+    menu_check_err: "Por favor confirme que o link é o seu menu completo e atual.",
+
+    sec6_title: "Horário de funcionamento",
+    sec6_sub: "Defina os seus horários. Assinale \"Fechado\" nos dias em que não abre.",
+    days: ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"],
+    closed_label: "Fechado",
+    hours_err: "Por favor defina horários de abertura e fecho para todos os dias que não estejam marcados como fechados.",
+
+    sec7_title: "Reservas e encomendas",
+    sec7_sub: "Como os clientes reservam mesa ou fazem pedidos — para ligarmos os botões ao lugar certo.",
+    res_mode_label: "Aceita reservas?",
+    res_mode_err: "Indique como funcionam as reservas.",
+    res_mode_opts: [
+      {v:"",      t:"Selecionar…"},
+      {v:"tool",  t:"Sim — através de uma plataforma (OpenTable, Bookatable, etc.)"},
+      {v:"phone", t:"Sim — só por telefone / email"},
+      {v:"none",  t:"Não aceita reservas"}
+    ],
+    res_tool_label: "Plataforma de reservas e link",
+    res_tool_err: "Adicione o nome da plataforma de reservas e o link de reserva.",
+    res_tool_ph: "Nome da plataforma + link de reserva (ex. OpenTable — https://…)",
+    ordering_label: "Links de encomenda online / entrega",
+    ordering_hint: "(opcional — Uber Eats, Just Eat, próprio, etc.)",
+    ordering_ph: "Cole os links, ou deixe em branco",
+
+    sec8_title: "Presença online e domínio",
+    sec8_sub: "As suas redes sociais para incluir, e o endereço web onde o site deve ficar.",
+    instagram_label: "Instagram",
+    instagram_ph: "@utilizador ou link",
+    facebook_label: "Facebook",
+    facebook_ph: "link",
+    reviews_label: "Google Business / TripAdvisor / outros links de avaliações",
+    reviews_ph: "Cole quaisquer links",
+    domain_label: "Domínio para o site",
+    domain_err: "Indique-nos sobre o seu domínio.",
+    domain_opts: [
+      {v:"",     t:"Selecionar…"},
+      {v:"have", t:"Já tenho um domínio"},
+      {v:"need", t:"Preciso de ajuda para obter um"}
+    ],
+    domain_value_label: "Qual é o domínio / o que prefere?",
+    domain_value_err: "Introduza o seu domínio (ou o nome preferido).",
+    domain_value_ph: "ex. cafelumiere.pt",
+
+    sec9_title: "Mais alguma coisa",
+    sec9_sub: "Exemplos de sites que gosta, funcionalidades essenciais, coisas a evitar — tudo o que ajude.",
+    notes_ph: "Opcional, mas útil. Links de sites de que gosta são ouro.",
+
+    done_emoji: "🎉",
+    done_h2: "Está tudo — obrigado!",
+    done_p1: "O seu conteúdo está completo e a caminho da TableFront. Vamos revê-lo e começar a sua construção. Terá notícias nossas em breve.",
+    done_p2: "Se faltar alguma coisa, entraremos em contacto — mas deu-nos um conjunto completo, por isso devemos começar a construir de imediato.",
+
+    backup_btn: "Descarregar as minhas respostas",
+    submit_locked: "🔒 Submeter para construção",
+    submit_ready: "✓ Submeter para construção",
+    submit_sending: "A enviar…",
+    lock_locked: "🔒 <b>Bloqueado</b> — complete todos os campos obrigatórios para desbloquear o envio.",
+    lock_ready: "🔓 <b>Pronto.</b> Está tudo completo — pode submeter.",
+    lock_missing: n => `🔒 <b>${n} item${n===1?'':'ns'}</b> ainda ${n===1?'precisa':'precisam'} de atenção. `,
+    jump_link: "→ levar-me ao próximo",
+    toast_saved: "Cópia das suas respostas guardada.",
+    toast_missing: "Algum conteúdo obrigatório ainda está em falta.",
+    toast_error: "Não foi possível enviar automaticamente — as suas respostas foram guardadas como ficheiro. Por favor envie-o por email.",
+    optional: "(opcional)"
+  },
+
+  de: {
+    h1: "Lassen Sie uns Ihre Website bauen",
+    header_desc: "Alles, was wir für Ihr Website-Design benötigen, an einem Ort. Je vollständiger das Formular ist, desto schneller — und besser — wird Ihre Website.",
+    why_box: "<b>Warum dieses Formular gesperrt ist:</b> Eine großartige Website braucht Ihren echten Inhalt. Das Formular kann nicht abgesendet werden, bis alle wesentlichen Angaben gemacht wurden. Füllen Sie es einmal vollständig aus, und wir beginnen mit dem Aufbau — ohne wochenlangem Hin-und-Her wegen Fotos oder Menüpreisen.",
+
+    pct: n => `${n}% abgeschlossen`,
+
+    sec1_title: "Ihr Lokal",
+    sec1_sub: "Das Wesentliche — Name, Art, Standort und Kontakt.",
+    venue_name_label: "Name des Lokals",
+    venue_name_ph: "z. B. Café Lumière",
+    venue_name_err: "Bitte geben Sie den Namen Ihres Lokals ein.",
+    venue_type_label: "Art des Lokals",
+    venue_type_err: "Bitte wählen Sie eine Art.",
+    venue_type_opts: ["Auswählen…","Restaurant","Bar","Café","Hotel","Bistro / Brasserie","Bäckerei","Sonstiges"],
+    concept_label: "Küche / Konzept",
+    concept_ph: "z. B. Moderne Schweizer-Französische Küche, kleine Gerichte",
+    concept_err: "Beschreiben Sie Ihr Konzept in wenigen Worten.",
+    address_label: "Vollständige Adresse",
+    address_ph: "Straße, Hausnummer, Postleitzahl, Stadt",
+    address_err: "Wir benötigen die vollständige Adresse für Ihre Website und Karte.",
+    phone_label: "Öffentliche Telefonnummer",
+    phone_ph: "+41 …",
+    phone_err: "Bitte fügen Sie eine Kontakttelefonnummer hinzu.",
+    email_label: "Öffentliche E-Mail",
+    email_ph: "hallo@ihrllokal.ch",
+    email_err: "Bitte fügen Sie eine gültige öffentliche E-Mail-Adresse hinzu.",
+    current_site_label: "Aktuelle Website",
+    current_site_hint: "(falls vorhanden — leer lassen, wenn keine)",
+    current_site_ph: "https://…",
+
+    sec2_title: "Ihre Geschichte",
+    sec2_sub: "Eine kurze, authentische Beschreibung Ihres Lokals. Dies wird zum Herzstück Ihrer Startseite.",
+    tagline_label: "Einzeiliger Slogan",
+    tagline_ph: "z. B. Stadtteilweinbar mit mediterraner Seele",
+    tagline_err: "Geben Sie uns einen Satz, der das Lokal einfängt.",
+    story_label: "Ihre Geschichte — 2 bis 3 Sätze",
+    story_ph: "Wer Sie sind, was das Lokal besonders macht, das Gefühl der Gäste. Schreiben Sie es so, wie Sie es einem Freund erzählen würden.",
+    story_err: "Bitte schreiben Sie mindestens 120 Zeichen (2–3 echte Sätze).",
+    story_counter_min: "120 min.",
+
+    sec3_title: "Ihr Erscheinungsbild",
+    sec3_sub: "Logo, Farben und Schriften, damit die Website unverkennbar zu Ihnen gehört.",
+    logo_label: "Logo-Datei",
+    logo_hint: "Laden Sie Ihr Logo auf Google Drive hoch, stellen Sie die Freigabe auf 'Jeder mit dem Link kann ansehen' ein und fügen Sie den Link hier ein.",
+    logo_ph: "Logo-Link einfügen (Google Drive, Dropbox, etc.)",
+    logo_err: "Bitte fügen Sie einen Link zu Ihrer Logo-Datei ein.",
+    colors_label: "Markenfarben",
+    colors_hint: "Wählen Sie die nächstliegenden Farben. Nicht sicher? Wählen Sie Ihre Hauptfarbe — den Rest klären wir.",
+    color_primary: "Primär",
+    color_secondary: "Sekundär",
+    color_accent: "Akzent",
+    font_feel_label: "Typografie / Schriftgefühl",
+    font_feel_err: "Wählen Sie das Typografie-Gefühl.",
+    font_feel_opts: ["Stil auswählen…","Klassisch & elegant (Serif)","Klar & modern (Sans-Serif)","Warm mit handschriftlichen Elementen","Kühn & zeitgemäß","Wir haben spezifische Marken-Schriften (unten angeben)"],
+    font_notes_ph: "Spezifische Schriftbezeichnungen, wenn Sie Marken-Schriften haben",
+
+    sec4_title: "Fotos",
+    sec4_sub: "Echte Fotos von Ihrem Lokal, Speisen und Atmosphäre. Das ist es, was die Website verkauft.",
+    photo_shots_box: "<b>Wir benötigen 10–15 Fotos.</b> Achten Sie auf eine gute Mischung: Außenansicht / Eingang · Innenraum / Atmosphäre · 4–6 Hauptfotos von Speisen oder Getränken · ein oder zwei Details (Tischdeckung, Bar, Beschilderung) · idealerweise ein Foto des Teams oder von Ihnen. Querformat, gut beleuchtet, keine starken Filter. Handyfotos sind in Ordnung, wenn sie scharf sind.",
+    photo_link_label: "Laden Sie Ihre Fotos hoch und fügen Sie dann den Ordnerlink ein",
+    photo_link_ph: "Geteilten Ordnerlink einfügen (Google Drive / Dropbox / WeTransfer)",
+    photo_link_err: "Fügen Sie den Link zu dem Ordner ein, in den Sie Ihre Fotos hochgeladen haben.",
+    folder_hint_link: l => `Laden Sie in Ihren Ordner hoch: <a href="${l}" target="_blank" rel="noopener">Upload-Ordner öffnen ↗</a> — fügen Sie dann denselben Link unten ein, um zu bestätigen.`,
+    folder_hint_generic: "Legen Sie alle Fotos in einem geteilten Ordner ab (Google Drive, Dropbox oder WeTransfer), stellen Sie ihn so ein, dass jeder mit dem Link zugreifen kann, und fügen Sie den Link dann unten ein.",
+    photo_count_label: "Wie viele Fotos haben Sie hochgeladen?",
+    photo_count_ph: "Mindestens 10",
+    photo_count_err: "Wir benötigen mindestens 10 Fotos, um eine starke Website zu erstellen.",
+    photo_confirm_text: "Ich bestätige, dass der Ordner geteilt ist, sodass TableFront darauf zugreifen kann, und dass er mindestens 10 Fotos enthält, deren Nutzungsrechte ich besitze.",
+    photo_check_err: "Bitte bestätigen Sie, dass Ihre Fotos hochgeladen und zugänglich sind.",
+
+    sec5_title: "Ihre Speisekarte",
+    sec5_sub: "Teilen Sie Ihre vollständige Speisekarte als PDF-Link. Stellen Sie sicher, dass sie aktuell und vollständig ist — mit Preisen.",
+    menu_label: "Speisekarte PDF-Link",
+    menu_hint: "Laden Sie Ihre Speisekarte als PDF auf Google Drive hoch, stellen Sie die Freigabe auf 'Jeder mit dem Link kann ansehen' ein und fügen Sie den Link hier ein.",
+    menu_ph: "Speisekarte-PDF-Link einfügen (Google Drive, Dropbox, etc.)",
+    menu_err: "Bitte fügen Sie einen Link zu Ihrer Speisekarte als PDF ein.",
+    menu_confirm_text: "Ich bestätige, dass dies die vollständige und aktuelle Speisekarte ist und dass alle Preise korrekt sind.",
+    menu_check_err: "Bitte bestätigen Sie, dass der Link Ihre vollständige, aktuelle Speisekarte ist.",
+
+    sec6_title: "Öffnungszeiten",
+    sec6_sub: "Geben Sie Ihre Öffnungszeiten an. Markieren Sie \"Geschlossen\" für Tage, an denen Sie nicht geöffnet sind.",
+    days: ["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"],
+    closed_label: "Geschlossen",
+    hours_err: "Bitte geben Sie Öffnungs- und Schließzeiten für jeden Tag an, der nicht als geschlossen markiert ist.",
+
+    sec7_title: "Reservierungen & Bestellungen",
+    sec7_sub: "Wie Gäste einen Tisch reservieren oder bestellen — damit wir die Buttons richtig verknüpfen können.",
+    res_mode_label: "Nehmen Sie Reservierungen an?",
+    res_mode_err: "Teilen Sie uns mit, wie Reservierungen funktionieren.",
+    res_mode_opts: [
+      {v:"",      t:"Auswählen…"},
+      {v:"tool",  t:"Ja — über ein Tool (OpenTable, Bookatable, etc.)"},
+      {v:"phone", t:"Ja — nur per Telefon / E-Mail"},
+      {v:"none",  t:"Keine Reservierungen"}
+    ],
+    res_tool_label: "Reservierungstool & Link",
+    res_tool_err: "Fügen Sie den Namen des Reservierungstools und den Buchungslink hinzu.",
+    res_tool_ph: "Tool-Name + Buchungslink (z. B. OpenTable — https://…)",
+    ordering_label: "Online-Bestellung / Lieferlinks",
+    ordering_hint: "(optional — Uber Eats, Lieferando, eigene, etc.)",
+    ordering_ph: "Beliebige Links einfügen oder leer lassen",
+
+    sec8_title: "Online-Präsenz & Domain",
+    sec8_sub: "Ihre Social-Media-Kanäle zum Verlinken und die Webadresse, unter der die Website erreichbar sein soll.",
+    instagram_label: "Instagram",
+    instagram_ph: "@Handle oder Link",
+    facebook_label: "Facebook",
+    facebook_ph: "Link",
+    reviews_label: "Google Business / TripAdvisor / andere Bewertungslinks",
+    reviews_ph: "Beliebige Links einfügen",
+    domain_label: "Domain für die Website",
+    domain_err: "Teilen Sie uns etwas über Ihre Domain mit.",
+    domain_opts: [
+      {v:"",     t:"Auswählen…"},
+      {v:"have", t:"Ich besitze bereits eine Domain"},
+      {v:"need", t:"Ich benötige Hilfe bei der Beschaffung einer Domain"}
+    ],
+    domain_value_label: "Wie lautet die Domain / was wünschen Sie sich?",
+    domain_value_err: "Geben Sie Ihre Domain ein (oder Ihren Wunschnamen).",
+    domain_value_ph: "z. B. cafelumiere.ch",
+
+    sec9_title: "Sonstiges",
+    sec9_sub: "Beispiele für Websites, die Ihnen gefallen, Muss-Funktionen, Dinge die vermieden werden sollen — alles, was hilft.",
+    notes_ph: "Optional, aber hilfreich. Links zu Websites, die Ihnen gefallen, sind Gold wert.",
+
+    done_emoji: "🎉",
+    done_h2: "Das ist alles — vielen Dank!",
+    done_p1: "Ihre Inhalte sind vollständig und auf dem Weg zu TableFront. Wir werden sie prüfen und mit Ihrem Aufbau beginnen. Sie hören bald von uns.",
+    done_p2: "Falls etwas fehlen sollte, melden wir uns — aber Sie haben uns einen vollständigen Satz gegeben, sodass wir direkt mit dem Aufbau beginnen sollten.",
+
+    backup_btn: "Meine Antworten herunterladen",
+    submit_locked: "🔒 Zur Erstellung einreichen",
+    submit_ready: "✓ Zur Erstellung einreichen",
+    submit_sending: "Wird gesendet…",
+    lock_locked: "🔒 <b>Gesperrt</b> — füllen Sie alle Pflichtfelder aus, um das Einreichen zu entsperren.",
+    lock_ready: "🔓 <b>Bereit.</b> Alles vollständig — Sie können einreichen.",
+    lock_missing: n => `🔒 <b>${n} Feld${n===1?'':'er'}</b> ${n===1?'benötigt':'benötigen'} noch Aufmerksamkeit. `,
+    jump_link: "→ zum nächsten führen",
+    toast_saved: "Eine Kopie Ihrer Antworten wurde gespeichert.",
+    toast_missing: "Einige erforderliche Inhalte fehlen noch.",
+    toast_error: "Automatisches Senden fehlgeschlagen — Ihre Antworten wurden als Datei gespeichert. Bitte senden Sie sie uns per E-Mail.",
+    optional: "(optional)"
+  }
+};
+
+/* ===================== LANGUAGE CORE ===================== */
+let currentLang = localStorage.getItem('tf_lang') || 'en';
+let doneShown = false;
+
+function t(key){
+  return LANG[currentLang][key] ?? LANG.en[key] ?? key;
+}
+
+function setLang(lang){
+  currentLang = lang;
+  localStorage.setItem('tf_lang', lang);
+
+  /* update switcher buttons */
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+
+  /* plain text nodes */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = LANG[lang][el.dataset.i18n];
+    if(typeof v === 'string') el.textContent = v;
+  });
+
+  /* inner HTML (for nodes with tags) */
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = LANG[lang][el.dataset.i18nHtml];
+    if(typeof v === 'string') el.innerHTML = v;
+  });
+
+  /* placeholders */
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const v = LANG[lang][el.dataset.i18nPh];
+    if(typeof v === 'string') el.placeholder = v;
+  });
+
+  updateSelectOptions(lang);
+  updateHoursGrid(lang);
+  updateFolderHint();
+
+  document.getElementById('backupBtn').textContent = t('backup_btn');
+
+  if(!doneShown) revalidate();
+}
+
+/* Stable English values for selects whose option text IS the value in the original */
+const VENUE_TYPE_VALS = ['','Restaurant','Bar','Café','Hotel','Bistro / Brasserie','Bakery','Other'];
+const FONT_FEEL_VALS  = ['','classic-serif','clean-sans','warm-handwritten','bold-contemporary','custom-fonts'];
+
+function updateSelectOptions(lang){
+  const l = LANG[lang];
+
+  /* venue_type */
+  const vt = form.querySelector('[name="venue_type"]');
+  if(vt){ const cur=vt.value; vt.innerHTML=l.venue_type_opts.map((txt,i)=>`<option value="${VENUE_TYPE_VALS[i]}">${txt}</option>`).join(''); vt.value=cur; }
+
+  /* font_feel */
+  const ff = form.querySelector('[name="font_feel"]');
+  if(ff){ const cur=ff.value; ff.innerHTML=l.font_feel_opts.map((txt,i)=>`<option value="${FONT_FEEL_VALS[i]}">${txt}</option>`).join(''); ff.value=cur; }
+
+  /* res_mode */
+  const rm = form.querySelector('[name="res_mode"]');
+  if(rm){ const cur=rm.value; rm.innerHTML=l.res_mode_opts.map(o=>`<option value="${o.v}">${o.t}</option>`).join(''); rm.value=cur; }
+
+  /* domain_status */
+  const ds = form.querySelector('[name="domain_status"]');
+  if(ds){ const cur=ds.value; ds.innerHTML=l.domain_opts.map(o=>`<option value="${o.v}">${o.t}</option>`).join(''); ds.value=cur; }
+}
+
+function updateHoursGrid(lang){
+  const l = LANG[lang];
+  hoursGrid.querySelectorAll('[data-day-idx]').forEach(el => {
+    el.textContent = l.days[parseInt(el.dataset.dayIdx)];
+  });
+  hoursGrid.querySelectorAll('[data-closed-label]').forEach(el => {
+    el.textContent = l.closed_label;
+  });
+}
+
+function updateFolderHint(){
+  const el = document.getElementById('folderHint');
+  if(!el) return;
+  const l = LANG[currentLang];
+  el.innerHTML = CONFIG.assetFolderLink
+    ? l.folder_hint_link(CONFIG.assetFolderLink)
+    : l.folder_hint_generic;
+}
+
+/* ===================== FORM SETUP ===================== */
+const DAYS_EN = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
 const form = document.getElementById('intake');
 
 /* ---------- Build hours grid ---------- */
 const hoursGrid = document.getElementById('hoursGrid');
-DAYS.forEach((day,i)=>{
-  const row=document.createElement('div');
-  row.className='hrow';
-  row.innerHTML=`
-    <div class="day">${day}</div>
+DAYS_EN.forEach((day,i)=>{
+  const row = document.createElement('div');
+  row.className = 'hrow';
+  row.innerHTML = `
+    <div class="day" data-day-idx="${i}">${day}</div>
     <div class="times" data-times>
       <input type="time" data-open value="${i<6?'09:00':''}">
       <span>–</span>
       <input type="time" data-close value="${i<6?'22:00':''}">
     </div>
-    <label class="closed-lbl"><input type="checkbox" data-closed> Closed</label>`;
+    <label class="closed-lbl"><input type="checkbox" data-closed> <span data-closed-label>Closed</span></label>`;
   hoursGrid.appendChild(row);
 });
-hoursGrid.addEventListener('change',e=>{
+hoursGrid.addEventListener('change', e => {
   if(e.target.matches('[data-closed]')){
-    const times=e.target.closest('.hrow').querySelector('[data-times]');
-    times.classList.toggle('dimmed',e.target.checked);
+    const times = e.target.closest('.hrow').querySelector('[data-times]');
+    times.classList.toggle('dimmed', e.target.checked);
   }
   revalidate();
 });
-hoursGrid.addEventListener('input',revalidate);
-
-/* ---------- Photo folder hint ---------- */
-const folderHint=document.getElementById('folderHint');
-folderHint.innerHTML = CONFIG.assetFolderLink
-  ? `Upload them to your folder: <a href="${CONFIG.assetFolderLink}" target="_blank" rel="noopener">open upload folder ↗</a> — then paste that same link below to confirm.`
-  : `Put all photos in one shared folder (Google Drive, Dropbox or a WeTransfer link), set it so anyone with the link can view, then paste the link below.`;
+hoursGrid.addEventListener('input', revalidate);
 
 /* ---------- Conditional fields ---------- */
-const resMode=document.getElementById('resMode');
-const resToolField=document.getElementById('resToolField');
-resMode.addEventListener('change',()=>{
-  resToolField.classList.toggle('hidden',resMode.value!=='tool');revalidate();
-});
-const domainStatus=document.getElementById('domainStatus');
-const domainField=document.getElementById('domainField');
-domainStatus.addEventListener('change',()=>{
-  domainField.classList.toggle('hidden',!domainStatus.value);revalidate();
+const resMode = document.getElementById('resMode');
+const resToolField = document.getElementById('resToolField');
+resMode.addEventListener('change', () => {
+  resToolField.classList.toggle('hidden', resMode.value !== 'tool');
+  revalidate();
 });
 
-/* ---------- Validation helpers ---------- */
-const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const URL_RE=/^https?:\/\/.+\..+/i;
-function isVisible(el){return !!(el.offsetParent!==null);}
+const domainStatus = document.getElementById('domainStatus');
+const domainField  = document.getElementById('domainField');
+domainStatus.addEventListener('change', () => {
+  domainField.classList.toggle('hidden', !domainStatus.value);
+  revalidate();
+});
+
+/* ===================== VALIDATION ===================== */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const URL_RE   = /^https?:\/\/.+\..+/i;
+
+function isVisible(el){ return el.offsetParent !== null; }
 
 function validateField(el){
-  if(!isVisible(el)) return true;            // skip hidden conditional fields
-  let ok=true;const v=(el.value||'').trim();
-  if(el.hasAttribute('data-req')||el.hasAttribute('data-req-file')){
-    if(el.type==='file') ok=el.files.length>0;
-    else ok=v.length>0;
-  }
-  if(ok&&el.hasAttribute('data-email')) ok=EMAIL_RE.test(v);
-  if(ok&&el.hasAttribute('data-url')&&v) ok=URL_RE.test(v);
-  if(ok&&el.hasAttribute('data-url-soft')&&isVisible(el)) ok=v.length>0;
-  if(ok&&el.hasAttribute('data-min')) ok=v.length>=+el.getAttribute('data-min');
-  if(ok&&el.hasAttribute('data-min-num')) ok=(+v)>=+el.getAttribute('data-min-num');
+  if(!isVisible(el)) return true;
+  let ok = true;
+  const v = (el.value || '').trim();
+  if(el.hasAttribute('data-req'))       ok = v.length > 0;
+  if(ok && el.hasAttribute('data-email'))    ok = EMAIL_RE.test(v);
+  if(ok && el.hasAttribute('data-url') && v) ok = URL_RE.test(v);
+  if(ok && el.hasAttribute('data-url-soft') && isVisible(el)) ok = v.length > 0;
+  if(ok && el.hasAttribute('data-min'))      ok = v.length >= +el.getAttribute('data-min');
+  if(ok && el.hasAttribute('data-min-num'))  ok = (+v) >= +el.getAttribute('data-min-num');
   return ok;
 }
 
 function checkMenu(){
-  // The PDF file itself is validated via [data-req-file] in the standard loop;
-  // this check covers the "complete & current" confirmation.
   return form.querySelector('[data-req-check-menu]').checked;
 }
 function checkHours(){
-  let ok=true;
-  hoursGrid.querySelectorAll('.hrow').forEach(r=>{
+  let ok = true;
+  hoursGrid.querySelectorAll('.hrow').forEach(r => {
     if(r.querySelector('[data-closed]').checked) return;
-    const o=r.querySelector('[data-open]').value, c=r.querySelector('[data-close]').value;
-    if(!o||!c) ok=false;
+    const o = r.querySelector('[data-open]').value;
+    const c = r.querySelector('[data-close]').value;
+    if(!o || !c) ok = false;
   });
   return ok;
 }
 
-/* ---------- Master revalidate ---------- */
-const submitBtn=document.getElementById('submitBtn');
-const lockStatus=document.getElementById('lockStatus');
-
-/* Readable label for a field: its <label> text (minus the asterisk), with section name. */
+/* ---------- Readable label for a field ---------- */
 function fieldLabel(el){
-  const lab=el.closest('.field')?.querySelector('label');
-  let txt=lab?lab.textContent.replace('*','').replace(/\(.*?\)/g,'').trim():(el.name||'Field');
-  const sec=el.closest('section');
-  const secName=sec?sec.querySelector('h2')?.textContent.trim():'';
-  return secName?`${secName} — ${txt}`:txt;
+  const lab = el.closest('.field')?.querySelector('label');
+  let txt = lab ? lab.textContent.replace('*','').replace(/\(.*?\)/g,'').trim() : (el.name||'Field');
+  const sec = el.closest('section');
+  const secName = sec ? sec.querySelector('h2')?.textContent.trim() : '';
+  return secName ? `${secName} — ${txt}` : txt;
 }
 
-/* Returns {ok, missing:[{label, el}]} */
+/* ---------- Master check — returns {ok, total, missing} ---------- */
 function gatherChecks(){
-  const out={ok:true,total:0,missing:[]};
-  const add=(pass,label,el)=>{out.total++;if(!pass){out.ok=false;out.missing.push({label,el});}};
+  const out = {ok:true, total:0, missing:[]};
+  const add = (pass,label,el) => { out.total++; if(!pass){out.ok=false; out.missing.push({label,el});} };
 
-  form.querySelectorAll('[data-req],[data-req-file],[data-url-soft]').forEach(el=>{
+  form.querySelectorAll('[data-req],[data-url-soft]').forEach(el => {
     add(validateField(el), fieldLabel(el), el);
   });
-  const cb=form.querySelector('[data-req-check]');
-  add(cb.checked,'Photos — confirm uploaded & accessible',cb);
-  add(checkMenu(),'Your menu — confirm the PDF is complete & current',
-      form.querySelector('[data-req-check-menu]'));
-  add(checkHours(),'Opening hours — set times for every day, or mark it Closed',
-      document.getElementById('hoursGrid'));
+  const cb = form.querySelector('[data-req-check]');
+  add(cb.checked, 'Photos — confirm uploaded & accessible', cb);
+  add(checkMenu(), 'Menu — confirm link is complete & current', form.querySelector('[data-req-check-menu]'));
+  add(checkHours(), 'Opening hours — set times or mark Closed', document.getElementById('hoursGrid'));
   return out;
 }
 
-function revalidate(){
-  const r=gatherChecks();
-  const passed=r.total-r.missing.length;
-  const pct=Math.round(passed/r.total*100);
-  document.getElementById('fill').style.width=pct+'%';
-  document.getElementById('pct').textContent=pct+'% complete';
+/* ---------- Master revalidate ---------- */
+const submitBtn  = document.getElementById('submitBtn');
+const lockStatus = document.getElementById('lockStatus');
 
-  submitBtn.disabled=!r.ok;
-  submitBtn.textContent=r.ok?'✓ Submit for build':'🔒 Submit for build';
+function revalidate(){
+  const r = gatherChecks();
+  const passed = r.total - r.missing.length;
+  const pct = Math.round(passed / r.total * 100);
+  document.getElementById('fill').style.width = pct + '%';
+  document.getElementById('pct').textContent = LANG[currentLang].pct(pct);
+
+  submitBtn.disabled  = !r.ok;
+  submitBtn.textContent = r.ok ? t('submit_ready') : t('submit_locked');
 
   if(r.ok){
-    lockStatus.innerHTML='🔓 <b>Ready.</b> Everything’s complete — you can submit.';
-  }else{
-    const n=r.missing.length;
-    lockStatus.innerHTML=
-      `🔒 <b>${n} item${n===1?'':'s'}</b> still need${n===1?'s':''} attention. `
-      +`<a href="#" id="jumpMissing" style="color:var(--accent-dark);font-weight:700;white-space:nowrap">→ take me to the next one</a>`;
-    const jump=document.getElementById('jumpMissing');
-    if(jump) jump.onclick=(ev)=>{ev.preventDefault();showErrors();
-      const t=r.missing[0].el;
-      t.scrollIntoView({behavior:'smooth',block:'center'});
-      if(t.focus)try{t.focus({preventScroll:true});}catch(_){}};
+    lockStatus.innerHTML = t('lock_ready');
+  } else {
+    const n = r.missing.length;
+    lockStatus.innerHTML = LANG[currentLang].lock_missing(n) +
+      `<a href="#" id="jumpMissing" style="color:var(--accent-dark);font-weight:700;white-space:nowrap">${t('jump_link')}</a>`;
+    const jump = document.getElementById('jumpMissing');
+    if(jump) jump.onclick = ev => {
+      ev.preventDefault();
+      showErrors();
+      const target = r.missing[0].el;
+      target.scrollIntoView({behavior:'smooth', block:'center'});
+      if(target.focus) try{ target.focus({preventScroll:true}); }catch(_){}
+    };
   }
   return r.ok;
 }
 
 /* live counters + live validation */
-form.addEventListener('input',e=>{
-  const el=e.target;
+form.addEventListener('input', e => {
+  const el = e.target;
   if(el.hasAttribute('data-min')){
-    const c=el.closest('.field').querySelector('[data-count]');
-    if(c)c.textContent=el.value.trim().length;
+    const c = el.closest('.field')?.querySelector('[data-count]');
+    if(c) c.textContent = el.value.trim().length;
   }
   revalidate();
 });
-form.addEventListener('change',revalidate);
+form.addEventListener('change', revalidate);
 
-/* ---------- Show all errors (on failed submit) ---------- */
+/* ---------- Show all errors (on failed submit attempt) ---------- */
 function showErrors(){
-  form.querySelectorAll('[data-req],[data-req-file],[data-url-soft],[data-email],[data-url]').forEach(el=>{
-    const ok=validateField(el);
-    el.classList.toggle('invalid',!ok&&isVisible(el));
-    const err=el.closest('.field')?.querySelector('.err');
-    if(err&&!el.closest('.field').querySelector('[data-req-check]')) err.classList.toggle('show',!ok&&isVisible(el));
+  form.querySelectorAll('[data-req],[data-url-soft],[data-email],[data-url]').forEach(el => {
+    const ok = validateField(el);
+    el.classList.toggle('invalid', !ok && isVisible(el));
+    const errEl = el.closest('.field')?.querySelector('.err');
+    if(errEl && !el.closest('.field')?.querySelector('[data-req-check]'))
+      errEl.classList.toggle('show', !ok && isVisible(el));
   });
-  const cb=form.querySelector('[data-req-check]');
-  document.querySelector('[data-check-err]').classList.toggle('show',!cb.checked);
-  document.querySelector('[data-menu-check-err]').classList.toggle('show',!checkMenu());
-  document.getElementById('hoursErr').classList.toggle('show',!checkHours());
+  const cb = form.querySelector('[data-req-check]');
+  document.querySelector('[data-check-err]').classList.toggle('show', !cb.checked);
+  document.querySelector('[data-menu-check-err]').classList.toggle('show', !checkMenu());
+  document.getElementById('hoursErr').classList.toggle('show', !checkHours());
 }
 
-/* ---------- Gather data ---------- */
+/* ===================== DATA ===================== */
 function gatherData(){
-  const d={};
-  form.querySelectorAll('input,select,textarea').forEach(el=>{
-    if(el.name && el.type!=='file' && el.type!=='checkbox')
-      d[el.name]=el.value.trim();
+  const d = {};
+  form.querySelectorAll('input,select,textarea').forEach(el => {
+    if(el.name && el.type !== 'checkbox') d[el.name] = el.value.trim();
   });
-  // menu (PDF upload)
-  const menuFile=form.querySelector('[name="menu_pdf"]').files[0];
-  d.menu_file=menuFile?menuFile.name:'';
-  d.menu_confirmed=form.querySelector('[data-req-check-menu]').checked;
-  // hours
-  d.hours={};
-  hoursGrid.querySelectorAll('.hrow').forEach((r,i)=>{
-    if(r.querySelector('[data-closed]').checked) d.hours[DAYS[i]]='Closed';
-    else d.hours[DAYS[i]]=`${r.querySelector('[data-open]').value} – ${r.querySelector('[data-close]').value}`;
+  d.menu_confirmed = form.querySelector('[data-req-check-menu]').checked;
+  d.hours = {};
+  hoursGrid.querySelectorAll('.hrow').forEach((r,i) => {
+    if(r.querySelector('[data-closed]').checked) d.hours[DAYS_EN[i]] = 'Closed';
+    else d.hours[DAYS_EN[i]] = `${r.querySelector('[data-open]').value} – ${r.querySelector('[data-close]').value}`;
   });
   return d;
 }
+
 function dataToText(d){
-  let t=`TABLEFRONT — CLIENT CONTENT INTAKE\n${'='.repeat(40)}\n\n`;
-  const map={venue_name:'Venue',venue_type:'Type',concept:'Concept',address:'Address',
-    phone:'Phone',email:'Email',current_site:'Current site',tagline:'Tagline',story:'Story',
-    font_feel:'Font feel',font_notes:'Font notes',color_primary:'Primary colour',
-    color_secondary:'Secondary colour',color_accent:'Accent colour',
-    photo_folder:'Photo folder',photo_count:'Photo count',res_mode:'Reservations',
-    res_tool:'Reservation tool',ordering:'Ordering links',instagram:'Instagram',
-    facebook:'Facebook',reviews:'Review links',domain_status:'Domain status',
-    domain_value:'Domain',notes:'Notes'};
-  Object.keys(map).forEach(k=>{if(d[k])t+=`${map[k]}: ${d[k]}\n`;});
-  t+=`\nHOURS\n${'-'.repeat(20)}\n`;
-  Object.entries(d.hours).forEach(([day,h])=>t+=`${day}: ${h}\n`);
-  t+=`\nMENU\n${'-'.repeat(20)}\n`;
-  t+=`Menu PDF: ${d.menu_file||'(not attached)'}\n`;
-  t+=`Confirmed complete & current: ${d.menu_confirmed?'Yes':'No'}\n`;
-  return t;
+  let out = `TABLEFRONT — CLIENT CONTENT INTAKE\n${'='.repeat(40)}\n\n`;
+  const map = {
+    venue_name:'Venue', venue_type:'Type', concept:'Concept', address:'Address',
+    phone:'Phone', email:'Email', current_site:'Current site',
+    tagline:'Tagline', story:'Story',
+    logo_link:'Logo link',
+    font_feel:'Font feel', font_notes:'Font notes',
+    color_primary:'Primary colour', color_secondary:'Secondary colour', color_accent:'Accent colour',
+    photo_folder:'Photo folder', photo_count:'Photo count',
+    menu_pdf_link:'Menu PDF link',
+    res_mode:'Reservations', res_tool:'Reservation tool', ordering:'Ordering links',
+    instagram:'Instagram', facebook:'Facebook', reviews:'Review links',
+    domain_status:'Domain status', domain_value:'Domain', notes:'Notes'
+  };
+  Object.keys(map).forEach(k => { if(d[k]) out += `${map[k]}: ${d[k]}\n`; });
+  out += `\nHOURS\n${'-'.repeat(20)}\n`;
+  Object.entries(d.hours).forEach(([day,h]) => out += `${day}: ${h}\n`);
+  out += `\nMENU\n${'-'.repeat(20)}\n`;
+  out += `Menu PDF confirmed complete & current: ${d.menu_confirmed ? 'Yes' : 'No'}\n`;
+  return out;
 }
 
-/* ---------- Backup download ---------- */
-document.getElementById('backupBtn').onclick=()=>{
-  const d=gatherData();
-  const blob=new Blob([dataToText(d)+'\n\n--- RAW ---\n'+JSON.stringify(d,null,2)],{type:'text/plain'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`TableFront-intake-${(d.venue_name||'client').replace(/\s+/g,'-')}.txt`;
+/* ===================== BACKUP DOWNLOAD ===================== */
+document.getElementById('backupBtn').onclick = () => {
+  const d = gatherData();
+  const blob = new Blob([dataToText(d) + '\n\n--- RAW ---\n' + JSON.stringify(d,null,2)], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `TableFront-intake-${(d.venue_name||'client').replace(/\s+/g,'-')}.txt`;
   a.click();
-  toast('Saved a copy of your answers.');
+  toast(t('toast_saved'));
 };
 
-/* ---------- Toast ---------- */
-let toastT;
-function toast(msg,bad){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.toggle('bad',!!bad);el.classList.add('show');
-  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),3500);
+/* ===================== TOAST ===================== */
+let toastTimer;
+function toast(msg, bad){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.toggle('bad', !!bad);
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
-/* ---------- Submit ---------- */
-form.addEventListener('submit',async e=>{
+/* ===================== SUBMIT ===================== */
+form.addEventListener('submit', async e => {
   e.preventDefault();
   if(!revalidate()){
     showErrors();
-    toast('Some required content is still missing.',true);
-    const firstBad=form.querySelector('.invalid,.err.show');
-    if(firstBad)firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+    toast(t('toast_missing'), true);
+    const firstBad = form.querySelector('.invalid,.err.show');
+    if(firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
     return;
   }
-  const data=gatherData();
-  submitBtn.disabled=true;submitBtn.textContent='Sending…';
+
+  const data = gatherData();
+  submitBtn.disabled = true;
+  submitBtn.textContent = t('submit_sending');
 
   try{
     if(CONFIG.web3formsKey){
-      const fd=new FormData();
-      fd.append('access_key',CONFIG.web3formsKey);
-      fd.append('subject',`New TableFront intake — ${data.venue_name||'client'}`);
-      fd.append('from_name','TableFront Intake Form');
-      fd.append('summary',dataToText(data));
-      fd.append('data_json',JSON.stringify(data));
-      const logo=form.querySelector('input[name="logo"]');
-      if(logo.files[0]) fd.append('logo',logo.files[0]);
-      const menuPdf=form.querySelector('input[name="menu_pdf"]');
-      if(menuPdf.files[0]) fd.append('menu_pdf',menuPdf.files[0]);
-      const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:fd});
+      const fd = new FormData();
+      fd.append('access_key', CONFIG.web3formsKey);
+      fd.append('subject', `New TableFront intake — ${data.venue_name||'client'}`);
+      fd.append('from_name', 'TableFront Intake Form');
+      fd.append('summary', dataToText(data));
+      fd.append('data_json', JSON.stringify(data));
+      const res = await fetch('https://api.web3forms.com/submit', {method:'POST', body:fd});
       if(!res.ok) throw new Error('network');
-    }else{
-      // Fallback: trigger backup download so nothing is lost
+    } else {
       document.getElementById('backupBtn').click();
     }
+    doneShown = true;
     document.getElementById('formWrap').classList.add('hidden');
     document.getElementById('lockbar').classList.add('hidden');
     document.querySelector('.progress-bar').classList.add('hidden');
     document.getElementById('doneState').classList.add('show');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }catch(err){
-    submitBtn.disabled=false;submitBtn.textContent='✓ Submit for build';
+    window.scrollTo({top:0, behavior:'smooth'});
+  } catch(err){
+    submitBtn.disabled = false;
+    submitBtn.textContent = t('submit_ready');
     document.getElementById('backupBtn').click();
-    toast('Couldn’t send automatically — we saved your answers as a file. Please email it to us.',true);
+    toast(t('toast_error'), true);
   }
 });
 
-/* initial paint */
-revalidate();
+/* ===================== LANG BUTTON WIRING ===================== */
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+/* ===================== INIT ===================== */
+setLang(currentLang);   /* applies stored/default language + initial revalidate */
 </script>
 </body>
 </html>
