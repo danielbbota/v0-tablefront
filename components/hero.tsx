@@ -63,7 +63,7 @@ export function Hero() {
 
         {/* MOBILE ONLY: Static background image */}
         <img
-          src="/tablefront-hero-poster.jpg"
+          src="/tablefront-hero-poster.jpeg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover md:hidden"
           style={{ zIndex: 0 }}
