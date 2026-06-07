@@ -65,8 +65,8 @@ export function Hero() {
         <img
           src="/tablefront-hero-poster.jpeg"
           alt=""
-          className="absolute inset-0 h-full w-full object-cover md:hidden"
-          style={{ zIndex: 0 }}
+          className="absolute inset-x-0 top-0 w-full object-cover md:hidden"
+          style={{ zIndex: 0, height: "100lvh" }}
         />
 
         {/* DESKTOP ONLY: Scroll-scrubbed video */}
