@@ -259,10 +259,9 @@ function PricingContent() {
           position: sticky; 
           top: 0; 
           z-index: 100; 
-          background: rgba(26, 18, 8, 0.95); 
-          backdrop-filter: blur(4px); 
-          border-bottom: 1px solid #3A3228; 
-          overflow-x: hidden;
+          background: rgba(26, 18, 8, 0.95);
+          backdrop-filter: blur(4px);
+          border-bottom: 1px solid #3A3228;
         }
         .p-nav-inner { 
           max-width: 960px; 
