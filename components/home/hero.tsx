@@ -21,7 +21,7 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary["hero"] })
             <br />
             <em className="not-italic text-primary">{dict.headline2}</em>
           </h1>
-          <p className="mt-7 max-w-lg text-body-lg text-muted-foreground">{dict.sub}</p>
+          <p className="mt-7 max-w-lg text-body-lg text-muted-foreground [hyphens:none]">{dict.sub}</p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">

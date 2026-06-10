@@ -16,3 +16,19 @@ export const ogLocaleForLocale: Record<Locale, string> = {
   pt: "pt_PT",
   fr: "fr_CH",
 }
+
+/**
+ * Complete OpenGraph object for a page. Page-level `openGraph` replaces the
+ * layout's instead of deep-merging, so every page must carry the full set.
+ */
+export function openGraphFor(lang: Locale, path: string, title: string, description: string) {
+  return {
+    title,
+    description,
+    url: `${SITE_URL}/${lang}${path}`,
+    siteName: "TableFront",
+    type: "website" as const,
+    locale: ogLocaleForLocale[lang],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites for hospitality" }],
+  }
+}

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { isLocale, SITE_URL } from "@/lib/i18n/config"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
-import { languageAlternates } from "@/lib/seo"
+import { languageAlternates, openGraphFor } from "@/lib/seo"
 import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
 import { Hero } from "@/components/home/hero"
@@ -32,11 +32,7 @@ export async function generateMetadata({
       canonical: `${SITE_URL}/${lang}`,
       languages: languageAlternates(""),
     },
-    openGraph: {
-      title: dict.meta.home.title,
-      description: dict.meta.home.description,
-      url: `${SITE_URL}/${lang}`,
-    },
+    openGraph: openGraphFor(lang, "", dict.meta.home.title, dict.meta.home.description),
   }
 }
 

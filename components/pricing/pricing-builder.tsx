@@ -266,8 +266,8 @@ export function PricingBuilder({ lang, dict }: { lang: Locale; dict: PricingDict
                   {isSelected && <Check className="h-3 w-3 text-cream" />}
                 </span>
 
-                <div className="flex items-baseline justify-between gap-3 pr-9">
-                  <h3 className="font-mono text-sm font-semibold uppercase tracking-wide text-heading">
+                <div className="flex flex-wrap items-baseline justify-between gap-3 pr-9">
+                  <h3 className="min-w-0 font-mono text-sm font-semibold uppercase tracking-wide text-heading">
                     {addonDict.label}
                   </h3>
                   <p className="shrink-0 whitespace-nowrap font-serif text-subheading font-medium text-primary-deep">

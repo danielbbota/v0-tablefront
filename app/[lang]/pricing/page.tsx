@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { isLocale, SITE_URL } from "@/lib/i18n/config"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
-import { languageAlternates } from "@/lib/seo"
+import { languageAlternates, openGraphFor } from "@/lib/seo"
 import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
 import { PricingBuilder } from "@/components/pricing/pricing-builder"
@@ -23,11 +23,7 @@ export async function generateMetadata({
       canonical: `${SITE_URL}/${lang}/pricing`,
       languages: languageAlternates("/pricing"),
     },
-    openGraph: {
-      title: dict.meta.pricing.title,
-      description: dict.meta.pricing.description,
-      url: `${SITE_URL}/${lang}/pricing`,
-    },
+    openGraph: openGraphFor(lang, "/pricing", dict.meta.pricing.title, dict.meta.pricing.description),
   }
 }
 
