@@ -21,16 +21,18 @@ const pt: Dictionary = {
   nav: {
     why: "Porquê TableFront",
     how: "Como funciona",
-    story: "A nossa história",
+    story: "História",
     faq: "FAQ",
     pricing: "Preços",
-    bookCall: "Agendar chamada gratuita",
+    bookCall: "Chamada gratuita",
     getPrototype: "Protótipo grátis",
     languageLabel: "Idioma",
     currencyLabel: "Moeda",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
     backHome: "Voltar",
+    homeLabel: "TableFront — página inicial",
+    mainNavLabel: "Navegação principal",
   },
 
   hero: {
@@ -44,6 +46,8 @@ const pt: Dictionary = {
     imageAlt: "Sala de restaurante acolhedora à luz de velas durante um serviço de jantar movimentado",
     imageCaption: "Cada mesa cheia começa com uma pesquisa.",
     imageMeta: "Serviço de jantar",
+    pauseAmbience: "Pausar vídeo de fundo",
+    playAmbience: "Reproduzir vídeo de fundo",
   },
 
   pains: {
@@ -228,6 +232,7 @@ const pt: Dictionary = {
     linkPrototype: "Protótipo grátis",
     linkLegal: "Privacidade & aviso legal",
     rights: "© 2026 TableFront · Todos os direitos reservados",
+    homeLabel: "TableFront — página inicial",
   },
 
   pricing: {

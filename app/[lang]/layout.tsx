@@ -88,7 +88,7 @@ export default async function RootLayout({
     "@type": "Organization",
     name: "TableFront",
     url: SITE_URL,
-    logo: `${SITE_URL}/apple-icon.png`,
+    logo: `${SITE_URL}/logo-espresso.png`,
     description: dict.meta.home.description,
     founder: { "@type": "Person", name: "Daniel Bota" },
     knowsLanguage: ["en", "de", "pt", "fr"],
@@ -96,7 +96,11 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={lang} className={`${playfair.variable} ${lora.variable} ${syne.variable}`}>
+    <html
+      lang={lang}
+      data-scroll-behavior="smooth"
+      className={`${playfair.variable} ${lora.variable} ${syne.variable}`}
+    >
       <body className="font-sans antialiased">
         <CurrencyProvider defaultCurrency={defaultCurrencyForLocale[lang]}>{children}</CurrencyProvider>
         <script

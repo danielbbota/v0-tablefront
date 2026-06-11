@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { CALENDLY_URL, type Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
@@ -8,8 +9,14 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
       <div className="mx-auto max-w-[1280px] px-6 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
           <div>
-            <Link href={`/${lang}`} className="font-serif text-2xl font-semibold tracking-tight text-heading">
-              TableFront
+            <Link href={`/${lang}`} aria-label={dict.homeLabel} className="inline-block">
+              <Image
+                src="/logo-espresso.png"
+                alt="TableFront Hospitality"
+                width={121}
+                height={36}
+                className="h-9 w-auto"
+              />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{dict.tagline}</p>
           </div>

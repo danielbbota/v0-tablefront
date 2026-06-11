@@ -1,10 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { formatPrice, type Locale } from "@/lib/i18n/config"
 import { useCurrency } from "@/lib/currency-context"
 import type { Dictionary } from "@/lib/dictionaries/en"
+
+/** Smoothly tweens toward the target value so the result counts up/down. */
+function useTweenedNumber(target: number): number {
+  const [display, setDisplay] = useState(target)
+  const previous = useRef(target)
+
+  useEffect(() => {
+    const from = previous.current
+    previous.current = target
+    if (from === target) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(target)
+      return
+    }
+
+    let raf = 0
+    const start = performance.now()
+    const duration = 450
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - t, 3)
+      setDisplay(Math.round(from + (target - from) * eased))
+      if (t < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target])
+
+  return display
+}
 
 /**
  * Revenue-leak estimator. No invented statistics: the visitor's own numbers
@@ -18,7 +48,8 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
   const [pctLost, setPctLost] = useState(10)
 
   const monthlyLeak = Math.round((covers * (pctCheck / 100) * (pctLost / 100) * ticket) / 10) * 10
-  const yearlyLeak = monthlyLeak * 12
+  const tweenedMonthly = useTweenedNumber(monthlyLeak)
+  const yearlyLeak = tweenedMonthly * 12
 
   return (
     <section className="bg-background py-24 md:py-32">
@@ -125,7 +156,7 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
               className="mt-4 font-serif text-display font-medium text-primary tabular-nums"
               aria-live="polite"
             >
-              {formatPrice(monthlyLeak, currency, lang)}
+              {formatPrice(tweenedMonthly, currency, lang)}
             </p>
             <p className="mt-3 text-body-lg text-muted-foreground">
               {dict.perYearPrefix}{" "}

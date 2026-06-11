@@ -114,8 +114,10 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply bg-background text-foreground;
@@ -200,26 +202,144 @@
   }
 }
 
-/* ——— Motion: calm, editorial, fully progressive ——— */
-@media (prefers-reduced-motion: no-preference) {
-  /* Scroll reveal — CSS scroll-driven animation; browsers without support simply show content. */
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-up both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 36%;
-    }
+/* ——— Motion: calm, editorial, cross-browser ———
+   Scroll reveals are driven by IntersectionObserver (see RevealInit). The
+   hidden state only applies when scripting is enabled, so content is always
+   visible without JavaScript (and in browsers too old for this media query,
+   which simply skip the animations). */
+
+/* Brass rule that draws itself when its .reveal parent becomes visible */
+.draw-rule {
+  display: block;
+  height: 1px;
+  background: var(--brass);
+  transform-origin: left;
+}
+
+/* Process section: a brass line draws across all four steps while an
+   arrowhead travels from step 01 to step 04. Default state (no JS, old
+   browsers, reduced motion) is the fully drawn track. */
+.process-track {
+  height: 1px;
+}
+.process-track-line {
+  position: absolute;
+  inset: 0;
+  background: var(--brass);
+  opacity: 0.6;
+  transform-origin: left;
+}
+.process-track-arrow {
+  position: absolute;
+  top: -4.5px;
+  left: calc(100% - 12px);
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--brass);
+  border-right: 1.5px solid var(--brass);
+  transform: rotate(45deg);
+}
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    /* Color transitions ride along undelayed so hover states stay snappy. */
+    transition:
+      opacity 0.7s ease var(--reveal-delay, 0s),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+      border-color 0.3s ease,
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
   }
 
-  /* Hero magazine-spread settle on load */
-  .hero-enter-text {
-    animation: hero-text 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  .reveal .draw-rule {
+    transform: scaleX(0);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  }
+  .reveal.is-visible .draw-rule {
+    transform: scaleX(1);
+  }
+
+  /* Traveling process arrow — line and arrowhead share one easing so the
+     chevron rides the tip of the drawing line. */
+  .reveal-trigger .process-track-line {
+    transition: transform 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.25s;
+  }
+  .reveal-trigger .process-track-arrow {
+    transition:
+      left 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.25s,
+      opacity 0.3s ease 0.25s;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(0);
+  }
+  /* Start at -12px so the chevron's visual point rides the line tip exactly
+     (the point sits ~12px right of the box's left edge). */
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: -12px;
+    opacity: 0;
+  }
+}
+
+/* Print: reveal states are JS-driven — never print hidden content. */
+@media print {
+  .reveal,
+  .reveal .draw-rule {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(1);
+  }
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: calc(100% - 12px);
+    opacity: 1;
+  }
+}
+
+/* Structural — outside the motion gate, so reduced-motion users still get
+   stacked headline lines instead of run-on inline text. */
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+}
+.hero-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero magazine-spread settle on load (pure CSS, every browser) */
+  .hero-enter-eyebrow {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-line {
+    animation: line-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-line-1 {
+    animation-delay: 0.1s;
+  }
+  .hero-line-2 {
+    animation-delay: 0.22s;
+  }
+  .hero-enter-sub {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+  }
+  .hero-enter-cta {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.56s both;
+  }
+  .hero-enter-trust {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
   }
   .hero-enter-image {
-    animation: hero-image 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    animation: hero-image 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
   }
 
-  /* Slow ambient drift inside the hero image card — desktop only, transform-only (no CWV cost) */
+  /* Slow ambient drift inside the hero image card — desktop only, transform-only */
   @media (min-width: 768px) {
     .hero-ambient {
       animation: ambient-drift 38s ease-in-out infinite alternate;
@@ -227,10 +347,30 @@
   }
 }
 
-@keyframes reveal-up {
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal .draw-rule {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .process-track-line,
+  .process-track-arrow {
+    transition: none !important;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(1);
+  }
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: calc(100% - 12px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -238,24 +378,22 @@
   }
 }
 
-@keyframes hero-text {
+@keyframes line-rise {
   from {
-    opacity: 0;
-    transform: translateX(-28px);
+    transform: translateY(112%);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
 
+/* Transform-only: the hero image is the likely LCP element — fading it in
+   from opacity 0 would push the recorded LCP past the animation delay. */
 @keyframes hero-image {
   from {
-    opacity: 0;
-    transform: translateX(36px);
+    transform: translateX(40px) scale(1.02);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }

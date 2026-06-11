@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { languageAlternates, openGraphFor } from "@/lib/seo"
 import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
+import { RevealInit } from "@/components/site/reveal-init"
 import { Hero } from "@/components/home/hero"
 import { Pains } from "@/components/home/pains"
 import { Calculator } from "@/components/home/calculator"
@@ -43,6 +44,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
+      <RevealInit />
       <Navigation lang={lang} dict={dict.nav} />
       <main>
         <Hero lang={lang} dict={dict.hero} />

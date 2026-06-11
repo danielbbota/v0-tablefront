@@ -29,6 +29,8 @@ const en = {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     backHome: "Back",
+    homeLabel: "TableFront — home",
+    mainNavLabel: "Main",
   },
 
   hero: {
@@ -42,6 +44,8 @@ const en = {
     imageAlt: "Warm, candle-lit restaurant dining room during a busy evening service",
     imageCaption: "Every full table starts with a search.",
     imageMeta: "Evening service",
+    pauseAmbience: "Pause background video",
+    playAmbience: "Play background video",
   },
 
   pains: {
@@ -226,6 +230,7 @@ const en = {
     linkPrototype: "Free prototype",
     linkLegal: "Privacy & legal notice",
     rights: "© 2026 TableFront · All rights reserved",
+    homeLabel: "TableFront — home",
   },
 
   pricing: {

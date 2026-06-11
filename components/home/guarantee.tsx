@@ -1,4 +1,5 @@
 import Link from "next/link"
+import type { CSSProperties } from "react"
 import type { Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
@@ -13,8 +14,12 @@ export function Guarantee({ lang, dict }: { lang: Locale; dict: Dictionary["guar
           <p className="mx-auto mt-7 max-w-2xl text-body-lg leading-relaxed text-cream/75">{dict.body}</p>
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {dict.points.map((point) => (
-              <li key={point} className="flex items-center gap-3 font-mono text-label uppercase text-cream/90">
+            {dict.points.map((point, index) => (
+              <li
+                key={point}
+                className="reveal flex items-center gap-3 font-mono text-label uppercase text-cream/90"
+                style={{ "--reveal-delay": `${300 + index * 140}ms` } as CSSProperties}
+              >
                 <span className="h-1.5 w-1.5 rounded-full bg-brass" aria-hidden />
                 {point}
               </li>

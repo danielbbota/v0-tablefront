@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { languageAlternates, openGraphFor } from "@/lib/seo"
 import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
+import { RevealInit } from "@/components/site/reveal-init"
 import { PricingBuilder } from "@/components/pricing/pricing-builder"
 
 export async function generateMetadata({
@@ -34,6 +35,7 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
+      <RevealInit />
       <Navigation lang={lang} dict={dict.nav} />
       <main className="bg-background">
         <header className="mx-auto max-w-[1280px] px-6 pb-4 pt-36 lg:px-8">

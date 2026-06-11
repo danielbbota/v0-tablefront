@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
@@ -19,6 +20,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+  const mobileTriggerRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const { currency, setCurrency } = useCurrency()
 
@@ -50,6 +52,20 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
+  useEffect(() => {
+    if (!isMobileOpen && !isLangOpen) return
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return
+      setIsLangOpen(false)
+      if (isMobileOpen) {
+        setIsMobileOpen(false)
+        mobileTriggerRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", handleEscape)
+    return () => document.removeEventListener("keydown", handleEscape)
+  }, [isMobileOpen, isLangOpen])
+
   const currencyToggle = (
     <div
       className="flex items-center rounded-full border border-border p-0.5"
@@ -79,18 +95,25 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
       }`}
     >
       <div className="mx-auto flex h-18 max-w-[1280px] items-center justify-between px-6 py-4 lg:px-8">
-        <Link href={`/${lang}`} className="font-serif text-2xl font-semibold tracking-tight text-heading">
-          TableFront
+        <Link href={`/${lang}`} aria-label={dict.homeLabel} className="shrink-0">
+          <Image
+            src="/logo-espresso.png"
+            alt="TableFront Hospitality"
+            width={148}
+            height={44}
+            priority
+            className="h-10 w-auto md:h-11"
+          />
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden items-center gap-7 lg:flex">
-          <nav className="flex items-center gap-7" aria-label="Main">
+        {/* Desktop — xl breakpoint: DE/FR/PT labels need the room */}
+        <div className="hidden items-center gap-5 xl:flex">
+          <nav className="flex items-center gap-5" aria-label={dict.mainNavLabel}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="link-brass font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
+                className="link-brass whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
               >
                 {link.label}
               </Link>
@@ -130,17 +153,24 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
 
           {currencyToggle}
 
-          <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary !px-6 !py-3">
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary whitespace-nowrap !px-5 !py-3"
+          >
             {dict.bookCall}
           </a>
         </div>
 
         {/* Mobile trigger */}
         <button
+          ref={mobileTriggerRef}
           type="button"
-          className="text-heading lg:hidden"
+          className="text-heading xl:hidden"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
           aria-expanded={isMobileOpen}
+          aria-controls="mobile-nav-panel"
           aria-label={isMobileOpen ? dict.closeMenu : dict.openMenu}
         >
           {isMobileOpen ? <X className="h-6 w-6" aria-hidden /> : <Menu className="h-6 w-6" aria-hidden />}
@@ -149,8 +179,8 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
 
       {/* Mobile panel */}
       {isMobileOpen && (
-        <div className="border-b border-border bg-background px-6 pb-8 pt-2 lg:hidden">
-          <nav className="flex flex-col gap-5" aria-label="Main">
+        <div id="mobile-nav-panel" className="border-b border-border bg-background px-6 pb-8 pt-2 xl:hidden">
+          <nav className="flex flex-col gap-5" aria-label={dict.mainNavLabel}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}

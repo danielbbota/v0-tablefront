@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { CALENDLY_URL } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
@@ -8,11 +9,23 @@ export function Process({ dict }: { dict: Dictionary["process"] }) {
         <div className="reveal max-w-2xl">
           <p className="eyebrow">{dict.eyebrow}</p>
           <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <span className="draw-rule mt-8 w-24" aria-hidden />
         </div>
 
-        <ol className="mt-16 grid gap-12 md:grid-cols-4 md:gap-8">
+        <ol className="reveal-trigger relative mt-16 grid gap-12 md:grid-cols-4 md:gap-8">
+          {/* Brass line that draws across the four steps while an arrowhead
+              travels from step 1 to step 4 (desktop only) */}
+          <div className="process-track absolute inset-x-0 top-0 hidden md:block" aria-hidden>
+            <span className="process-track-line" />
+            <span className="process-track-arrow" />
+          </div>
+
           {dict.steps.map((step, index) => (
-            <li key={step.title} className="reveal relative border-t border-brass/50 pt-6">
+            <li
+              key={step.title}
+              className="reveal relative border-t border-brass/40 pt-6 md:border-t-0"
+              style={{ "--reveal-delay": `${index * 120}ms` } as CSSProperties}
+            >
               <span className="font-mono text-label tracking-[0.16em] text-brass" aria-hidden>
                 {String(index + 1).padStart(2, "0")}
               </span>

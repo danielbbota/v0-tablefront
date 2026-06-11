@@ -1,4 +1,5 @@
 import Image from "next/image"
+import type { CSSProperties } from "react"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
 const TEAM_IMAGES = ["/images/team/daniel-bota.jpg", "/images/team/devin-kabay.jpg"]
@@ -18,6 +19,7 @@ export function Team({ dict }: { dict: Dictionary["team"] }) {
             <article
               key={member.name}
               className="reveal flex flex-col items-center gap-6 rounded-lg bg-background p-8 text-center sm:flex-row sm:items-start sm:text-left md:p-10"
+              style={{ "--reveal-delay": `${index * 120}ms` } as CSSProperties}
             >
               <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full">
                 <Image

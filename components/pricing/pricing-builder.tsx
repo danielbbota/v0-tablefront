@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type CSSProperties } from "react"
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { CALENDLY_URL, formatPrice, type Locale } from "@/lib/i18n/config"
@@ -123,7 +123,7 @@ export function PricingBuilder({ lang, dict }: { lang: Locale; dict: PricingDict
         <p className="mt-2 text-muted-foreground">{dict.chooseSub}</p>
 
         <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {PLANS.map((planData) => {
+          {PLANS.map((planData, index) => {
             const planDict = dict.plans[planData.id]
             const isSelected = selectedPlan === planData.id
             return (
@@ -132,7 +132,8 @@ export function PricingBuilder({ lang, dict }: { lang: Locale; dict: PricingDict
                 type="button"
                 onClick={() => handlePlan(planData.id)}
                 aria-pressed={isSelected}
-                className={`relative rounded-lg border bg-surface p-7 text-left transition-colors ${
+                style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}
+                className={`reveal relative rounded-lg border bg-surface p-7 text-left transition-colors ${
                   isSelected
                     ? "border-primary-deep ring-2 ring-primary-deep/20"
                     : planData.highlight
