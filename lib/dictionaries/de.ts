@@ -198,7 +198,7 @@ const de: Dictionary = {
   prototype: {
     eyebrow: "Gratis-Prototyp",
     headline: "Sehen Sie Ihre neue Webseite, bevor Sie etwas ausgeben.",
-    sub: "Hinterlassen Sie Ihre aktuelle Webseite (oder einfach den Namen Ihres Lokals) und Ihre E-Mail. Wir senden Ihnen einen kostenlosen Homepage-Prototyp davon, was TableFront bauen würde — kein Gespräch nötig, keine Verpflichtung, und die Ideen gehören Ihnen so oder so.",
+    sub: "Hinterlassen Sie Ihre aktuelle Webseite (oder einfach den Namen Ihres Lokals) und Ihre E-Mail. Wir senden Ihnen einen kostenlosen Homepage-Prototyp davon, was TableFront bauen würde — keine Verpflichtung, und die Ideen gehören Ihnen so oder so.",
     siteLabel: "Ihre Webseite oder Ihr Restaurantname",
     sitePlaceholder: "ihrrestaurant.ch",
     emailLabel: "Ihre E-Mail",

@@ -6,8 +6,8 @@ import type { Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit"
-// Public-by-design Web3Forms key (same inbox as the project intake form).
-const WEB3FORMS_KEY = "c755d4cd-d835-4ea7-90fc-d272365379c0"
+// Public-by-design Web3Forms key — "Contact Form" (daniel@tablesfront.com).
+const WEB3FORMS_KEY = "071e4b20-394e-4551-9710-01b07e91e7f3"
 
 type Status = "idle" | "sending" | "success" | "error"
 

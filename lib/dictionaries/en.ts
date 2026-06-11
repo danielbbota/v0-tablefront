@@ -196,7 +196,7 @@ const en = {
   prototype: {
     eyebrow: "Free prototype",
     headline: "See your new website before you spend anything.",
-    sub: "Leave your current website (or just your restaurant's name) and your email. We'll send you a free homepage prototype of what TableFront would build — no call needed, no obligation, and the ideas are yours to keep either way.",
+    sub: "Leave your current website (or just your restaurant's name) and your email. We'll send you a free homepage prototype of what TableFront would build — no obligation, and the ideas are yours to keep either way.",
     siteLabel: "Your website or restaurant name",
     sitePlaceholder: "yourrestaurant.com",
     emailLabel: "Your email",
