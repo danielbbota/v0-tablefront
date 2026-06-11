@@ -4,50 +4,65 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* TableFront Design System */
-  --background: #1A1208;
-  --background-light: #F5EFE0;
-  --foreground: #EDE8DC;
-  --foreground-dark: #1E1E1E;
-  
-  /* Brand Colors */
-  --primary: #C9954A;
-  --primary-foreground: #1A1208;
-  --secondary: #B85C38;
-  --secondary-foreground: #F5EFE0;
-  
-  /* UI Colors */
-  --card: #1A1208;
-  --card-foreground: #EDE8DC;
-  --popover: #1A1208;
-  --popover-foreground: #EDE8DC;
-  --muted: #2A2218;
-  --muted-foreground: #A89F8F;
+  /* ——— TableFront editorial light system ———
+     Cream canvas, espresso contrast, terracotta action, brass detail. */
+  --background: #F5EFE0;        /* cream canvas */
+  --surface: #EDE8DC;           /* raised / alternating sections, cards */
+  --espresso: #1A1208;          /* rare contrast panel */
+  --foreground: #1E1E1E;        /* primary text */
+  --heading: #241808;           /* espresso-leaning headings */
+  --muted-foreground: #6B5F4B;  /* supporting text — AA on cream */
+
+  /* Action — terracotta. Deep variant is the accessible fill for small button labels. */
+  --primary: #B85C38;
+  --primary-deep: #A14E2D;
+  --primary-deeper: #8C4225;
+  --primary-foreground: #F5EFE0;
+
+  /* Detail — brass. Borders, underlines, active states only. Never small text on cream. */
+  --brass: #C9954A;
+
+  --border: #DDD3BE;
+  --border-strong: #C9BCA0;
+
+  /* shadcn/ui compatibility tokens */
+  --card: #EDE8DC;
+  --card-foreground: #1E1E1E;
+  --popover: #F5EFE0;
+  --popover-foreground: #1E1E1E;
+  --secondary: #C9954A;
+  --secondary-foreground: #1A1208;
+  --muted: #EDE8DC;
   --accent: #C9954A;
   --accent-foreground: #1A1208;
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #3A3228;
-  --input: #2A2218;
+  --destructive: oklch(0.45 0.2 27);
+  --destructive-foreground: #F5EFE0;
+  --input: #EDE8DC;
   --ring: #C9954A;
-  
-  --radius: 0.5rem;
+
+  --radius: 0.75rem; /* 12px — cards & images. Buttons/pills are fully rounded. */
 }
 
 @theme inline {
   --font-sans: var(--font-lora), Georgia, serif;
   --font-serif: var(--font-playfair), 'Playfair Display', Georgia, serif;
   --font-mono: var(--font-syne), 'Syne', system-ui, sans-serif;
+
   --color-background: var(--background);
-  --color-background-light: var(--background-light);
+  --color-surface: var(--surface);
+  --color-espresso: var(--espresso);
   --color-foreground: var(--foreground);
-  --color-foreground-dark: var(--foreground-dark);
+  --color-heading: var(--heading);
+  --color-cream: #F5EFE0;
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-deeper: var(--primary-deeper);
   --color-primary-foreground: var(--primary-foreground);
+  --color-brass: var(--brass);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -57,39 +72,337 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Editorial type scale — big displays, modest body, deliberate gap. */
+  --text-display-xl: clamp(2.875rem, 8vw, 7rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display: clamp(2.5rem, 6vw, 5rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(2.125rem, 4.5vw, 3.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.625rem, 3vw, 2.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+  --text-subheading: 1.25rem;
+  --text-subheading--line-height: 1.4;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.08em;
+
+  /* Soft warm elevation — image cards only. */
+  --shadow-card: 0 10px 30px rgba(40, 20, 10, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-    max-width: 100vw;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
-    max-width: 100vw;
+    overflow-x: clip;
   }
-  
-  /* Prevent horizontal overflow on all elements */
-  main, section, header, footer, article, aside, nav, div {
-    max-width: 100vw;
-    box-sizing: border-box;
-  }
-  
-  /* Global text wrapping for long words (especially German) */
-  h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, label, button {
-    word-break: break-word;
+
+  /* Long-word safety for German compounds — body copy only, headings stay sculptural. */
+  p, li, td, th, label, summary {
     overflow-wrap: break-word;
     hyphens: auto;
+  }
+
+  ::selection {
+    background: var(--brass);
+    color: var(--espresso);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary-deep);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Tracked uppercase eyebrow label */
+  .eyebrow {
+    @apply font-mono text-label uppercase;
+    letter-spacing: 0.16em;
+    color: var(--primary-deep);
+  }
+
+  /* Pill buttons — terracotta action, single-accent discipline */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-mono uppercase;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-primary {
+    background: var(--primary-deep);
+    color: var(--primary-foreground);
+  }
+  .btn-primary:hover {
+    background: var(--primary-deeper);
+  }
+  .btn-outline {
+    border: 1px solid var(--border-strong);
+    color: var(--heading);
+    background: transparent;
+  }
+  .btn-outline:hover {
+    border-color: var(--brass);
+    color: var(--primary-deep);
+  }
+  .btn-on-dark {
+    background: var(--background);
+    color: var(--espresso);
+  }
+  .btn-on-dark:hover {
+    background: #ffffff;
+  }
+
+  /* Brass grow-on-hover underline for inline links */
+  .link-brass {
+    background-image: linear-gradient(var(--brass), var(--brass));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease;
+    padding-bottom: 2px;
+  }
+  .link-brass:hover {
+    background-size: 100% 1px;
+  }
+
+  /* Editorial image card */
+  .image-card {
+    @apply relative overflow-hidden rounded-lg;
+    box-shadow: var(--shadow-card);
+  }
+}
+
+/* ——— Motion: calm, editorial, cross-browser ———
+   Scroll reveals are driven by IntersectionObserver (see RevealInit). The
+   hidden state only applies when scripting is enabled, so content is always
+   visible without JavaScript (and in browsers too old for this media query,
+   which simply skip the animations). */
+
+/* Brass rule that draws itself when its .reveal parent becomes visible */
+.draw-rule {
+  display: block;
+  height: 1px;
+  background: var(--brass);
+  transform-origin: left;
+}
+
+/* Process section: a brass line draws across all four steps while an
+   arrowhead travels from step 01 to step 04. Default state (no JS, old
+   browsers, reduced motion) is the fully drawn track. */
+.process-track {
+  height: 1px;
+}
+.process-track-line {
+  position: absolute;
+  inset: 0;
+  background: var(--brass);
+  opacity: 0.6;
+  transform-origin: left;
+}
+.process-track-arrow {
+  position: absolute;
+  top: -4.5px;
+  left: calc(100% - 12px);
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--brass);
+  border-right: 1.5px solid var(--brass);
+  transform: rotate(45deg);
+}
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    /* Color transitions ride along undelayed so hover states stay snappy. */
+    transition:
+      opacity 0.7s ease var(--reveal-delay, 0s),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+      border-color 0.3s ease,
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal .draw-rule {
+    transform: scaleX(0);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  }
+  .reveal.is-visible .draw-rule {
+    transform: scaleX(1);
+  }
+
+  /* Traveling process arrow — line and arrowhead share one easing so the
+     chevron rides the tip of the drawing line. */
+  .reveal-trigger .process-track-line {
+    transition: transform 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.25s;
+  }
+  .reveal-trigger .process-track-arrow {
+    transition:
+      left 1.8s cubic-bezier(0.45, 0, 0.25, 1) 0.25s,
+      opacity 0.3s ease 0.25s;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(0);
+  }
+  /* Start at -12px so the chevron's visual point rides the line tip exactly
+     (the point sits ~12px right of the box's left edge). */
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: -12px;
+    opacity: 0;
+  }
+}
+
+/* Print: reveal states are JS-driven — never print hidden content. */
+@media print {
+  .reveal,
+  .reveal .draw-rule {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(1);
+  }
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: calc(100% - 12px);
+    opacity: 1;
+  }
+}
+
+/* Structural — outside the motion gate, so reduced-motion users still get
+   stacked headline lines instead of run-on inline text. */
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+}
+.hero-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero magazine-spread settle on load (pure CSS, every browser) */
+  .hero-enter-eyebrow {
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-line {
+    animation: line-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-line-1 {
+    animation-delay: 0.1s;
+  }
+  .hero-line-2 {
+    animation-delay: 0.22s;
+  }
+  .hero-enter-sub {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.42s both;
+  }
+  .hero-enter-cta {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.56s both;
+  }
+  .hero-enter-trust {
+    animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.72s both;
+  }
+  .hero-enter-image {
+    animation: hero-image 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+  }
+
+  /* Slow ambient drift inside the hero image card — desktop only, transform-only */
+  @media (min-width: 768px) {
+    .hero-ambient {
+      animation: ambient-drift 38s ease-in-out infinite alternate;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal .draw-rule {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .process-track-line,
+  .process-track-arrow {
+    transition: none !important;
+  }
+  .reveal-trigger:not(.is-visible) .process-track-line {
+    transform: scaleX(1);
+  }
+  .reveal-trigger:not(.is-visible) .process-track-arrow {
+    left: calc(100% - 12px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes line-rise {
+  from {
+    transform: translateY(112%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Transform-only: the hero image is the likely LCP element — fading it in
+   from opacity 0 would push the recorded LCP past the animation delay. */
+@keyframes hero-image {
+  from {
+    transform: translateX(40px) scale(1.02);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: scale(1) translateX(0);
+  }
+  to {
+    transform: scale(1.07) translateX(-1.5%);
   }
 }
