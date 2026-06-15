@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Playfair_Display, Lora, Syne } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { notFound } from "next/navigation"
 import {
   defaultCurrencyForLocale,
@@ -108,6 +109,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         {process.env.NODE_ENV === "production" && <Analytics />}
+        <SpeedInsights />
       </body>
     </html>
   )
