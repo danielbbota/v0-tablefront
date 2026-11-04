@@ -302,6 +302,66 @@
   }
 }
 
+/* Hero eyebrow: the business-type labels cycle on a pure-CSS stack. Every
+   label shares one grid cell, so the line never reflows and nothing depends
+   on JavaScript or timers (no hydration drift). --n (count) and --i (index)
+   come from the markup, so the dictionary decides the list. Without
+   animation support, or with reduced motion, the first label simply stays. */
+.hero-cycle {
+  display: inline-grid;
+  vertical-align: baseline;
+  color: var(--heading);
+}
+.hero-cycle > span {
+  grid-area: 1 / 1;
+  opacity: 0;
+}
+.hero-cycle > span:first-child {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cycle > span {
+    /* 4s per label — the same clock as the hero showcase (`.showcase --slot`). */
+    animation: cycle-label calc(var(--n, 5) * 4s) cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 4s) infinite both;
+  }
+}
+
+@keyframes cycle-label {
+  0% {
+    opacity: 0;
+    transform: translateY(0.5em);
+  }
+  5%,
+  16% {
+    opacity: 1;
+    transform: none;
+  }
+  21%,
+  100% {
+    opacity: 0;
+    transform: translateY(-0.5em);
+  }
+}
+
+/* Pricing cards: the brass border tint the pains cards use, plus a small lift
+   and an espresso shadow. The lift transition is declared on `.is-visible` so
+   it replaces the slow reveal transition only once the card has landed. */
+.plan-card,
+.plan-card.is-visible {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .plan-card:hover,
+  .plan-card.is-visible:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px -26px rgb(26 18 8 / 0.4);
+  }
+}
+
 /* Structural — outside the motion gate, so reduced-motion users still get
    stacked headline lines instead of run-on inline text. */
 .hero-line-mask {
@@ -337,13 +397,6 @@
   }
   .hero-enter-image {
     animation: hero-image 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
-  }
-
-  /* Slow ambient drift inside the hero image card — desktop only, transform-only */
-  @media (min-width: 768px) {
-    .hero-ambient {
-      animation: ambient-drift 38s ease-in-out infinite alternate;
-    }
   }
 }
 
@@ -398,11 +451,315 @@
   }
 }
 
-@keyframes ambient-drift {
-  from {
-    transform: scale(1) translateX(0);
+/* ——— Hero showcase: "the action, live" ———
+   Five verticals cycle on one clock shared with the eyebrow (`--slot` per
+   item, `--n` items). The keyframe percentages below assume n = 5: each item
+   owns a 20% slot, fades in over the first 4%, holds, and fades out during
+   the next item's fade-in. Structural rules sit outside the motion gate so
+   reduced-motion users see the first vertical fully composed. */
+.showcase {
+  /* Keep in step with `.hero-cycle` (same 4s per vertical). */
+  --slot: 4s;
+  --cycle: calc(var(--n, 5) * var(--slot));
+  container-type: inline-size;
+}
+/* The handset: an iPhone silhouette drawn in CSS — graphite frame, black
+   bezel, Dynamic Island, volume buttons on the left, side button on the
+   right. It sits flush on the section background with only its own shadow. */
+.showcase-phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: min(84%, 620px);
+  aspect-ratio: 9 / 18.6;
+  transform: translate(-50%, -50%);
+  /* Outer corner = 13.5% of the handset width; the vertical radius is scaled
+     by the aspect ratio (13.5 × 9 / 18.6) so the corner stays circular. */
+  border-radius: 13.5% / 6.53%;
+  background: #141210;
+  box-shadow:
+    inset 0 0 0 1.5px #3d3833,
+    0 30px 60px -24px rgb(26 18 8 / 0.55);
+  container-type: inline-size;
+}
+/* Everything inside is sized in cqw of the handset itself, so the bezel
+   (3.6cqw) and the screen radius (13.5 − 3.6) stay concentric with the outer
+   corner at any size — a uniform band all the way round. */
+.showcase-phone::before,
+.showcase-phone::after {
+  content: "";
+  position: absolute;
+  width: 1cqw;
+  border-radius: 1px;
+  background: #2d2926;
+}
+.showcase-phone::before {
+  /* volume up, with volume down as a shadow copy */
+  top: 22%;
+  left: calc(-1cqw + 0.5px);
+  height: 7%;
+  box-shadow: 0 calc(9% + 1cqw) 0 #2d2926;
+}
+.showcase-phone::after {
+  /* side button */
+  top: 26%;
+  right: calc(-1cqw + 0.5px);
+  height: 11%;
+}
+.showcase-screen {
+  position: absolute;
+  inset: 3.6cqw;
+  overflow: hidden;
+  border-radius: 9.9cqw;
+  background: var(--background);
+}
+.showcase-screen::before {
+  /* Dynamic Island */
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 3cqw;
+  left: 50%;
+  width: 27cqw;
+  height: 7.6cqw;
+  border-radius: 999px;
+  background: #0a0908;
+  transform: translateX(-50%);
+}
+.showcase-site {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 15cqw 7cqw 8cqw;
+  opacity: 0;
+}
+.showcase-site:first-child {
+  opacity: 1;
+}
+.showcase-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 6.2cqw;
+  font-weight: 500;
+  color: var(--heading);
+}
+.showcase-menu {
+  width: 7cqw;
+  height: 1.6cqw;
+  border-radius: 1cqw;
+  background: var(--heading);
+  box-shadow:
+    0 2.8cqw 0 var(--heading),
+    0 -2.8cqw 0 var(--heading);
+}
+.showcase-photo {
+  position: relative;
+  flex: 1 1 auto;
+  margin-top: 7cqw;
+  overflow: hidden;
+  border-radius: 4cqw;
+}
+.showcase-tagline {
+  margin-top: 6cqw;
+  font-size: 7.4cqw;
+  line-height: 1.2;
+  color: var(--heading);
+}
+.showcase-cta {
+  display: block;
+  margin-top: 6cqw;
+  padding: 4.4cqw 0;
+  border-radius: 2cqw;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: var(--font-mono);
+  font-size: 4.3cqw;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.showcase-toast {
+  position: absolute;
+  top: 17%;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  gap: 2.2cqw;
+  width: clamp(168px, 40cqw, 264px);
+  padding: 2.2cqw 2.6cqw;
+  border-radius: 12px;
+  background: var(--background);
+  box-shadow: 0 18px 36px -16px rgb(26 18 8 / 0.45);
+  opacity: 0;
+}
+.showcase-toast:first-child {
+  opacity: 1;
+}
+.showcase-toast-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: clamp(30px, 6cqw, 40px);
+  height: clamp(30px, 6cqw, 40px);
+  border-radius: 999px;
+  background: var(--brass);
+  color: var(--espresso);
+}
+.showcase-toast-icon svg {
+  width: 55%;
+  height: 55%;
+}
+.showcase-toast-text {
+  display: block;
+  font-size: clamp(11px, 2.1cqw, 14px);
+  line-height: 1.35;
+  color: var(--muted-foreground);
+}
+.showcase-toast-text strong {
+  display: block;
+  font-weight: 500;
+  color: var(--heading);
+}
+
+.showcase-stat {
+  position: absolute;
+  bottom: 7%;
+  left: 2%;
+  width: clamp(120px, 24cqw, 170px);
+  padding: 2.4cqw 2.8cqw 2cqw;
+  border-radius: 12px;
+  background: var(--background);
+  box-shadow: 0 18px 36px -16px rgb(26 18 8 / 0.45);
+}
+.showcase-stack {
+  display: grid;
+}
+.showcase-stack > span {
+  grid-area: 1 / 1;
+  display: block;
+  opacity: 0;
+}
+.showcase-stack > span:first-child {
+  opacity: 1;
+}
+.showcase-stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 1.5cqw, 11px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.showcase-stat-value {
+  display: block;
+  margin-top: 0.2em;
+  font-size: clamp(20px, 4.2cqw, 30px);
+  line-height: 1;
+  color: var(--heading);
+}
+.showcase-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4%;
+  height: clamp(28px, 6cqw, 42px);
+  margin-top: 0.7em;
+}
+.showcase-bars i {
+  display: block;
+  flex: 1;
+  height: calc(var(--h, 1) * 100%);
+  border-radius: 2px 2px 0 0;
+  background: var(--brass);
+  transform-origin: bottom;
+}
+.showcase-bars i:last-child {
+  background: var(--primary);
+}
+
+/* Narrow cards (phones): the handset stays centred and a little smaller; the
+   stat chip slims down so it fits in the margin beside it. */
+@container (max-width: 480px) {
+  .showcase-phone {
+    height: min(72%, 620px);
   }
-  to {
-    transform: scale(1.07) translateX(-1.5%);
+  .showcase-stat {
+    left: 1%;
+    bottom: 8%;
+    width: 82px;
+    padding: 8px 8px 7px;
+  }
+  .showcase-stat-label {
+    font-size: 8px;
+    letter-spacing: 0.08em;
+  }
+  .showcase-stat-value {
+    font-size: 18px;
+  }
+  .showcase-bars {
+    height: 20px;
+  }
+  .showcase-toast {
+    width: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .showcase-site,
+  .showcase-stack > span {
+    animation: showcase-screen var(--cycle) ease calc(var(--i, 0) * var(--slot)) infinite both;
+  }
+  .showcase-toast {
+    animation: showcase-toast var(--cycle) cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * var(--slot)) infinite
+      both;
+  }
+  .showcase-bars i {
+    animation: showcase-bar var(--slot) cubic-bezier(0.22, 1, 0.36, 1) calc(var(--d, 0) * 70ms) infinite both;
+  }
+}
+
+@keyframes showcase-screen {
+  0% {
+    opacity: 0;
+  }
+  4%,
+  20% {
+    opacity: 1;
+  }
+  24%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes showcase-toast {
+  0%,
+  7% {
+    opacity: 0;
+    transform: translate(14px, 10px) scale(0.96);
+  }
+  11%,
+  20% {
+    opacity: 1;
+    transform: none;
+  }
+  23%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes showcase-bar {
+  0%,
+  12% {
+    transform: scaleY(0.15);
+  }
+  50%,
+  92% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.15);
   }
 }

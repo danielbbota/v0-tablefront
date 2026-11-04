@@ -30,7 +30,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
   const navLinks = [
     { href: `/${lang}#why`, label: dict.why },
     { href: `/${lang}#how-it-works`, label: dict.how },
-    { href: `/${lang}#story`, label: dict.story },
+    { href: `/${lang}#work`, label: dict.work },
     { href: `/${lang}#faq`, label: dict.faq },
     { href: `/${lang}/pricing`, label: dict.pricing },
   ]
@@ -98,7 +98,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
         <Link href={`/${lang}`} aria-label={dict.homeLabel} className="shrink-0">
           <Image
             src="/logo-espresso.png"
-            alt="TableFront Hospitality"
+            alt="TableFront"
             width={148}
             height={44}
             priority

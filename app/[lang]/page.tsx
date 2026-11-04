@@ -7,9 +7,12 @@ import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
 import { RevealInit } from "@/components/site/reveal-init"
 import { Hero } from "@/components/home/hero"
+import { Verticals } from "@/components/home/verticals"
 import { Pains } from "@/components/home/pains"
 import { Calculator } from "@/components/home/calculator"
 import { Process } from "@/components/home/process"
+import { LatestProject } from "@/components/home/latest-project"
+import { PricingPlans } from "@/components/home/pricing-plans"
 import { FounderStory } from "@/components/home/founder-story"
 import { Guarantee } from "@/components/home/guarantee"
 import { Team } from "@/components/home/team"
@@ -48,9 +51,12 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       <Navigation lang={lang} dict={dict.nav} />
       <main>
         <Hero lang={lang} dict={dict.hero} />
+        <Verticals dict={dict.verticals} />
         <Pains dict={dict.pains} />
         <Calculator lang={lang} dict={dict.calculator} />
         <Process dict={dict.process} />
+        <LatestProject dict={dict.latestProject} />
+        <PricingPlans lang={lang} dict={dict.plans} />
         <FounderStory dict={dict.founder} />
         <Guarantee lang={lang} dict={dict.guarantee} />
         <Team dict={dict.team} />

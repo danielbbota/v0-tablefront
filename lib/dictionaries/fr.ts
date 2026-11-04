@@ -3,14 +3,14 @@ import type { Dictionary } from "./en"
 const fr: Dictionary = {
   meta: {
     home: {
-      title: "TableFront — Sites web de restaurants, créés par des gens du métier",
+      title: "TableFront — Des sites web qui transforment les visiteurs en réservations, commandes et ventes",
       description:
-        "Des sites web pour restaurants, bars et cafés, construits par des gens de l'hôtellerie-restauration. En ligne en 7 jours, conçus pour récupérer les réservations directes. Prototype gratuit de votre site.",
+        "Des sites web pour les entreprises qui vendent directement à leurs clients — restauration, santé & beauté, producteurs et boutiques. Une action claire : réserver, commander ou acheter. En ligne en 7 jours, prototype gratuit d'abord.",
     },
     pricing: {
-      title: "Tarifs — Des formules de site web transparentes pour la restauration",
+      title: "Tarifs — Des formules de site web fixes, affichées en CHF ou en EUR",
       description:
-        "Tarifs transparents pour les sites de restaurants : création unique dès CHF 1 500 / 1 500 € ou formule mensuelle dès CHF 149 / 149 €. Sans frais cachés, livraison en 7 jours.",
+        "Tarifs transparents : création unique dès CHF 790 / 490 €, partenariat mensuel dès CHF 69 / 39 €. Fixes par marché, sans frais cachés, livraison en 7 jours.",
     },
     legal: {
       title: "Confidentialité & Mentions légales",
@@ -21,6 +21,7 @@ const fr: Dictionary = {
   nav: {
     why: "Pourquoi TableFront",
     how: "Notre méthode",
+    work: "Nos réalisations",
     story: "Notre histoire",
     faq: "FAQ",
     pricing: "Tarifs",
@@ -36,43 +37,118 @@ const fr: Dictionary = {
   },
 
   hero: {
-    eyebrow: "Pour restaurants, bars & cafés",
-    headline1: "La première impression de vos clients,",
-    headline2: "reconstruite en 7 jours.",
-    sub: "Des sites web pensés, écrits et construits par des gens qui ont vraiment fait le service — rapides, faciles à trouver et conçus pour remplir des tables.",
+    /** Rendu sous la forme « {eyebrowPrefix} {libellé défilant} » — les libellés tournent avec une animation CSS. */
+    eyebrowPrefix: "Des sites web pour les",
+    verticals: ["restaurants", "cafés", "salons", "cliniques", "boutiques"],
+    headline1: "Des sites web qui transforment les visiteurs",
+    headline2: "en réservations, commandes et ventes.",
+    sub: "Nés dans la restauration — conçus pour toutes les entreprises qui vendent à leurs clients.",
     ctaPrimary: "Réserver un appel gratuit",
     ctaSecondary: "Recevoir un prototype gratuit",
-    trust: "En ligne en 7 jours · Pas de contrat à rallonge · Conçu par des gens du métier",
-    imageAlt: "Salle de restaurant chaleureuse éclairée à la bougie pendant un service du soir animé",
-    imageCaption: "Chaque table pleine commence par une recherche.",
-    imageMeta: "Service du soir",
-    pauseAmbience: "Mettre la vidéo d'ambiance en pause",
-    playAmbience: "Lire la vidéo d'ambiance",
+    trust: "En ligne en 7 jours · Une action claire · Conçu par des gens du métier",
+    showcase: {
+      ariaLabel: "Le site d'un client sur un téléphone reçoit une réservation, une commande, un rendez-vous et une vente, avec un graphique qui grimpe.",
+      items: [
+      {
+        name: "Casa Marisa",
+        tagline: "Dîner dès 18 h, du mardi au dimanche",
+        cta: "Réserver une table",
+        notifTitle: "Nouvelle réservation",
+        notifDetail: "Table pour 4 · ven. 20 h",
+        statLabel: "Réservations ce mois-ci",
+        statValue: "+38%",
+      },
+      {
+        name: "Café Lumen",
+        tagline: "Torréfié cette semaine, servi aujourd'hui",
+        cta: "Commander",
+        notifTitle: "Nouvelle commande",
+        notifDetail: "2 flat whites · retrait 8 h 40",
+        statLabel: "Commandes ce mois-ci",
+        statValue: "+52%",
+      },
+      {
+        name: "Studio Nora",
+        tagline: "Coupe, couleur et soin",
+        cta: "Prendre rendez-vous",
+        notifTitle: "Rendez-vous confirmé",
+        notifDetail: "Coupe & couleur · mar. 10 h 30",
+        statLabel: "Rendez-vous ce mois-ci",
+        statValue: "+41%",
+      },
+      {
+        name: "Clinique Aurora",
+        tagline: "Des soins qui prennent le temps",
+        cta: "Réserver une consultation",
+        notifTitle: "Consultation réservée",
+        notifDetail: "Première consultation · jeu. 9 h 15",
+        statLabel: "Consultations ce mois-ci",
+        statValue: "+27%",
+      },
+      {
+        name: "Atelier Vida",
+        tagline: "Fait main, livré chez vous",
+        cta: "Acheter en ligne",
+        notifTitle: "Nouvelle vente",
+        notifDetail: "Commande n° 124 · 38 €",
+        statLabel: "Ventes ce mois-ci",
+        statValue: "+63%",
+      },
+      ],
+    },
+  },
+
+  verticals: {
+    eyebrow: "Pour qui nous travaillons",
+    headline: "Un site. Une action claire.",
+    sub: "Nous construisons pour les entreprises qui vendent directement à leurs clients — et nous concevons chaque page autour de la seule chose qu'un visiteur doit faire ensuite.",
+    actionLabel: "Action principale",
+    items: {
+      hospitality: {
+        kicker: "Cœur de métier",
+        title: "Hôtellerie-restauration",
+        examples: "Restaurants, bars, cafés, hôtels",
+        body: "Là où TableFront est né. Carte, horaires, localisation et un parcours de réservation qui garde la réservation — et le client — chez vous.",
+        action: "Réserver une table",
+      },
+      beauty: {
+        title: "Santé & beauté",
+        examples: "Salons, barbiers, cliniques, studios",
+        body: "Prestations, équipe et tarifs présentés clairement, avec une prise de rendez-vous en ligne qui remplit votre agenda pendant que vous êtes avec un client.",
+        action: "Prendre rendez-vous",
+      },
+      shops: {
+        title: "Producteurs & boutiques",
+        examples: "Producteurs artisanaux, boutiques, commerces en ligne",
+        body: "Un site de marque avec boutique en ligne intégrée — fiches produits, paiement et expédition, pour vendre en direct plutôt que via des places de marché.",
+        action: "Acheter en ligne",
+      },
+    },
   },
 
   pains: {
     eyebrow: "Ce que coûte un site faible",
-    headline: "Les problèmes silencieux qui vident votre salle.",
+    headline: "Les problèmes silencieux qui minent votre activité.",
     sub: "Un site dépassé n'échoue pas bruyamment. Il travaille simplement contre vous, en silence — dans cet ordre.",
     items: [
       {
         title: "Réputation",
-        body: "Les clients jugent votre cuisine sur votre site avant même d'y avoir goûté. Un site lent et daté les envoie chez le concurrent qui paraît plus soigné en ligne — même quand votre cuisine est meilleure.",
+        body: "Les clients jugent votre travail sur votre site avant même de passer votre porte. Un site lent et daté les envoie chez le concurrent qui paraît plus soigné en ligne — même quand vous êtes meilleur.",
         note: "La première impression se joue désormais sur un écran de téléphone, pas à votre porte.",
       },
       {
         title: "Argent",
-        body: "Chaque client qui réserve via une plateforme vous coûte une commission. Chaque client qui renonce sur un site laborieux vous coûte la table entière. Les réservations directes sont le chiffre d'affaires le moins cher que vous gagnerez jamais.",
+        body: "Chaque client qui réserve ou achète via une plateforme vous coûte une commission. Chaque client qui renonce sur un site laborieux vous coûte la vente entière. La vente directe est le chiffre d'affaires le moins cher que vous gagnerez jamais.",
         note: "Faites vos propres calculs avec le calculateur ci-dessous.",
       },
       {
         title: "Temps",
-        body: "Rappeler les réservations manquées, re-télécharger des PDF de menu, se battre avec un éditeur de site à minuit — des heures chaque semaine qui appartiennent à votre salle, pas à votre navigateur.",
-        note: "Votre site devrait faire des services à votre place — pas l'inverse.",
+        body: "Courir après les réservations par téléphone, re-télécharger des listes de prix, se battre avec un éditeur de site à minuit — des heures chaque semaine qui appartiennent à vos clients, pas à votre navigateur.",
+        note: "Votre site devrait travailler à votre place — pas l'inverse.",
       },
       {
         title: "Risque",
-        body: "Si Google ne peut pas lire correctement votre site, vous n'existez pas pour les nouveaux clients. Un concurrent avec un site plus rapide et mieux classé peut vider vos couverts de semaine avant que vous ne le remarquiez.",
+        body: "Si Google ne peut pas lire correctement votre site, vous n'existez pas pour les nouveaux clients. Un concurrent avec un site plus rapide et mieux classé peut vider vos journées calmes avant que vous ne le remarquiez.",
         note: "La visibilité en ligne se reloue chaque jour — et quelqu'un d'autre enchérit.",
       },
     ],
@@ -101,15 +177,15 @@ const fr: Dictionary = {
     steps: [
       {
         title: "Découverte",
-        body: "Un appel. Nous apprenons à connaître votre établissement, vos clients et ce que votre présence en ligne actuelle vous coûte — puis nous fixons exactement ce que le nouveau site doit accomplir.",
+        body: "Un appel. Nous apprenons à connaître votre entreprise, vos clients et ce que votre présence en ligne actuelle vous coûte — puis nous fixons exactement ce que le nouveau site doit accomplir.",
       },
       {
         title: "Design",
-        body: "Nous concevons autour de votre marque et de votre carte — un site qui ressemble à ce que votre restaurant fait ressentir, construit pour transformer les curieux en réservations directes.",
+        body: "Nous concevons autour de votre marque et de votre offre — un site qui ressemble à ce que votre entreprise fait ressentir, construit pour transformer les curieux en réservations, commandes ou ventes.",
       },
       {
         title: "Construction",
-        body: "Carte, réservations, SEO local, multilingue si vos clients en ont besoin — assemblé mobile-first et testé sur de vrais téléphones.",
+        body: "Réservation, commande ou paiement en ligne, SEO local, multilingue si vos clients en ont besoin — assemblé mobile-first et testé sur de vrais téléphones.",
       },
       {
         title: "Remise des clés",
@@ -119,19 +195,105 @@ const fr: Dictionary = {
     cta: "Commencer par un appel gratuit",
   },
 
+  latestProject: {
+    eyebrow: "Dernier projet",
+    eyebrowPlural: "Derniers projets",
+    headline: "Des réalisations récentes, en ligne et qui vendent.",
+    sub: "De vraies entreprises, de vrais sites, de vrais clients — jetez un œil avant de décider.",
+    visit: "Visiter le site en ligne",
+    projects: {
+      aconchego: {
+        blurb: "Un gin artisanal de l'Algarve — site de marque avec boutique en ligne intégrée, pour que chaque bouteille se vende en direct.",
+        tags: ["Site web", "Boutique en ligne", "Producteurs & boutiques"],
+      },
+    },
+  },
+
   founder: {
     eyebrow: "Pourquoi nous existons",
     headline: "Nous n'avons pas étudié la restauration. Nous avons grandi dedans.",
     p1: "Daniel a grandi dans le restaurant de sa mère — les devoirs sur la table du coin, le service le week-end. Ont suivi plus de dix ans de travail dans l'hôtellerie-restauration.",
-    p2: "TableFront existe parce qu'il a vu, encore et encore, de bons restaurants perdre des clients à cause de mauvais sites — et des agences leur facturer des sites jolis qui ne réservaient rien.",
-    quote: "Un site de restaurant n'a qu'un seul travail : remplir des tables. Tout le reste est décoration.",
+    p2: "TableFront est né là : de bons restaurants qui perdaient des clients à cause de mauvais sites, et des agences qui leur facturaient des sites jolis mais qui ne réservaient rien. La même chose arrive chaque jour aux salons, aux cliniques et aux petits producteurs — alors aujourd'hui, nous construisons pour eux tous.",
+    quote: "Un site web n'a qu'un seul travail : faire agir le client. Tout le reste est décoration.",
     quoteAttribution: "Daniel Bota, fondateur",
+  },
+
+  plans: {
+    eyebrow: "Tarifs",
+    headline: "Des prix clairs, fixés par marché.",
+    sub: "Chaque formule inclut un site sur mesure, mobile-first, construit autour d'une action claire et en ligne en 7 jours. Affiché en CHF ou en EUR — changez à tout moment.",
+    oneTimeTitle: "Création unique",
+    oneTimeSub: "Payez une fois. Le site est à vous.",
+    monthlyTitle: "Partenariats mensuels",
+    monthlySub: "Nous l'hébergeons, le maintenons et le mettons à jour pour vous.",
+    perMonth: "/mois",
+    oneTime: "paiement unique",
+    recommended: "Recommandé",
+    items: {
+      essencial: {
+        label: "Essentiel",
+        tagline: "L'essentiel, bien fait.",
+        features: [
+          "Design sur mesure une page, mobile-first",
+          "Une action claire : réserver, commander ou acheter",
+          "Google Maps, horaires & click-to-call",
+          "Configuration SEO de base",
+          "En ligne en 7 jours",
+        ],
+      },
+      profissional: {
+        label: "Professionnel",
+        tagline: "Un site complet qui travaille pour vous chaque jour.",
+        features: [
+          "Design sur mesure multi-pages",
+          "Intégration réservation ou prise de rendez-vous",
+          "Configuration SEO local & analytics",
+          "Prêt pour le multilingue",
+          "30 jours de support après mise en ligne",
+        ],
+      },
+      loja: {
+        label: "Boutique en ligne",
+        tagline: "Site de marque et boutique en ligne en un.",
+        features: [
+          "Tout ce qu'inclut Professionnel",
+          "Boutique en ligne avec fiches produits",
+          "Configuration du paiement, de l'encaissement & de l'expédition",
+          "Notifications de stock & de commandes",
+          "Formation à la gestion de votre boutique",
+        ],
+      },
+      mensalEssencial: {
+        label: "Mensuel Essentiel",
+        tagline: "Rapide, sûr et à jour.",
+        features: [
+          "Hébergement & mises à jour de sécurité",
+          "Maintenance & corrections en continu",
+          "Petites modifications de contenu chaque mois",
+          "Support par e-mail",
+        ],
+      },
+      mensalProfissional: {
+        label: "Mensuel Professionnel",
+        tagline: "Tout est pris en charge — réservations comprises.",
+        features: [
+          "Tout ce qu'inclut Mensuel Essentiel",
+          "Réservations incluses pour la restauration",
+          "Mises à jour mensuelles de contenu & de prix",
+          "Support prioritaire",
+          "Rapport de performance trimestriel",
+        ],
+      },
+    },
+    cta: "Réserver un appel gratuit",
+    ctaSecondary: "Voir tous les tarifs",
+    note: "Prix fixes par marché, affichés en CHF ou en EUR. Création en 7 jours dès réception des éléments. Sans frais cachés.",
   },
 
   guarantee: {
     eyebrow: "Notre promesse",
     headline: "Si ça ne fonctionne pas pour vous, vous ne le payez pas.",
-    body: "Chaque partenariat de 12 mois inclut une garantie satisfait ou remboursé de 30 jours : si le nouveau site ne fait pas son travail le premier mois, vous êtes intégralement remboursé. Sur toutes les autres formules, elle est disponible en option — nous préférons porter le risque plutôt que de vous laisser porter le doute.",
+    body: "Chaque partenariat mensuel inclut une garantie satisfait ou remboursé de 30 jours : si le nouveau site ne fait pas son travail le premier mois, vous êtes intégralement remboursé. Nous préférons porter le risque plutôt que de vous laisser porter le doute.",
     points: ["30 jours, remboursement intégral", "Pas de petites lignes", "Le risque est pour nous"],
     cta: "Voir les formules & tarifs",
   },
@@ -144,13 +306,13 @@ const fr: Dictionary = {
       {
         name: "Daniel Bota",
         role: "CEO & Développeur principal",
-        bio: "Daniel a passé plus de 10 ans dans l'hôtellerie-restauration avant de créer TableFront — il sait de première main ce qu'un site défaillant coûte à un établissement.",
+        bio: "Daniel a passé plus de 10 ans dans l'hôtellerie-restauration avant de créer TableFront — il sait de première main ce qu'un site défaillant coûte à une entreprise.",
         imageAlt: "Portrait de Daniel Bota",
       },
       {
         name: "Devin Kabay",
         role: "Responsable commercial",
-        bio: "Diplômé en gestion hôtelière avec plus de 7 ans de terrain, Devin apporte un vrai instinct de l'accueil à chaque conversation client — pour que les bons établissements trouvent TableFront.",
+        bio: "Diplômé en gestion hôtelière avec plus de 7 ans de terrain, Devin apporte un vrai instinct de l'accueil à chaque conversation client — pour que les bonnes entreprises trouvent TableFront.",
         imageAlt: "Portrait de Devin Kabay",
       },
     ],
@@ -162,35 +324,35 @@ const fr: Dictionary = {
     items: [
       {
         q: "Combien coûte un site web ?",
-        a: "Des tarifs transparents : la création unique commence à CHF 1 500 / 1 500 €, les partenariats mensuels à CHF 149 / 149 € par mois. Chaque prix et chaque option figure publiquement sur notre page tarifs — pas de jeu du « demandez un devis ».",
+        a: "Des tarifs transparents : la création unique commence à CHF 790 / 490 €, les partenariats mensuels à CHF 69 / 39 € par mois. Chaque prix figure publiquement sur notre page tarifs — pas de jeu du « demandez un devis ».",
       },
       {
         q: "J'ai déjà un site. Pourquoi en changer ?",
-        a: "S'il charge lentement, paraît daté sur téléphone ou n'apporte pas de réservations directes, il vous coûte silencieusement plus cher qu'une refonte. Envoyez-nous son adresse : nous construisons gratuitement un prototype de ce qu'il pourrait devenir — jugez de vos propres yeux, sans engagement.",
+        a: "S'il charge lentement, paraît daté sur téléphone ou n'apporte ni réservations, ni commandes, ni ventes, il vous coûte silencieusement plus cher qu'une refonte. Envoyez-nous son adresse : nous construisons gratuitement un prototype de ce qu'il pourrait devenir — jugez de vos propres yeux, sans engagement.",
       },
       {
         q: "Comment pouvez-vous construire en 7 jours ?",
-        a: "Nous ne construisons que des sites pour la restauration, donc nous ne partons jamais de zéro : structure éprouvée, performance et SEO intégrés d'origine, et un formulaire structuré qui rassemble tout en une seule fois. Les sept jours comptent à partir du moment où nous avons vos éléments.",
+        a: "Nous construisons autour de trois types de sites éprouvés — réserver, prendre rendez-vous, acheter — donc nous ne partons jamais de zéro : structure, performance et SEO intégrés d'origine, et un formulaire structuré qui rassemble tout en une seule fois. Les sept jours comptent à partir du moment où nous avons vos éléments.",
       },
       {
         q: "Que dois-je fournir ?",
-        a: "Votre logo, vos photos, votre carte et vos horaires — collectés une seule fois via un formulaire, avec de simples liens de partage plutôt que des chaînes d'e-mails. Pas de bonnes photos ? Nous en parlons lors de l'appel.",
+        a: "Votre logo, vos photos, votre carte, vos prestations ou vos produits, et vos horaires — collectés une seule fois via un formulaire, avec de simples liens de partage plutôt que des chaînes d'e-mails. Pas de bonnes photos ? Nous en parlons lors de l'appel.",
       },
       {
         q: "Le site m'appartient-il ?",
-        a: "Pour la création unique : oui, entièrement — le site et son contenu sont à vous. Avec les formules mensuelles, nous l'hébergeons, le maintenons et le mettons à jour pendant toute la durée du partenariat.",
+        a: "Pour la création unique : oui, entièrement — le site et son contenu sont à vous. Avec les partenariats mensuels, nous l'hébergeons, le maintenons et le mettons à jour pendant toute la durée du partenariat.",
       },
       {
-        q: "Que se passe-t-il quand ma carte change ?",
-        a: "Les formules mensuelles incluent les mises à jour de carte et de contenu. Sur une création unique, vous pouvez ajouter un service de mise à jour mensuel ou payer à la mise à jour — c'est vous qui choisissez, sans engagement.",
+        q: "Que se passe-t-il quand mes prix ou mon offre changent ?",
+        a: "Les partenariats mensuels incluent les mises à jour de contenu et de prix. Sur une création unique, vous payez à la mise à jour — c'est vous qui choisissez, sans engagement.",
       },
       {
-        q: "Travaillez-vous uniquement en Suisse ?",
-        a: "Non — nous construisons pour des restaurants, bars et cafés dans le monde entier, et votre site dans les langues de vos clients. Notre propre site fonctionne en anglais, allemand, portugais et français, avec des prix en CHF ou en EUR.",
+        q: "Travaillez-vous uniquement en Suisse et au Portugal ?",
+        a: "Non — nous construisons pour des entreprises dans le monde entier, dans les langues de vos clients. Notre propre site fonctionne en anglais, allemand, portugais et français, avec des prix en CHF ou en EUR.",
       },
       {
         q: "Et si je ne suis pas satisfait du résultat ?",
-        a: "Les partenariats de 12 mois incluent une garantie satisfait ou remboursé de 30 jours — remboursement intégral, sans petites lignes. Sur les autres formules, vous pouvez ajouter la même garantie, et chaque projet inclut au moins 30 jours de support après la mise en ligne.",
+        a: "Les partenariats mensuels incluent une garantie satisfait ou remboursé de 30 jours — remboursement intégral, sans petites lignes. Chaque projet inclut au moins 30 jours de support après la mise en ligne.",
       },
     ],
   },
@@ -198,11 +360,11 @@ const fr: Dictionary = {
   prototype: {
     eyebrow: "Prototype gratuit",
     headline: "Voyez votre nouveau site avant de dépenser quoi que ce soit.",
-    sub: "Laissez votre site actuel (ou simplement le nom de votre établissement) et votre e-mail. Nous vous envoyons un prototype gratuit de la page d'accueil que TableFront construirait — sans obligation, et les idées restent les vôtres quoi qu'il arrive.",
-    siteLabel: "Votre site ou le nom de votre restaurant",
-    sitePlaceholder: "votrerestaurant.ch",
+    sub: "Laissez votre site actuel (ou simplement le nom de votre entreprise) et votre e-mail. Nous vous envoyons un prototype gratuit de la page d'accueil que TableFront construirait — sans obligation, et les idées restent les vôtres quoi qu'il arrive.",
+    siteLabel: "Votre site ou le nom de votre entreprise",
+    sitePlaceholder: "votreentreprise.ch",
     emailLabel: "Votre e-mail",
-    emailPlaceholder: "vous@votrerestaurant.ch",
+    emailPlaceholder: "vous@votreentreprise.ch",
     submit: "Recevoir mon prototype gratuit",
     sending: "Envoi en cours…",
     successTitle: "Demande reçue.",
@@ -213,18 +375,20 @@ const fr: Dictionary = {
 
   finalCta: {
     headline: "Vos clients vous cherchent en ce moment même.",
-    sub: "Soyez le restaurant qu'ils trouvent — et qu'ils réservent.",
+    sub: "Soyez l'entreprise qu'ils trouvent — et celle où ils réservent, commandent ou achètent.",
     ctaPrimary: "Réserver votre appel gratuit",
     ctaSecondary: "Recevoir un prototype gratuit",
     note: "Appel de 30 minutes · Sans engagement · En ligne en 7 jours",
   },
 
   footer: {
-    tagline: "Des sites conçus par des gens du métier pour restaurants, bars et cafés — rapides, faciles à trouver et faits pour remplir des tables.",
+    tagline:
+      "Des sites web qui transforment les visiteurs en réservations, commandes et ventes. Nés dans la restauration — conçus pour toutes les entreprises qui vendent à leurs clients.",
     navTitle: "Navigation",
     startTitle: "Commencer",
     legalTitle: "Mentions légales",
     linkHow: "Notre méthode",
+    linkWork: "Nos réalisations",
     linkStory: "Notre histoire",
     linkFaq: "FAQ",
     linkPricing: "Tarifs",
@@ -236,151 +400,33 @@ const fr: Dictionary = {
   },
 
   pricing: {
-    eyebrow: "Formules de site web pour la restauration",
+    eyebrow: "Formules de site web",
     headline1: "Un site qui travaille",
     headline2: "aussi dur que vous.",
-    sub: "Chaque formule inclut un site sur mesure, mobile-first, en ligne en 7 jours — pour protéger votre réputation et générer des réservations directes. Les prix sont publics et fixés par marché.",
+    sub: "Chaque formule inclut un site sur mesure, mobile-first, en ligne en 7 jours — construit autour de la seule action que vos clients doivent accomplir. Les prix sont publics et fixés par marché.",
     strip: [
       "Design sur mesure mobile-first",
       "Livraison en 7 jours",
+      "Une action claire",
       "Configuration SEO local",
-      "Système de réservation",
       "Support 30 jours",
       "Formation & remise des clés",
     ],
-    choose: "Choisissez votre formule",
-    chooseSub: "Toutes les formules commencent par un site propre et professionnel avec carte en PDF. Ajustez le périmètre avec les options ci-dessous.",
-    startingFrom: "À partir de",
-    perMonth: "/mois",
-    select: "Choisir cette formule",
-    selected: "Sélectionnée",
-    plans: {
-      onetime: {
-        label: "Création Unique",
-        priceSub: "paiement unique · prix de départ",
-        commitment: "Pas de frais mensuels. Le site est à vous.",
-        note: "La création de base inclut une carte PDF propre que les clients peuvent ouvrir et télécharger. Carte visuelle complète disponible en option.",
-      },
-      sub6: {
-        label: "Mensuel — 6 mois",
-        priceSub: "par mois · prix de départ",
-        commitment: "Engagement de 6 mois. Résiliable ensuite.",
-        note: "La base inclut la carte PDF. Ajoutez la carte visuelle complète moyennant des frais de création uniques plus des frais mensuels de mise à jour. Inclut 1 mise à jour de carte et de contenu par période contractuelle.",
-      },
-      sub12: {
-        label: "Mensuel — 12 mois",
-        badge: "Meilleure offre",
-        priceSub: "par mois · prix de départ",
-        commitment: "1 mois offert — soit ~8% d'économie.",
-        extra: "12 mois facturés mensuellement + 1 mois offert",
-        note: "La base inclut la carte PDF. Ajoutez la carte visuelle complète moyennant des frais de création uniques plus des frais mensuels de mise à jour. Inclut 2 mises à jour de carte et de contenu par période contractuelle.",
-      },
-    },
-    features: {
-      customDesign: "Design sur mesure mobile-first",
-      pdfMenu: "Carte PDF (ouvrir & télécharger)",
-      reservation: "Intégration du système de réservation",
-      googleMaps: "Google Maps, horaires & WhatsApp click-to-call",
-      localSeo: "Configuration SEO local",
-      analytics: "Tableau de bord analytics basique",
-      support30: "30 jours de support après mise en ligne",
-      training: "Session de formation & remise des clés",
-      monthlyUpdates: "Mises à jour mensuelles de carte & contenu",
-      maintenance: "Maintenance & corrections en continu",
-      oneUpdate: "1 mise à jour de carte & contenu incluse",
-      twoUpdates: "2 mises à jour de carte & contenu incluses",
-      perContract: "Par période contractuelle",
-      guaranteeIncluded: "Garantie satisfait ou remboursé 30 jours incluse",
-    },
-    scopeTitle: "Ce qui est inclus — et ce qui ne l'est pas",
-    scopeSub: "À lire avant de signer. Un périmètre clair nous protège tous les deux.",
-    scopeToggle: "Voir toutes les règles de périmètre — mises à jour mensuelles, limites & exclusions",
-    scopeAlways: "Toujours inclus dans les formules mensuelles",
-    scopeLimited: "Limité — abonnés à la carte visuelle uniquement",
-    scopeNever: "Jamais inclus — devisé séparément",
-    scopeItems: {
-      always: [
-        "Formule 6 mois : 1 mise à jour de carte et de contenu incluse par période contractuelle",
-        "Formule 12 mois : 2 mises à jour de carte et de contenu incluses par période contractuelle",
-        "Modifications des horaires et coordonnées",
-        "Petites modifications de texte ou de description",
-      ],
-      limited: [
-        "Une refonte ou restructuration complète de la carte compte comme 1 mise à jour complète",
-        "L'ajout de sections ou catégories entièrement nouvelles compte comme 1 mise à jour complète",
-        "Les remplacements massifs de photos comptent comme 1 mise à jour complète",
-      ],
-      never: [
-        "Nouvelles pages au-delà du périmètre initial",
-        "E-commerce, commande en ligne ou programmes de fidélité",
-        "Illustrations sur mesure ou séances photo",
-        "Intégrations de logiciels de caisse ou de comptabilité",
-        "Gestion des réseaux sociaux ou de Google Ads",
-        "Cartes imprimées, signalétique ou supports de marque",
-      ],
-    },
-    addonsTitle: "Enrichissez votre formule",
-    addonsSub: "Des options à combiner selon ce qui compte le plus pour vous.",
-    addons: {
-      menu_visual: {
-        label: "Intégration complète de la carte visuelle",
-        priceSub: "frais de création uniques",
-        desc: "Chaque plat et chaque boisson intégrés directement au site — photos, descriptions, allergènes et prix. Vos clients feuillettent votre carte comme un magazine, sans PDF.",
-        scope: "Clients en formule mensuelle : les frais mensuels couvrent les mises à jour (changements de prix, rotations saisonnières, remplacements de photos). Restructurations complètes : max. 2× par an.",
-        subBadge: "frais mensuels de mise à jour sur les formules mensuelles",
-      },
-      speed: {
-        label: "Mise en ligne d'urgence en 48 h",
-        desc: "Réouverture après travaux ou site perdu ? Nous mettons en ligne en 48 heures pour que votre réputation ne souffre pas.",
-      },
-      guarantee: {
-        label: "Garantie satisfait ou remboursé 30 jours",
-        desc: "Pas convaincu sous 30 jours ? Remboursement intégral. Nous sommes assez sûrs de notre travail pour porter le risque.",
-        includedBadge: "Incluse gratuitement avec la formule 12 mois",
-      },
-      updates_monthly: {
-        label: "Service de mise à jour mensuel",
-        desc: "Changements de carte, suggestions, photos, horaires — traités vite, sans identifiant. Idéal pour les patrons qui actualisent leur contenu toute l'année.",
-        scope: "Couvre : modifications de prix, rotations saisonnières, remplacements de photos, échanges de carte PDF. Restructurations complètes : max. 2× par an.",
-        tag: "Formule unique seulement",
-      },
-      updates_ondemand: {
-        label: "À la mise à jour (à la demande)",
-        pricePrefix: "Dès",
-        desc: "Besoin d'une mise à jour au-delà de votre quota, ou sur une création unique ? Payez à la mise à jour selon le périmètre. Sans engagement mensuel.",
-        scope: "Prix final confirmé avant chaque mise à jour, selon ce qui doit changer.",
-      },
-      support60: {
-        label: "Support 60 jours après mise en ligne",
-        desc: "Support dédié et points hebdomadaires pendant 60 jours après la mise en ligne. Zéro surprise, zéro stress.",
-      },
-      reports: {
-        label: "Rapports de performance sur 3 mois",
-        desc: "Rapport mensuel avec le nombre de visiteurs, les pages les plus vues et la conversion en réservations — pour voir les résultats en chiffres réels.",
-      },
-    },
-    included: "Inclus",
-    summaryTitle: "Votre investissement",
-    summarySub: "Récapitulatif en direct selon vos sélections ci-dessus.",
-    summaryEmpty: "Sélectionnez une formule ci-dessus pour voir votre récapitulatif.",
-    total: "Total",
-    totalBuild: "création",
-    varNote: "+ Coût par mise à jour devisé séparément",
-    exitTitle: "Ça vous plaît ?",
-    exitSub: "Mentionnez votre sélection lors de l'appel — nous maintenons ces prix.",
+    exitTitle: "Vous avez trouvé votre formule ?",
+    exitSub: "Mentionnez-la lors de l'appel — nous maintenons ces prix.",
     exitCall: "Réserver un appel gratuit",
     exitPrototype: "Voir d'abord le prototype gratuit",
     note: "Prix fixes par marché, affichés en CHF ou en EUR — changez à tout moment. Création en 7 jours dès réception des éléments. Sans frais cachés.",
-    note2: "Prix final confirmé lors de votre appel gratuit, une fois votre périmètre complet connu.",
+    note2: "Périmètre final confirmé lors de votre appel gratuit, une fois votre activité bien comprise.",
   },
 
   legal: {
     title: "Confidentialité & Mentions légales",
-    updated: "Dernière mise à jour : juin 2026",
+    updated: "Dernière mise à jour : novembre 2026",
     sections: [
       {
         h: "Qui nous sommes",
-        p: "TableFront construit des sites web pour les restaurants, bars, cafés et établissements indépendants de l'hôtellerie-restauration. Le service est opéré depuis la Suisse et proposé dans le monde entier. Vous pouvez nous joindre via le formulaire de prototype sur la page d'accueil ou en réservant un appel.",
+        p: "TableFront construit des sites web pour les entreprises qui vendent directement à leurs clients — hôtellerie-restauration, santé & beauté, petits producteurs et boutiques. Le service est opéré depuis la Suisse et le Portugal et proposé dans le monde entier. Vous pouvez nous joindre via le formulaire de prototype sur la page d'accueil ou en réservant un appel.",
       },
       {
         h: "Quelles données nous collectons",
@@ -410,7 +456,7 @@ const fr: Dictionary = {
   },
 
   notFound: {
-    headline: "Cette table n'est pas dressée.",
+    headline: "Cette page n'est pas encore ouverte.",
     body: "La page que vous cherchez n'existe pas ou a été déplacée.",
     cta: "Retour à la page d'accueil",
   },

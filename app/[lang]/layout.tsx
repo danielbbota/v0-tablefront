@@ -63,7 +63,7 @@ export async function generateMetadata({
       siteName: "TableFront",
       type: "website",
       locale: ogLocaleForLocale[lang],
-      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites for hospitality" }],
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites that turn visitors into bookings, orders and sales" }],
     },
     twitter: {
       card: "summary_large_image",
