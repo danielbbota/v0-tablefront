@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { Wordmark } from "@/components/site/wordmark"
 import Link from "next/link"
 import { CALENDLY_URL, type Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
@@ -10,13 +10,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
         <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
           <div>
             <Link href={`/${lang}`} aria-label={dict.homeLabel} className="inline-block">
-              <Image
-                src="/logo-espresso.png"
-                alt="TableFront"
-                width={121}
-                height={36}
-                className="h-9 w-auto"
-              />
+              <Wordmark className="text-[1.75rem]" />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{dict.tagline}</p>
           </div>

@@ -6,19 +6,19 @@ const TEAM_IMAGES = ["/images/team/daniel-bota.jpg", "/images/team/devin-kabay.j
 
 export function Team({ dict }: { dict: Dictionary["team"] }) {
   return (
-    <section className="bg-surface py-24 md:py-32">
+    <section className="bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="reveal max-w-2xl">
+        <div className="reveal max-w-4xl">
           <p className="eyebrow">{dict.eyebrow}</p>
-          <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-          <p className="mt-5 text-body-lg text-muted-foreground">{dict.sub}</p>
+          <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
         </div>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 md:gap-8">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 md:gap-8">
           {dict.members.map((member, index) => (
             <article
               key={member.name}
-              className="reveal flex flex-col items-center gap-6 rounded-lg bg-background p-8 text-center sm:flex-row sm:items-start sm:text-left md:p-10"
+              className="reveal flex flex-col items-center gap-6 rounded-lg bg-background p-8 text-center sm:flex-row sm:items-start sm:text-left"
               style={{ "--reveal-delay": `${index * 120}ms` } as CSSProperties}
             >
               <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full">

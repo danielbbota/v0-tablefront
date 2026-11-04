@@ -6,7 +6,7 @@ import type { Dictionary } from "@/lib/dictionaries/en"
 /** The single espresso contrast panel — the page's one dark editorial moment. */
 export function Guarantee({ lang, dict }: { lang: Locale; dict: Dictionary["guarantee"] }) {
   return (
-    <section className="bg-espresso py-24 md:py-32">
+    <section className="bg-espresso py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="reveal mx-auto max-w-3xl text-center">
           <p className="font-mono text-label uppercase tracking-[0.16em] text-brass">{dict.eyebrow}</p>

@@ -33,11 +33,11 @@ export async function generateMetadata({
 
 function SectionIntro({ eyebrow, headline, sub }: { eyebrow: string; headline: string; sub?: string }) {
   return (
-    <div className="reveal max-w-2xl">
+    <div className="reveal max-w-4xl">
       <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{headline}</h2>
-      {sub && <p className="mt-5 text-body-lg text-muted-foreground">{sub}</p>}
-      <span className="draw-rule mt-8 w-24" aria-hidden />
+      <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{headline}</h2>
+      {sub && <p className="mt-4 text-body-lg text-muted-foreground">{sub}</p>}
+      <span className="draw-rule mt-5 w-24" aria-hidden />
     </div>
   )
 }
@@ -55,7 +55,7 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
       <Navigation lang={lang} dict={dict.nav} />
       <main className="bg-background">
         {/* Header */}
-        <header className="mx-auto grid max-w-[1280px] items-center gap-14 px-6 pb-20 pt-36 md:grid-cols-[7fr_5fr] md:gap-12 lg:px-8">
+        <header className="mx-auto grid max-w-[1280px] items-center gap-14 px-6 pb-12 pt-28 md:grid-cols-[7fr_5fr] md:gap-12 lg:px-8">
           <div>
             <p className="eyebrow">{t.eyebrow}</p>
             <h1 className="mt-5 font-serif text-display font-medium text-heading text-balance">
@@ -83,14 +83,14 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
         </header>
 
         {/* For your guests */}
-        <section className="border-t border-border bg-surface py-24 md:py-32">
+        <section className="border-t border-border bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
             <SectionIntro eyebrow={t.guests.eyebrow} headline={t.guests.headline} sub={t.guests.sub} />
-            <ol className="mt-16 grid gap-6 md:grid-cols-3">
+            <ol className="mt-10 grid gap-6 md:grid-cols-3">
               {t.guests.steps.map((step, index) => (
                 <li
                   key={step.title}
-                  className="reveal rounded-lg border border-transparent bg-background p-8 transition-colors duration-300 hover:border-brass/60 md:p-10"
+                  className="reveal rounded-lg border border-transparent bg-background p-8 transition-colors duration-300 hover:border-brass/60"
                   style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}
                 >
                   <span className="font-mono text-label tracking-[0.16em] text-brass" aria-hidden>
@@ -105,14 +105,14 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
         </section>
 
         {/* For your team */}
-        <section className="py-24 md:py-32">
+        <section className="py-16 md:py-[clamp(3rem,8svh,5rem)]">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
             <SectionIntro eyebrow={t.team.eyebrow} headline={t.team.headline} sub={t.team.sub} />
-            <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {t.team.features.map((feature, index) => (
                 <article
                   key={feature.title}
-                  className="reveal rounded-lg border border-border bg-surface p-8 transition-colors duration-300 hover:border-brass/60"
+                  className="reveal rounded-lg border border-border bg-surface p-7 transition-colors duration-300 hover:border-brass/60"
                   style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
                 >
                   <h3 className="font-serif text-h3 font-medium text-heading">{feature.title}</h3>
@@ -124,10 +124,10 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
         </section>
 
         {/* Why not a marketplace */}
-        <section className="border-t border-border bg-surface py-24 md:py-32">
+        <section className="border-t border-border bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
             <SectionIntro eyebrow={t.own.eyebrow} headline={t.own.headline} />
-            <div className="mt-16 grid gap-10 md:grid-cols-3">
+            <div className="mt-10 grid gap-10 md:grid-cols-3">
               {t.own.points.map((point, index) => (
                 <div
                   key={point.title}
@@ -143,9 +143,9 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
         </section>
 
         {/* Included in Monthly Professional + good to know */}
-        <section className="py-24 md:py-32">
+        <section className="py-16 md:py-[clamp(3rem,8svh,5rem)]">
           <div className="mx-auto grid max-w-[1280px] gap-10 px-6 md:grid-cols-[6fr_6fr] lg:px-8">
-            <div className="reveal rounded-lg border border-brass bg-background p-8 ring-1 ring-brass/40 md:p-10">
+            <div className="reveal rounded-lg border border-brass bg-background p-8 ring-1 ring-brass/40">
               <p className="eyebrow">{t.included.eyebrow}</p>
               <h2 className="mt-5 font-serif text-h2 font-medium text-heading text-balance">{t.included.headline}</h2>
               <p className="mt-4 leading-relaxed text-foreground/80">{t.included.body}</p>
@@ -173,7 +173,7 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
 
         {/* Exit */}
         <section className="mx-auto max-w-[1280px] px-6 pb-24 lg:px-8">
-          <div className="reveal rounded-lg bg-espresso p-8 text-center md:p-10">
+          <div className="reveal rounded-lg bg-espresso p-8 text-center">
             <p className="font-serif text-h2 font-medium text-cream">{t.exitTitle}</p>
             <p className="mt-2 text-cream/70">{t.exitSub}</p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-4">

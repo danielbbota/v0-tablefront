@@ -19,12 +19,12 @@ export function ReservationsTeaser({
   mock: Dictionary["reservations"]["mock"]
 }) {
   return (
-    <section id="reservations" className="scroll-mt-24 border-t border-border bg-background py-24 md:py-32">
+    <section id="reservations" className="scroll-mt-24 border-t border-border bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto grid max-w-[1280px] items-center gap-14 px-6 md:grid-cols-[6fr_6fr] md:gap-12 lg:px-8">
         <div className="reveal">
           <p className="eyebrow">{dict.eyebrow}</p>
-          <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-          <p className="mt-5 text-body-lg text-muted-foreground">{dict.sub}</p>
+          <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
           <ul className="mt-8 space-y-3">
             {dict.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-foreground/85">

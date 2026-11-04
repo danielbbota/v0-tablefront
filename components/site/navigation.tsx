@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
+import { Wordmark } from "@/components/site/wordmark"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
@@ -95,16 +95,9 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
         isScrolled ? "border-b border-border" : ""
       }`}
     >
-      <div className="mx-auto flex h-18 max-w-[1280px] items-center justify-between px-6 py-4 lg:px-8">
+      <div className="mx-auto flex h-18 max-w-[1280px] items-center justify-between gap-8 px-6 py-4 lg:px-8">
         <Link href={`/${lang}`} aria-label={dict.homeLabel} className="shrink-0">
-          <Image
-            src="/logo-espresso.png"
-            alt="TableFront"
-            width={148}
-            height={44}
-            priority
-            className="h-10 w-auto md:h-11"
-          />
+          <Wordmark className="text-[1.625rem] md:text-[1.75rem]" />
         </Link>
 
         {/* Desktop — xl breakpoint: DE/FR/PT labels need the room */}

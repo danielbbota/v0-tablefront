@@ -39,7 +39,7 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
       <RevealInit />
       <Navigation lang={lang} dict={dict.nav} />
       <main className="bg-background">
-        <header className="mx-auto max-w-[1280px] px-6 pb-4 pt-36 lg:px-8">
+        <header className="mx-auto max-w-[1280px] px-6 pb-4 pt-28 lg:px-8">
           <p className="eyebrow">{dict.pricing.eyebrow}</p>
           <h1 className="mt-5 max-w-3xl font-serif text-display font-medium text-heading text-balance">
             {dict.pricing.headline1} <em className="not-italic text-primary">{dict.pricing.headline2}</em>
@@ -59,7 +59,7 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
         <PricingPlans lang={lang} dict={dict.plans} compact />
 
         <section className="mx-auto max-w-[1280px] px-6 pb-24 lg:px-8">
-          <div className="reveal rounded-lg bg-espresso p-8 text-center md:p-10">
+          <div className="reveal rounded-lg bg-espresso p-8 text-center">
             <p className="font-serif text-h2 font-medium text-cream">{dict.pricing.exitTitle}</p>
             <p className="mt-2 text-cream/70">{dict.pricing.exitSub}</p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
