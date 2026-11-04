@@ -12,6 +12,10 @@ const pt: Dictionary = {
       description:
         "Preços transparentes para websites: construção única desde €490 / CHF 790, parcerias mensais desde €39 / CHF 69. Fixos por mercado, sem taxas ocultas, entrega em 7 dias.",
     },
+    reservations: {
+      title: "Reservas — Reservas de mesa sem comissões no seu próprio website",
+      description: "TableFront Reservas: um widget de reservas sem comissões para restaurantes e cafés, com e-mails de confirmação e lembrete, mapa de sala em tempo real e vista do dia para a sua equipa. Incluído no plano Mensal Profissional.",
+    },
     legal: {
       title: "Privacidade & Aviso Legal",
       description: "Como o TableFront trata os seus dados — e quem está por detrás do site.",
@@ -25,6 +29,7 @@ const pt: Dictionary = {
     story: "História",
     faq: "FAQ",
     pricing: "Preços",
+    reservations: "Reservas",
     bookCall: "Chamada gratuita",
     getPrototype: "Protótipo grátis",
     languageLabel: "Idioma",
@@ -381,6 +386,157 @@ const pt: Dictionary = {
     note: "Chamada de 30 minutos · Sem compromisso · Live em 7 dias",
   },
 
+  reservationsTeaser: {
+    eyebrow: "Reservas · Hotelaria",
+    headline: "A nossa própria plataforma de reservas, integrada no seu site.",
+    sub: "Os clientes reservam mesa em segundos no seu website — sem marketplace, sem comissão. A sua equipa vê todas as reservas, telefonemas e walk-ins num único mapa de sala.",
+    points: [
+      "Sem comissões, no seu próprio domínio",
+      "E-mails de confirmação e lembrete, em quatro línguas",
+      "Vista do dia com mapa de sala em tempo real, chegadas e faltas",
+    ],
+    included: "Incluído no Mensal Profissional",
+    cta: "Conhecer a plataforma",
+  },
+
+  reservations: {
+    eyebrow: "Reservas para a hotelaria",
+    headline1: "O seu próprio sistema de reservas,",
+    headline2: "no seu próprio website.",
+    sub: "O TableFront Reservas é a plataforma de reservas que construímos enquanto geríamos restaurantes. Vive no site que desenhamos para si: os clientes reservam em segundos, a equipa gere a sala a partir de um ecrã e ninguém fica com uma parte.",
+    ctaPrimary: "Agendar chamada gratuita",
+    ctaSecondary: "Ver preços",
+    strip: [
+      "Sem comissões",
+      "E-mails de confirmação e lembrete",
+      "Mapa de sala em tempo real",
+      "Português · Inglês · Alemão · Francês",
+    ],
+    guests: {
+      eyebrow: "Para os seus clientes",
+      headline: "Reserva feita em menos de um minuto, sem criar conta.",
+      sub: "O widget vive no seu site e segue a sua marca — as suas cores, a sua fonte, os seus cantos.",
+      steps: [
+        {
+          title: "Escolher data, número de pessoas e hora",
+          body: "Até 60 dias de antecedência, grupos de 1 a 12 pessoas, e só os horários que estão mesmo livres.",
+        },
+        {
+          title: "Deixar nome e contacto",
+          body: "Nome, telefone, e-mail e uma nota para a cozinha. O formulário é só isto.",
+        },
+        {
+          title: "Confirmado — e lembrado",
+          body: "Um e-mail de confirmação na hora, um lembrete na véspera e um link para cancelar sem ter de ligar.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "Para a sua equipa",
+      headline: "Gerir a sala a partir de um ecrã.",
+      sub: "Tudo o que a receção precisa, nada do que não precisa.",
+      features: [
+        {
+          title: "Todas as reservas numa lista",
+          body: "Reservas online, por telefone e walk-ins lado a lado, futuras e passadas. Cancelar, reconfirmar ou editar num toque — o cliente recebe o e-mail automaticamente.",
+        },
+        {
+          title: "Vista do dia com mapa de sala em tempo real",
+          body: "Os couverts de hoje num relance. Marque os clientes como chegados, sentados ou em falta e veja as mesas a encher no mapa.",
+        },
+        {
+          title: "O seu mapa de sala, desenhado por si",
+          body: "Desenhe a sua própria sala no editor — zonas, mesas redondas e quadradas com lugares, o bar, portas e paredes — e altere-a sempre que quiser. Junte mesas para grupos grandes.",
+        },
+        {
+          title: "As suas regras, a sua capacidade",
+          body: "Horário por dia, intervalo entre horários, tempo de permanência e quantos couverts aceita online por horário. As reservas por telefone podem sempre entrar por cima.",
+        },
+        {
+          title: "É o primeiro a saber",
+          body: "Um e-mail por cada nova reserva online e por cada cancelamento — a equipa nunca é apanhada de surpresa.",
+        },
+        {
+          title: "Quatro línguas, automaticamente",
+          body: "O widget segue a língua do browser do cliente — português, inglês, alemão ou francês — e, se não houver, usa a sua.",
+        },
+      ],
+    },
+    own: {
+      eyebrow: "Porquê não um marketplace",
+      headline: "Os seus clientes, os seus dados, zero comissão.",
+      points: [
+        {
+          title: "Nada por couvert",
+          body: "As plataformas de reservas cobram por cliente ou por mês — por clientes que já eram seus. Aqui a taxa é zero; faz parte do seu plano de website.",
+        },
+        {
+          title: "Os clientes ficam no seu site",
+          body: "Sem redirecionar para uma página de terceiros cheia de concorrentes. A reserva acontece no seu domínio, no seu design.",
+        },
+        {
+          title: "A lista é sua",
+          body: "Nomes, telefones, visitas e notas ficam no seu painel — não na base de dados de marketing de outra empresa.",
+        },
+      ],
+    },
+    included: {
+      eyebrow: "Preços",
+      headline: "Incluído no plano Mensal Profissional.",
+      body: "As reservas fazem parte da parceria Mensal Profissional para clientes de hotelaria: alojamos, mantemos e atualizamos o seu site, configuramos o widget e acompanhamos a configuração do seu mapa de sala. Uma mensalidade, sem taxa de instalação da plataforma, sem custo por reserva.",
+      perMonth: "por mês",
+      cta: "Ver todos os planos",
+    },
+    setup: {
+      eyebrow: "Bom saber",
+      items: [
+        {
+          title: "Configuramos tudo por si",
+          body: "Não há registo self-service. Criamos o seu restaurante, configuramos horários e capacidade consigo e integramos o widget no dia do lançamento.",
+        },
+        {
+          title: "Uma linha de código, em qualquer lado",
+          body: "O widget também entra num website existente com uma única tag de script, se ainda não estiver pronto para um redesign.",
+        },
+        {
+          title: "E-mail, não SMS",
+          body: "Confirmações, lembretes e cancelamentos seguem por e-mail. Quem precisar de alterar uma reserva cancela pelo link e volta a reservar — ou liga-lhe.",
+        },
+      ],
+    },
+    exitTitle: "Quer vê-lo a funcionar num restaurante a sério?",
+    exitSub: "Agende uma chamada e mostramos-lhe o painel e o widget.",
+    exitCall: "Agendar chamada gratuita",
+    exitPricing: "Ver preços",
+    mock: {
+      widgetTitle: "Reservar mesa",
+      date: "Data",
+      party: "Pessoas",
+      time: "Hora",
+      dateValue: "Sex 14 nov",
+      partyValue: "4 pessoas",
+      slots: [
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+      ],
+      name: "Nome",
+      phone: "Telefone",
+      button: "Confirmar reserva",
+      confirmed: "Reserva confirmada!",
+      confirmedSub: "Mesa para 4 · Sex 14 nov · 20:00",
+      floorTitle: "Esta noite",
+      floorCovers: "42 couverts · 11 mesas",
+      legend: [
+        "Livre",
+        "Sentados",
+        "A chegar",
+      ],
+    },
+  },
+
   footer: {
     tagline:
       "Websites que transformam visitas em reservas, encomendas e vendas. Nascido na hotelaria — feito para todos os negócios que vendem diretamente aos clientes.",
@@ -392,6 +548,7 @@ const pt: Dictionary = {
     linkStory: "A nossa história",
     linkFaq: "FAQ",
     linkPricing: "Preços",
+    linkReservations: "Reservas",
     linkCall: "Agendar chamada",
     linkPrototype: "Protótipo grátis",
     linkLegal: "Privacidade & aviso legal",

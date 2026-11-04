@@ -12,6 +12,10 @@ const de: Dictionary = {
       description:
         "Transparente Website-Preise: einmaliger Aufbau ab CHF 790 / €490, monatliche Partnerschaften ab CHF 69 / €39. Fix pro Markt, keine versteckten Gebühren, Lieferung in 7 Tagen.",
     },
+    reservations: {
+      title: "Reservierungen — Provisionsfreie Tischreservierungen auf Ihrer eigenen Website",
+      description: "TableFront Reservierungen: ein provisionsfreies Buchungs-Widget für Restaurants und Cafés, mit Bestätigungs- und Erinnerungs-E-Mails, Live-Tischplan und Tagesansicht für Ihr Team. Im Plan Monatlich Professional enthalten.",
+    },
     legal: {
       title: "Datenschutz & Impressum",
       description: "Wie TableFront mit Ihren Daten umgeht — und wer hinter der Seite steht.",
@@ -25,6 +29,7 @@ const de: Dictionary = {
     story: "Geschichte",
     faq: "FAQ",
     pricing: "Preise",
+    reservations: "Reservierungen",
     bookCall: "Gratis-Gespräch",
     getPrototype: "Gratis-Prototyp",
     languageLabel: "Sprache",
@@ -381,6 +386,157 @@ const de: Dictionary = {
     note: "30-Minuten-Gespräch · Keine Verpflichtung · Live in 7 Tagen",
   },
 
+  reservationsTeaser: {
+    eyebrow: "Reservierungen · Gastronomie",
+    headline: "Unsere eigene Reservierungsplattform, in Ihre Website eingebaut.",
+    sub: "Gäste reservieren in Sekunden auf Ihrer Website — kein Marktplatz, keine Provision. Ihr Team sieht jede Reservierung, jeden Anruf und jeden Walk-in auf einem Tischplan.",
+    points: [
+      "Provisionsfrei, auf Ihrer eigenen Domain",
+      "Bestätigungs- und Erinnerungs-E-Mails in vier Sprachen",
+      "Tagesansicht mit Live-Tischplan, Ankünften und No-shows",
+    ],
+    included: "In Monatlich Professional enthalten",
+    cta: "Plattform entdecken",
+  },
+
+  reservations: {
+    eyebrow: "Reservierungen für die Gastronomie",
+    headline1: "Ihr eigenes Reservierungssystem,",
+    headline2: "auf Ihrer eigenen Website.",
+    sub: "TableFront Reservierungen ist die Buchungsplattform, die wir im eigenen Restaurantbetrieb entwickelt haben. Sie lebt auf der Website, die wir für Sie gestalten: Gäste reservieren in Sekunden, Ihr Team führt den Betrieb von einem Bildschirm aus, und niemand nimmt eine Provision.",
+    ctaPrimary: "Kostenloses Gespräch buchen",
+    ctaSecondary: "Preise ansehen",
+    strip: [
+      "Provisionsfrei",
+      "Bestätigungs- & Erinnerungs-E-Mails",
+      "Live-Tischplan",
+      "Deutsch · Englisch · Portugiesisch · Französisch",
+    ],
+    guests: {
+      eyebrow: "Für Ihre Gäste",
+      headline: "In unter einer Minute reserviert, ohne Konto.",
+      sub: "Das Widget sitzt auf Ihrer Website und passt sich Ihrer Marke an — Ihre Farben, Ihre Schrift, Ihre Rundungen.",
+      steps: [
+        {
+          title: "Datum, Personenzahl und Uhrzeit wählen",
+          body: "Bis 60 Tage im Voraus, 1 bis 12 Personen, und nur die Zeiten, die wirklich frei sind.",
+        },
+        {
+          title: "Name und Kontakt hinterlassen",
+          body: "Name, Telefon, E-Mail und eine Notiz für die Küche. Das ist das ganze Formular.",
+        },
+        {
+          title: "Bestätigt — und erinnert",
+          body: "Sofort eine Bestätigungs-E-Mail, am Vortag eine Erinnerung und ein Link zum Stornieren ohne Anruf.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "Für Ihr Team",
+      headline: "Den Betrieb von einem Bildschirm aus führen.",
+      sub: "Alles, was der Empfang braucht — und nichts, was er nicht braucht.",
+      features: [
+        {
+          title: "Jede Reservierung in einer Liste",
+          body: "Online-, Telefon- und Walk-in-Reservierungen nebeneinander, kommende und vergangene. Stornieren, erneut bestätigen oder bearbeiten mit einem Tipp — der Gast wird automatisch per E-Mail informiert.",
+        },
+        {
+          title: "Tagesansicht mit Live-Tischplan",
+          body: "Die Gedecke von heute auf einen Blick. Gäste als angekommen, platziert oder No-show markieren und zusehen, wie sich die Tische auf dem Plan füllen.",
+        },
+        {
+          title: "Ihr Tischplan, von Ihnen gezeichnet",
+          body: "Zeichnen Sie Ihren Raum selbst im Editor — Bereiche, runde und eckige Tische mit Sitzplätzen, die Bar, Türen und Wände — und ändern Sie ihn, wann immer Sie möchten. Tische für grosse Gruppen zusammenlegen.",
+        },
+        {
+          title: "Ihre Regeln, Ihre Kapazität",
+          body: "Öffnungszeiten pro Tag, Zeitfenster, Verweildauer und wie viele Gedecke Sie online pro Zeitfenster annehmen. Telefonreservierungen passen immer noch obendrauf.",
+        },
+        {
+          title: "Sie erfahren es zuerst",
+          body: "Eine E-Mail für jede neue Online-Reservierung und jede Stornierung — das Team wird nie überrascht.",
+        },
+        {
+          title: "Vier Sprachen, automatisch",
+          body: "Das Widget folgt der Browsersprache des Gastes — Deutsch, Englisch, Portugiesisch oder Französisch — und fällt auf Ihre zurück.",
+        },
+      ],
+    },
+    own: {
+      eyebrow: "Warum kein Marktplatz",
+      headline: "Ihre Gäste, Ihre Daten, keine Provision.",
+      points: [
+        {
+          title: "Nichts pro Gedeck",
+          body: "Buchungsplattformen verlangen pro Gast oder pro Monat — für Gäste, die ohnehin schon Ihre waren. Hier ist die Gebühr null; sie ist Teil Ihres Website-Plans.",
+        },
+        {
+          title: "Gäste bleiben auf Ihrer Website",
+          body: "Keine Weiterleitung auf eine Drittseite voller Konkurrenten. Die Reservierung passiert auf Ihrer Domain, in Ihrem Design.",
+        },
+        {
+          title: "Die Liste gehört Ihnen",
+          body: "Namen, Telefonnummern, Besuche und Notizen liegen in Ihrem Dashboard — nicht in der Marketing-Datenbank von jemand anderem.",
+        },
+      ],
+    },
+    included: {
+      eyebrow: "Preise",
+      headline: "Im Plan Monatlich Professional enthalten.",
+      body: "Reservierungen sind Teil der Partnerschaft Monatlich Professional für Gastronomiekunden: Wir hosten, warten und aktualisieren Ihre Website, richten das Widget ein und führen Sie durch den Tischplan-Editor. Eine Monatsgebühr, keine Einrichtungsgebühr für die Plattform, keine Kosten pro Reservierung.",
+      perMonth: "pro Monat",
+      cta: "Alle Pläne ansehen",
+    },
+    setup: {
+      eyebrow: "Gut zu wissen",
+      items: [
+        {
+          title: "Wir richten es für Sie ein",
+          body: "Es gibt keine Selbstregistrierung. Wir legen Ihr Restaurant an, konfigurieren Öffnungszeiten und Kapazität mit Ihnen und binden das Widget am Launch-Tag ein.",
+        },
+        {
+          title: "Eine Zeile Code, überall",
+          body: "Das Widget lässt sich mit einem einzigen Script-Tag auch in eine bestehende Website einfügen, falls Sie noch nicht bereit für ein Redesign sind.",
+        },
+        {
+          title: "E-Mail, nicht SMS",
+          body: "Bestätigungen, Erinnerungen und Stornierungen gehen per E-Mail raus. Gäste, die eine Reservierung ändern möchten, stornieren über ihren Link und reservieren neu — oder rufen Sie an.",
+        },
+      ],
+    },
+    exitTitle: "Möchten Sie es in einem echten Restaurant im Einsatz sehen?",
+    exitSub: "Buchen Sie ein Gespräch — wir führen Sie durch Dashboard und Widget.",
+    exitCall: "Kostenloses Gespräch buchen",
+    exitPricing: "Preise ansehen",
+    mock: {
+      widgetTitle: "Tisch reservieren",
+      date: "Datum",
+      party: "Gäste",
+      time: "Uhrzeit",
+      dateValue: "Fr 14. Nov",
+      partyValue: "4 Gäste",
+      slots: [
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+      ],
+      name: "Name",
+      phone: "Telefon",
+      button: "Reservierung bestätigen",
+      confirmed: "Reservierung bestätigt!",
+      confirmedSub: "Tisch für 4 · Fr 14. Nov · 20:00",
+      floorTitle: "Heute Abend",
+      floorCovers: "42 Gedecke · 11 Tische",
+      legend: [
+        "Frei",
+        "Platziert",
+        "Im Anmarsch",
+      ],
+    },
+  },
+
   footer: {
     tagline:
       "Webseiten, die aus Besuchern Buchungen, Bestellungen und Verkäufe machen. In der Gastronomie geboren — gebaut für jedes Unternehmen, das an Kunden verkauft.",
@@ -392,6 +548,7 @@ const de: Dictionary = {
     linkStory: "Unsere Geschichte",
     linkFaq: "FAQ",
     linkPricing: "Preise",
+    linkReservations: "Reservierungen",
     linkCall: "Gespräch buchen",
     linkPrototype: "Gratis-Prototyp",
     linkLegal: "Datenschutz & Impressum",

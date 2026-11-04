@@ -35,6 +35,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
                 </Link>
               </li>
               <li>
+                <Link href={`/${lang}/reservations`} className="link-brass text-sm text-foreground/70 hover:text-heading">
+                  {dict.linkReservations}
+                </Link>
+              </li>
+              <li>
                 <Link href={`/${lang}#story`} className="link-brass text-sm text-foreground/70 hover:text-heading">
                   {dict.linkStory}
                 </Link>

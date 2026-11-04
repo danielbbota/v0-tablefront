@@ -63,7 +63,7 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
 
 /**
  * The five fixed-price packages. Prices follow the CHF/EUR toggle in the
- * navigation (PT/FR default to EUR, DE/EN to CHF). Used on the homepage and,
+ * navigation (EN/PT default to EUR, DE/FR to CHF). Used on the homepage and,
  * with `showFullLink` off, as the body of the pricing page.
  */
 export function PricingPlans({

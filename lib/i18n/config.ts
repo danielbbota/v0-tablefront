@@ -17,10 +17,10 @@ export const currencies: Currency[] = ["CHF", "EUR"]
 
 /** Fixed per-market defaults — currency follows language unless the user overrides it. */
 export const defaultCurrencyForLocale: Record<Locale, Currency> = {
-  en: "CHF",
+  en: "EUR",
   de: "CHF",
   pt: "EUR",
-  fr: "EUR",
+  fr: "CHF",
 }
 
 export const SITE_URL = "https://www.tablesfront.com"

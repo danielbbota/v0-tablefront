@@ -10,6 +10,10 @@ const en = {
       description:
         "Transparent website pricing: one-time builds from €490 / CHF 790, monthly partnerships from €39 / CHF 69. Fixed per market, no hidden fees, 7-day delivery.",
     },
+    reservations: {
+      title: "Reservations — Commission-free table bookings on your own website",
+      description: "TableFront Reservations: a commission-free booking widget for restaurants and cafés, with confirmation and reminder emails, a live floor map and a day view for your team. Included in the Monthly Professional plan.",
+    },
     legal: {
       title: "Privacy & Legal Notice",
       description: "How TableFront handles your data, and who is behind the site.",
@@ -23,6 +27,7 @@ const en = {
     story: "Our story",
     faq: "FAQ",
     pricing: "Pricing",
+    reservations: "Reservations",
     bookCall: "Book a free call",
     getPrototype: "Free prototype",
     languageLabel: "Language",
@@ -89,7 +94,7 @@ const en = {
         tagline: "Made by hand, shipped to you",
         cta: "Buy online",
         notifTitle: "New sale",
-        notifDetail: "Order #124 · CHF 38",
+        notifDetail: "Order #124 · €38",
         statLabel: "Sales this month",
         statValue: "+63%",
       },
@@ -380,6 +385,159 @@ const en = {
     note: "30-minute call · No commitment · Live in 7 days",
   },
 
+  /** Home teaser for the reservation platform (hospitality flagship) — links to /reservations. */
+  reservationsTeaser: {
+    eyebrow: "Reservations · Hospitality",
+    headline: "Our own reservation platform, built into your site.",
+    sub: "Guests book a table in seconds on your website — no marketplace, no commission. Your team sees every booking, phone call and walk-in on one floor map.",
+    points: [
+      "Commission-free, on your own domain",
+      "Confirmation and reminder emails, in four languages",
+      "Day view with live floor map, arrivals and no-shows",
+    ],
+    included: "Included in Monthly Professional",
+    cta: "Discover the platform",
+  },
+
+  /** /reservations — the hospitality booking platform (app.tablesfront.com) explained. */
+  reservations: {
+    eyebrow: "Reservations for hospitality",
+    headline1: "Your own reservation system,",
+    headline2: "on your own website.",
+    sub: "TableFront Reservations is the booking platform we built while running restaurants. It lives on the site we design for you: guests book in seconds, your team runs the room from one screen, and nobody takes a cut.",
+    ctaPrimary: "Book a free call",
+    ctaSecondary: "See pricing",
+    strip: [
+      "Commission-free",
+      "Confirmation & reminder emails",
+      "Live floor map",
+      "English · German · Portuguese · French",
+    ],
+    guests: {
+      eyebrow: "For your guests",
+      headline: "Booked in under a minute, no account needed.",
+      sub: "The widget sits on your site and matches your brand — your colours, your font, your corners.",
+      steps: [
+        {
+          title: "Pick a date, party size and time",
+          body: "Up to 60 days ahead, parties of 1 to 12, and only the slots that are actually free.",
+        },
+        {
+          title: "Leave a name and contact details",
+          body: "Name, phone, email and a note for the kitchen. That is the whole form.",
+        },
+        {
+          title: "Confirmed — and reminded",
+          body: "A confirmation email right away, a reminder the day before, and a link to cancel without calling.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "For your team",
+      headline: "Run the room from one screen.",
+      sub: "Everything the host stand needs, nothing it doesn't.",
+      features: [
+        {
+          title: "Every booking in one list",
+          body: "Online, phone and walk-in bookings side by side, upcoming and past. Cancel, re-confirm or edit in a tap — the guest is emailed automatically.",
+        },
+        {
+          title: "Day view with live floor map",
+          body: "Today's covers at a glance. Mark guests arrived, seated or no-show and watch the tables fill on the map.",
+        },
+        {
+          title: "Your floor plan, drawn by you",
+          body: "Draw your own room in the editor — zones, round and square tables with seat counts, the bar, doors and walls — and change it whenever you like. Join tables for large parties.",
+        },
+        {
+          title: "Your rules, your capacity",
+          body: "Opening hours per day, slot interval, turn time and how many covers you accept online per slot. Phone bookings can always go on top.",
+        },
+        {
+          title: "You hear about it first",
+          body: "An email for every new online booking and every cancellation, so the team is never surprised.",
+        },
+        {
+          title: "Four languages, automatically",
+          body: "The widget follows the guest's browser language — English, German, Portuguese or French — and falls back to yours.",
+        },
+      ],
+    },
+    own: {
+      eyebrow: "Why not a marketplace",
+      headline: "Your guests, your data, no commission.",
+      points: [
+        {
+          title: "Nothing per cover",
+          body: "Booking platforms charge per guest or per month — for guests who were already yours. Here the fee is zero; it is part of your website plan.",
+        },
+        {
+          title: "Guests stay on your site",
+          body: "No redirect to a third-party page full of competitors. The booking happens on your domain, in your design.",
+        },
+        {
+          title: "The list is yours",
+          body: "Names, phone numbers, visits and notes live in your dashboard — not in someone else's marketing database.",
+        },
+      ],
+    },
+    included: {
+      eyebrow: "Pricing",
+      headline: "Included in the Monthly Professional plan.",
+      body: "Reservations come with the Monthly Professional partnership for hospitality clients: we host, maintain and update your site, set up the widget and walk you through the floor-plan editor. One monthly fee, no setup fee for the platform, no per-booking charge.",
+      perMonth: "per month",
+      cta: "See all plans",
+    },
+    setup: {
+      eyebrow: "Good to know",
+      items: [
+        {
+          title: "We set it up for you",
+          body: "There is no self-service sign-up. We create your restaurant, configure hours and capacity with you and embed the widget on launch day.",
+        },
+        {
+          title: "One line of code, anywhere",
+          body: "The widget also drops into an existing website with a single script tag, if you are not ready for a redesign yet.",
+        },
+        {
+          title: "Email, not SMS",
+          body: "Confirmations, reminders and cancellations go out by email. Guests who need to change a booking cancel with their link and rebook, or call you.",
+        },
+      ],
+    },
+    exitTitle: "Want to see it running on a real restaurant?",
+    exitSub: "Book a call and we'll walk you through the dashboard and the widget.",
+    exitCall: "Book a free call",
+    exitPricing: "See pricing",
+    mock: {
+      widgetTitle: "Reserve a table",
+      date: "Date",
+      party: "Guests",
+      time: "Time",
+      dateValue: "Fri 14 Nov",
+      partyValue: "4 guests",
+      slots: [
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+      ],
+      name: "Name",
+      phone: "Phone",
+      button: "Confirm reservation",
+      confirmed: "Booking confirmed!",
+      confirmedSub: "Table for 4 · Fri 14 Nov · 20:00",
+      floorTitle: "Tonight",
+      floorCovers: "42 covers · 11 tables",
+      legend: [
+        "Free",
+        "Seated",
+        "Arriving",
+      ],
+    },
+  },
+
   footer: {
     tagline:
       "Websites that turn visitors into bookings, orders and sales. Born in hospitality — built for every business that sells to customers.",
@@ -391,6 +549,7 @@ const en = {
     linkStory: "Our story",
     linkFaq: "FAQ",
     linkPricing: "Pricing",
+    linkReservations: "Reservations",
     linkCall: "Book a call",
     linkPrototype: "Free prototype",
     linkLegal: "Privacy & legal notice",

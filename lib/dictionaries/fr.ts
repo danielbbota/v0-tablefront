@@ -12,6 +12,10 @@ const fr: Dictionary = {
       description:
         "Tarifs transparents : création unique dès CHF 790 / 490 €, partenariat mensuel dès CHF 69 / 39 €. Fixes par marché, sans frais cachés, livraison en 7 jours.",
     },
+    reservations: {
+      title: "Réservations — Réservations de table sans commission sur votre propre site",
+      description: "TableFront Réservations : un widget de réservation sans commission pour restaurants et cafés, avec e-mails de confirmation et de rappel, plan de salle en direct et vue du jour pour votre équipe. Inclus dans la formule Mensuel Professionnel.",
+    },
     legal: {
       title: "Confidentialité & Mentions légales",
       description: "Comment TableFront traite vos données — et qui se trouve derrière le site.",
@@ -25,6 +29,7 @@ const fr: Dictionary = {
     story: "Notre histoire",
     faq: "FAQ",
     pricing: "Tarifs",
+    reservations: "Réservations",
     bookCall: "Appel gratuit",
     getPrototype: "Prototype gratuit",
     languageLabel: "Langue",
@@ -90,7 +95,7 @@ const fr: Dictionary = {
         tagline: "Fait main, livré chez vous",
         cta: "Acheter en ligne",
         notifTitle: "Nouvelle vente",
-        notifDetail: "Commande n° 124 · 38 €",
+        notifDetail: "Commande n° 124 · CHF 38",
         statLabel: "Ventes ce mois-ci",
         statValue: "+63%",
       },
@@ -381,6 +386,157 @@ const fr: Dictionary = {
     note: "Appel de 30 minutes · Sans engagement · En ligne en 7 jours",
   },
 
+  reservationsTeaser: {
+    eyebrow: "Réservations · Restauration",
+    headline: "Notre propre plateforme de réservation, intégrée à votre site.",
+    sub: "Vos clients réservent une table en quelques secondes sur votre site — sans marketplace, sans commission. Votre équipe voit chaque réservation, appel et client de passage sur un seul plan de salle.",
+    points: [
+      "Sans commission, sur votre propre domaine",
+      "E-mails de confirmation et de rappel, en quatre langues",
+      "Vue du jour avec plan de salle en direct, arrivées et no-shows",
+    ],
+    included: "Inclus dans Mensuel Professionnel",
+    cta: "Découvrir la plateforme",
+  },
+
+  reservations: {
+    eyebrow: "Réservations pour la restauration",
+    headline1: "Votre propre système de réservation,",
+    headline2: "sur votre propre site.",
+    sub: "TableFront Réservations est la plateforme que nous avons construite en exploitant des restaurants. Elle vit sur le site que nous concevons pour vous : vos clients réservent en quelques secondes, votre équipe gère la salle depuis un seul écran, et personne ne prend de commission.",
+    ctaPrimary: "Réserver un appel gratuit",
+    ctaSecondary: "Voir les tarifs",
+    strip: [
+      "Sans commission",
+      "E-mails de confirmation et de rappel",
+      "Plan de salle en direct",
+      "Français · Anglais · Allemand · Portugais",
+    ],
+    guests: {
+      eyebrow: "Pour vos clients",
+      headline: "Réservé en moins d'une minute, sans compte.",
+      sub: "Le widget s'intègre à votre site et suit votre marque — vos couleurs, votre police, vos arrondis.",
+      steps: [
+        {
+          title: "Choisir une date, un nombre de couverts et une heure",
+          body: "Jusqu'à 60 jours à l'avance, de 1 à 12 personnes, et seulement les créneaux réellement disponibles.",
+        },
+        {
+          title: "Laisser un nom et un contact",
+          body: "Nom, téléphone, e-mail et une note pour la cuisine. C'est tout le formulaire.",
+        },
+        {
+          title: "Confirmé — et rappelé",
+          body: "Un e-mail de confirmation immédiat, un rappel la veille et un lien pour annuler sans appeler.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "Pour votre équipe",
+      headline: "Gérer la salle depuis un seul écran.",
+      sub: "Tout ce dont l'accueil a besoin, rien de superflu.",
+      features: [
+        {
+          title: "Toutes les réservations dans une liste",
+          body: "Réservations en ligne, par téléphone et clients de passage côte à côte, à venir et passées. Annuler, reconfirmer ou modifier en un geste — le client reçoit l'e-mail automatiquement.",
+        },
+        {
+          title: "Vue du jour avec plan de salle en direct",
+          body: "Les couverts du jour d'un coup d'œil. Marquez les clients arrivés, installés ou absents et regardez les tables se remplir sur le plan.",
+        },
+        {
+          title: "Votre plan de salle, dessiné par vous",
+          body: "Dessinez votre propre salle dans l'éditeur — zones, tables rondes et carrées avec le nombre de places, le bar, les portes et les murs — et modifiez-la quand vous voulez. Regroupez des tables pour les grands groupes.",
+        },
+        {
+          title: "Vos règles, votre capacité",
+          body: "Horaires par jour, intervalle des créneaux, durée de table et nombre de couverts acceptés en ligne par créneau. Les réservations par téléphone peuvent toujours s'ajouter.",
+        },
+        {
+          title: "Vous êtes prévenu en premier",
+          body: "Un e-mail pour chaque nouvelle réservation en ligne et chaque annulation — l'équipe n'est jamais prise de court.",
+        },
+        {
+          title: "Quatre langues, automatiquement",
+          body: "Le widget suit la langue du navigateur du client — français, anglais, allemand ou portugais — et revient à la vôtre sinon.",
+        },
+      ],
+    },
+    own: {
+      eyebrow: "Pourquoi pas une marketplace",
+      headline: "Vos clients, vos données, zéro commission.",
+      points: [
+        {
+          title: "Rien par couvert",
+          body: "Les plateformes de réservation facturent par client ou par mois — pour des clients qui étaient déjà les vôtres. Ici, le coût est nul ; c'est compris dans votre formule de site.",
+        },
+        {
+          title: "Les clients restent sur votre site",
+          body: "Aucune redirection vers une page tierce remplie de concurrents. La réservation se fait sur votre domaine, dans votre design.",
+        },
+        {
+          title: "La liste vous appartient",
+          body: "Noms, numéros, visites et notes restent dans votre tableau de bord — pas dans la base marketing de quelqu'un d'autre.",
+        },
+      ],
+    },
+    included: {
+      eyebrow: "Tarifs",
+      headline: "Inclus dans la formule Mensuel Professionnel.",
+      body: "Les réservations font partie du partenariat Mensuel Professionnel pour les clients de la restauration : nous hébergeons, maintenons et mettons à jour votre site, installons le widget et vous guidons dans l'éditeur de plan de salle. Un abonnement mensuel, pas de frais d'installation pour la plateforme, pas de coût par réservation.",
+      perMonth: "par mois",
+      cta: "Voir toutes les formules",
+    },
+    setup: {
+      eyebrow: "Bon à savoir",
+      items: [
+        {
+          title: "Nous l'installons pour vous",
+          body: "Pas d'inscription en libre-service. Nous créons votre restaurant, réglons horaires et capacité avec vous et intégrons le widget le jour de la mise en ligne.",
+        },
+        {
+          title: "Une ligne de code, partout",
+          body: "Le widget s'ajoute aussi à un site existant avec une seule balise script, si vous n'êtes pas encore prêt pour une refonte.",
+        },
+        {
+          title: "E-mail, pas SMS",
+          body: "Confirmations, rappels et annulations partent par e-mail. Un client qui doit modifier sa réservation annule via son lien et réserve à nouveau — ou vous appelle.",
+        },
+      ],
+    },
+    exitTitle: "Envie de le voir tourner dans un vrai restaurant ?",
+    exitSub: "Réservez un appel et nous vous faisons visiter le tableau de bord et le widget.",
+    exitCall: "Réserver un appel gratuit",
+    exitPricing: "Voir les tarifs",
+    mock: {
+      widgetTitle: "Réserver une table",
+      date: "Date",
+      party: "Couverts",
+      time: "Heure",
+      dateValue: "ven. 14 nov.",
+      partyValue: "4 couverts",
+      slots: [
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+      ],
+      name: "Nom",
+      phone: "Téléphone",
+      button: "Confirmer la réservation",
+      confirmed: "Réservation confirmée !",
+      confirmedSub: "Table pour 4 · ven. 14 nov. · 20:00",
+      floorTitle: "Ce soir",
+      floorCovers: "42 couverts · 11 tables",
+      legend: [
+        "Libre",
+        "Installés",
+        "En route",
+      ],
+    },
+  },
+
   footer: {
     tagline:
       "Des sites web qui transforment les visiteurs en réservations, commandes et ventes. Nés dans la restauration — conçus pour toutes les entreprises qui vendent à leurs clients.",
@@ -392,6 +548,7 @@ const fr: Dictionary = {
     linkStory: "Notre histoire",
     linkFaq: "FAQ",
     linkPricing: "Tarifs",
+    linkReservations: "Réservations",
     linkCall: "Réserver un appel",
     linkPrototype: "Prototype gratuit",
     linkLegal: "Confidentialité & mentions légales",

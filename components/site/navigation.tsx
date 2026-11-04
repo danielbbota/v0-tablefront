@@ -31,6 +31,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
     { href: `/${lang}#why`, label: dict.why },
     { href: `/${lang}#how-it-works`, label: dict.how },
     { href: `/${lang}#work`, label: dict.work },
+    { href: `/${lang}/reservations`, label: dict.reservations },
     { href: `/${lang}#faq`, label: dict.faq },
     { href: `/${lang}/pricing`, label: dict.pricing },
   ]

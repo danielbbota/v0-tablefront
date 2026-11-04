@@ -5,6 +5,7 @@ import { languageAlternates } from "@/lib/seo"
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     { path: "", priority: 1 },
+    { path: "/reservations", priority: 0.8 },
     { path: "/pricing", priority: 0.8 },
   ]
 
