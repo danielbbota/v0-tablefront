@@ -47,7 +47,11 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
   const [pctCheck, setPctCheck] = useState(70)
   const [pctLost, setPctLost] = useState(10)
 
-  const monthlyLeak = Math.round((covers * (pctCheck / 100) * (pctLost / 100) * ticket) / 10) * 10
+  // Chain the rounding step by step so every figure shown in the breakdown
+  // multiplies out exactly to the headline number.
+  const guestsWhoCheck = Math.round(covers * (pctCheck / 100))
+  const guestsLost = Math.round(guestsWhoCheck * (pctLost / 100))
+  const monthlyLeak = guestsLost * ticket
   const tweenedMonthly = useTweenedNumber(monthlyLeak)
   const yearlyLeak = tweenedMonthly * 12
 
@@ -110,6 +114,46 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
                 </span>
               </summary>
               <div className="mt-6 space-y-7">
+                {/* Plain-language walkthrough — updates live with the sliders */}
+                <div className="rounded-lg border border-border bg-background p-5 md:p-6">
+                  <p className="font-mono text-label uppercase text-primary-deep">{dict.explainTitle}</p>
+                  <ol className="mt-4 space-y-2.5">
+                    <li className="text-sm leading-relaxed text-muted-foreground">
+                      <strong className="font-medium text-heading tabular-nums">{covers.toLocaleString()}</strong>{" "}
+                      {dict.explainStep1}
+                    </li>
+                    <li className="text-sm leading-relaxed text-muted-foreground">
+                      <span className="text-brass" aria-hidden>
+                        ↓{" "}
+                      </span>
+                      <strong className="font-medium text-heading tabular-nums">
+                        {guestsWhoCheck.toLocaleString()}
+                      </strong>{" "}
+                      <span className="tabular-nums">({pctCheck}%)</span> {dict.explainStep2}
+                    </li>
+                    <li className="text-sm leading-relaxed text-muted-foreground">
+                      <span className="text-brass" aria-hidden>
+                        ↓{" "}
+                      </span>
+                      <strong className="font-medium text-heading tabular-nums">
+                        {guestsLost.toLocaleString()}
+                      </strong>{" "}
+                      <span className="tabular-nums">({pctLost}%)</span> {dict.explainStep3}
+                    </li>
+                    <li className="mt-1 border-t border-border pt-3 text-sm leading-relaxed text-foreground/80">
+                      <strong className="font-serif text-subheading font-medium text-primary tabular-nums">
+                        {formatPrice(monthlyLeak, currency, lang)}
+                      </strong>{" "}
+                      {dict.explainStep4}
+                      <span className="mt-1 block text-xs text-muted-foreground tabular-nums">
+                        {dict.explainBreakdown
+                          .replace("{lost}", guestsLost.toLocaleString())
+                          .replace("{ticket}", formatPrice(ticket, currency, lang))}
+                      </span>
+                    </li>
+                  </ol>
+                </div>
+
                 <div>
                   <div className="flex items-baseline justify-between gap-4">
                     <label htmlFor="calc-check" className="text-sm text-foreground/80">
