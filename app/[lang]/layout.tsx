@@ -9,7 +9,7 @@ import {
   SITE_URL,
 } from "@/lib/i18n/config"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
-import { ogLocaleForLocale } from "@/lib/seo"
+import { ogImageFor, ogLocaleForLocale } from "@/lib/seo"
 import { CurrencyProvider } from "@/lib/currency-context"
 import "../globals.css"
 
@@ -66,7 +66,7 @@ export async function generateMetadata({
       siteName: "TableFront",
       type: "website",
       locale: ogLocaleForLocale[lang],
-      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites that turn visitors into bookings, orders and sales" }],
+      images: [ogImageFor(lang)],
     },
     twitter: {
       card: "summary_large_image",

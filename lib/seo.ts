@@ -17,6 +17,18 @@ export const ogLocaleForLocale: Record<Locale, string> = {
   fr: "fr_CH",
 }
 
+const ogImageAlt: Record<Locale, string> = {
+  en: "TableFront — websites that turn visitors into bookings, orders and sales",
+  de: "TableFront — Webseiten, die aus Besuchern Buchungen, Bestellungen und Verkäufe machen",
+  pt: "TableFront — websites que transformam visitas em reservas, encomendas e vendas",
+  fr: "TableFront — des sites web qui transforment les visiteurs en réservations, commandes et ventes",
+}
+
+/** Per-language share image (1200×630), rendered from the hero copy; `/og.jpg` is the English copy kept for old links. */
+export function ogImageFor(lang: Locale) {
+  return { url: `/og-${lang}.jpg`, width: 1200, height: 630, alt: ogImageAlt[lang] }
+}
+
 /**
  * Complete OpenGraph object for a page. Page-level `openGraph` replaces the
  * layout's instead of deep-merging, so every page must carry the full set.
@@ -29,6 +41,6 @@ export function openGraphFor(lang: Locale, path: string, title: string, descript
     siteName: "TableFront",
     type: "website" as const,
     locale: ogLocaleForLocale[lang],
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites for hospitality" }],
+    images: [ogImageFor(lang)],
   }
 }
