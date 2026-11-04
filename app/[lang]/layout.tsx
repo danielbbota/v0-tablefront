@@ -91,7 +91,7 @@ export default async function RootLayout({
     "@type": "Organization",
     name: "TableFront",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo-espresso.png`,
+    logo: `${SITE_URL}/logo-wordmark.png`,
     description: dict.meta.home.description,
     founder: { "@type": "Person", name: "Daniel Bota" },
     knowsLanguage: ["en", "de", "pt", "fr"],

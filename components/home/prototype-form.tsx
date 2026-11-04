@@ -43,9 +43,9 @@ export function PrototypeForm({ lang, dict }: { lang: Locale; dict: Dictionary["
   }
 
   return (
-    <section id="free-prototype" className="scroll-mt-24 bg-surface py-24 md:py-32">
+    <section id="free-prototype" className="scroll-mt-24 bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="reveal mx-auto grid max-w-5xl gap-10 rounded-lg border border-border bg-background p-8 md:grid-cols-2 md:gap-14 md:p-12">
+        <div className="reveal mx-auto grid max-w-5xl gap-10 rounded-lg border border-border bg-background p-8 md:grid-cols-2 md:gap-14 md:p-10">
           <div>
             <p className="eyebrow">{dict.eyebrow}</p>
             <h2 className="mt-5 font-serif text-h2 font-medium text-heading text-balance">{dict.headline}</h2>

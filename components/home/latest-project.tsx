@@ -13,16 +13,16 @@ export function LatestProject({ dict }: { dict: Dictionary["latestProject"] }) {
   const isGrid = PROJECTS.length > 1
 
   return (
-    <section id="work" className="scroll-mt-24 bg-background py-24 md:py-32">
+    <section id="work" className="scroll-mt-24 bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="reveal max-w-2xl">
+        <div className="reveal max-w-4xl">
           <p className="eyebrow">{isGrid ? dict.eyebrowPlural : dict.eyebrow}</p>
-          <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-          <p className="mt-5 text-body-lg text-muted-foreground">{dict.sub}</p>
-          <span className="draw-rule mt-8 w-24" aria-hidden />
+          <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
+          <span className="draw-rule mt-5 w-24" aria-hidden />
         </div>
 
-        <div className={isGrid ? "mt-16 grid gap-10 md:grid-cols-2" : "mt-16"}>
+        <div className={isGrid ? "mt-10 grid gap-10 md:grid-cols-2" : "mt-10"}>
           {PROJECTS.map((project, index) => {
             const copy = dict.projects[project.id]
             return (
@@ -44,7 +44,7 @@ export function LatestProject({ dict }: { dict: Dictionary["latestProject"] }) {
                     width={project.width}
                     height={project.height}
                     sizes={isGrid ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 58vw, 100vw"}
-                    className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    className="h-auto w-full object-cover object-top md:max-h-[56svh] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
                 </a>
 

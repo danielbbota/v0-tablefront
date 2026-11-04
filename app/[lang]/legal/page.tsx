@@ -35,7 +35,7 @@ export default async function LegalPage({ params }: { params: Promise<{ lang: st
     <>
       <Navigation lang={lang} dict={dict.nav} />
       <main className="bg-background">
-        <div className="mx-auto max-w-3xl px-6 pb-24 pt-36 lg:px-8">
+        <div className="mx-auto max-w-3xl px-6 pb-24 pt-28 lg:px-8">
           <h1 className="font-serif text-h1 font-medium text-heading">{dict.legal.title}</h1>
           <p className="mt-4 font-mono text-label uppercase text-muted-foreground">{dict.legal.updated}</p>
 

@@ -17,7 +17,7 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary["hero"] })
 
   return (
     <section className="bg-background">
-      <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-6 pb-16 pt-28 md:min-h-[92svh] md:grid-cols-[7fr_6fr] md:gap-12 md:pb-20 md:pt-32 lg:px-8">
+      <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-6 pb-16 pt-24 md:min-h-svh md:grid-cols-[3fr_2fr] md:gap-12 md:pb-10 md:pt-24 lg:px-8">
         {/* Typographic panel */}
         <div>
           <p className="eyebrow hero-enter-eyebrow">
@@ -31,7 +31,7 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary["hero"] })
             </span>
             <span className="sr-only">{labels.join(", ")}</span>
           </p>
-          <h1 className="mt-6 font-serif text-display font-medium text-heading">
+          <h1 className="mt-5 font-serif text-display font-medium text-heading">
             <span className="hero-line-mask">
               <span className="hero-line hero-line-1">{dict.headline1}</span>
             </span>
@@ -39,11 +39,11 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary["hero"] })
               <span className="hero-line hero-line-2 text-primary">{dict.headline2}</span>
             </span>
           </h1>
-          <p className="hero-enter-sub mt-7 max-w-lg text-body-lg text-muted-foreground [hyphens:none]">
+          <p className="hero-enter-sub mt-5 max-w-lg text-body-lg text-muted-foreground [hyphens:none]">
             {dict.sub}
           </p>
 
-          <div className="hero-enter-cta mt-10 flex flex-wrap items-center gap-4">
+          <div className="hero-enter-cta mt-8 flex flex-wrap items-center gap-3">
             <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               {dict.ctaPrimary}
             </a>
@@ -52,13 +52,13 @@ export function Hero({ lang, dict }: { lang: Locale; dict: Dictionary["hero"] })
             </Link>
           </div>
 
-          <p className="hero-enter-trust mt-6 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+          <p className="hero-enter-trust mt-5 font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
             {dict.trust}
           </p>
         </div>
 
         {/* Showcase card */}
-        <div className="hero-enter-image relative aspect-[4/5] sm:aspect-[4/3] md:aspect-auto md:h-[72vh] md:max-h-[760px]">
+        <div className="hero-enter-image relative aspect-[4/5] sm:aspect-[4/3] md:aspect-auto md:h-[min(70svh,680px)]">
           <HeroShowcase dict={dict.showcase} />
         </div>
       </div>

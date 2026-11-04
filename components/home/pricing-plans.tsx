@@ -30,7 +30,7 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
       <p className="mt-1.5 text-sm text-muted-foreground">{copy.tagline}</p>
 
       {/* Deterministic formatting + server-matching default currency: no hydration mismatch. */}
-      <p className="mt-6 font-serif text-h1 font-medium text-heading">
+      <p className="mt-4 font-serif text-h1 font-medium text-heading">
         {formatPrice(plan.price[currency], currency, lang)}
         {plan.monthly && <span className="ml-1 text-h3 text-muted-foreground">{dict.perMonth}</span>}
       </p>
@@ -38,9 +38,9 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
         {plan.monthly ? " " : dict.oneTime}
       </p>
 
-      <hr className="my-5 border-border" />
+      <hr className="my-4 border-border" />
 
-      <ul className="space-y-2.5">
+      <ul className="space-y-2">
         {copy.features.map((feature) => (
           <li key={feature} className="flex items-start gap-2.5 text-sm leading-snug text-foreground/85">
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary-deep" aria-hidden />
@@ -53,7 +53,7 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
         href={CALENDLY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className={`btn mt-8 !px-5 !py-3 ${plan.highlight ? "btn-primary" : "btn-outline"}`}
+        className={`btn mt-6 !px-5 !py-3 ${plan.highlight ? "btn-primary" : "btn-outline"}`}
       >
         {dict.cta}
       </a>
@@ -79,39 +79,39 @@ export function PricingPlans({
   return (
     <section
       id="pricing"
-      className={`scroll-mt-24 ${compact ? "bg-background pb-20 pt-12 md:pt-16" : "bg-surface py-24 md:py-32"}`}
+      className={`scroll-mt-24 ${compact ? "bg-background pb-20 pt-12 md:pt-16" : "bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]"}`}
     >
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         {!compact && (
-          <div className="reveal max-w-2xl">
+          <div className="reveal max-w-4xl">
             <p className="eyebrow">{dict.eyebrow}</p>
-            <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-            <p className="mt-5 text-body-lg text-muted-foreground">{dict.sub}</p>
-            <span className="draw-rule mt-8 w-24" aria-hidden />
+            <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+            <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
+            <span className="draw-rule mt-5 w-24" aria-hidden />
           </div>
         )}
 
-        <div className={compact ? "" : "mt-16"}>
+        <div className={compact ? "" : "mt-10"}>
           <h3 className="font-serif text-h3 font-medium text-heading">{dict.oneTimeTitle}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{dict.oneTimeSub}</p>
-          <div className="mt-7 grid gap-5 md:grid-cols-3">
+          <div className="mt-5 grid gap-5 md:grid-cols-3">
             {ONE_TIME_PLANS.map((plan, index) => (
               <PlanCard key={plan.id} plan={plan} dict={dict} lang={lang} index={index} />
             ))}
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-10">
           <h3 className="font-serif text-h3 font-medium text-heading">{dict.monthlyTitle}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{dict.monthlySub}</p>
-          <div className="mt-7 grid gap-5 md:grid-cols-2 lg:max-w-[66%]">
+          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:max-w-[66%]">
             {MONTHLY_PLANS.map((plan, index) => (
               <PlanCard key={plan.id} plan={plan} dict={dict} lang={lang} index={index} />
             ))}
           </div>
         </div>
 
-        {!compact && <p className="mt-10 max-w-2xl text-xs leading-relaxed text-muted-foreground">{dict.note}</p>}
+        {!compact && <p className="mt-8 max-w-2xl text-xs leading-relaxed text-muted-foreground">{dict.note}</p>}
         {!compact && (
           <Link
             href={`/${lang}/pricing`}

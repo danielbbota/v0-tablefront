@@ -46,7 +46,7 @@ function Field({ label, value }: { label: string; value?: string }) {
  */
 export function ReservationsIllustration({ mock }: { mock: Mock }) {
   return (
-    <div className="relative md:min-h-[720px]" aria-hidden>
+    <div className="relative md:min-h-[640px]" aria-hidden>
       {/* Guest widget */}
       <div className="relative z-10 w-full max-w-[340px] rounded-lg border border-border bg-background p-5 shadow-[var(--shadow-card)] md:absolute md:bottom-0 md:left-0">
         <p className="font-serif text-h3 font-medium text-heading">{mock.widgetTitle}</p>

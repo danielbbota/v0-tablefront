@@ -2,12 +2,12 @@ import type { Dictionary } from "@/lib/dictionaries/en"
 
 export function FounderStory({ dict }: { dict: Dictionary["founder"] }) {
   return (
-    <section id="story" className="scroll-mt-24 bg-background py-24 md:py-32">
+    <section id="story" className="scroll-mt-24 bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="grid gap-14 md:grid-cols-5 md:gap-12">
           <div className="reveal md:col-span-3">
             <p className="eyebrow">{dict.eyebrow}</p>
-            <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+            <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
             <p className="mt-7 max-w-xl text-body-lg leading-relaxed text-foreground/85">{dict.p1}</p>
             <p className="mt-5 max-w-xl text-body-lg leading-relaxed text-foreground/85">{dict.p2}</p>
           </div>

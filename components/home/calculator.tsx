@@ -56,15 +56,15 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
   const yearlyLeak = tweenedMonthly * 12
 
   return (
-    <section className="bg-background py-24 md:py-32">
+    <section className="bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="reveal max-w-2xl">
+        <div className="reveal max-w-4xl">
           <p className="eyebrow">{dict.eyebrow}</p>
-          <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-          <p className="mt-5 text-body-lg text-muted-foreground">{dict.sub}</p>
+          <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
         </div>
 
-        <div className="reveal mt-14 grid gap-10 rounded-lg border border-border bg-surface p-8 md:grid-cols-2 md:gap-14 md:p-12">
+        <div className="reveal mt-10 grid gap-10 rounded-lg border border-border bg-surface p-8 md:grid-cols-2 md:gap-14 md:p-10">
           <div className="space-y-9">
             <div>
               <div className="flex items-baseline justify-between gap-4">

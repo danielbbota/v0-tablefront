@@ -4,7 +4,7 @@ import type { Dictionary } from "@/lib/dictionaries/en"
 
 export function FinalCta({ lang, dict }: { lang: Locale; dict: Dictionary["finalCta"] }) {
   return (
-    <section className="bg-background py-24 md:py-36">
+    <section className="bg-background py-16 md:py-24">
       <div className="reveal mx-auto max-w-4xl px-6 text-center lg:px-8">
         <h2 className="font-serif text-display font-medium text-heading text-balance">{dict.headline}</h2>
         <p className="mx-auto mt-6 max-w-xl text-body-lg text-muted-foreground">{dict.sub}</p>

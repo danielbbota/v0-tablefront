@@ -13,13 +13,13 @@ export function Faq({ dict }: { dict: Dictionary["faq"] }) {
   }
 
   return (
-    <section id="faq" className="scroll-mt-24 bg-background py-24 md:py-32">
+    <section id="faq" className="scroll-mt-24 bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-3">
           <div className="reveal">
             <p className="eyebrow">{dict.eyebrow}</p>
-            <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-            <span className="draw-rule mt-8 w-24" aria-hidden />
+            <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+            <span className="draw-rule mt-5 w-24" aria-hidden />
           </div>
 
           <div className="md:col-span-2">

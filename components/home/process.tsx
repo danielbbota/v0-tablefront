@@ -4,15 +4,15 @@ import type { Dictionary } from "@/lib/dictionaries/en"
 
 export function Process({ dict }: { dict: Dictionary["process"] }) {
   return (
-    <section id="how-it-works" className="scroll-mt-24 bg-surface py-24 md:py-32">
+    <section id="how-it-works" className="scroll-mt-24 bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        <div className="reveal max-w-2xl">
+        <div className="reveal max-w-4xl">
           <p className="eyebrow">{dict.eyebrow}</p>
-          <h2 className="mt-5 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-          <span className="draw-rule mt-8 w-24" aria-hidden />
+          <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
+          <span className="draw-rule mt-5 w-24" aria-hidden />
         </div>
 
-        <ol className="reveal-trigger relative mt-16 grid gap-12 md:grid-cols-4 md:gap-8">
+        <ol className="reveal-trigger relative mt-10 grid gap-12 md:grid-cols-4 md:gap-8">
           {/* Brass line that draws across the four steps while an arrowhead
               travels from step 1 to step 4 (desktop only) */}
           <div className="process-track absolute inset-x-0 top-0 hidden md:block" aria-hidden>
@@ -35,7 +35,7 @@ export function Process({ dict }: { dict: Dictionary["process"] }) {
           ))}
         </ol>
 
-        <div className="reveal mt-16 flex justify-center">
+        <div className="reveal mt-10 flex justify-center">
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
             {dict.cta}
           </a>
