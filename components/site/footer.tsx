@@ -12,7 +12,7 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
             <Link href={`/${lang}`} aria-label={dict.homeLabel} className="inline-block">
               <Image
                 src="/logo-espresso.png"
-                alt="TableFront Hospitality"
+                alt="TableFront"
                 width={121}
                 height={36}
                 className="h-9 w-auto"
@@ -27,6 +27,16 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
               <li>
                 <Link href={`/${lang}#how-it-works`} className="link-brass text-sm text-foreground/70 hover:text-heading">
                   {dict.linkHow}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}#work`} className="link-brass text-sm text-foreground/70 hover:text-heading">
+                  {dict.linkWork}
+                </Link>
+              </li>
+              <li>
+                <Link href={`/${lang}/reservations`} className="link-brass text-sm text-foreground/70 hover:text-heading">
+                  {dict.linkReservations}
                 </Link>
               </li>
               <li>

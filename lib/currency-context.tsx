@@ -13,7 +13,7 @@ type CurrencyContextType = {
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined)
 
 /**
- * Currency follows the language by default (PT/FR → EUR, DE/EN → CHF).
+ * Currency follows the language by default (EN/PT → EUR, DE/FR → CHF).
  * A manual selection overrides the default and persists across pages and visits.
  */
 export function CurrencyProvider({

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Playfair_Display, Lora, Syne } from "next/font/google"
+import { DM_Serif_Display, Lora, Syne } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { notFound } from "next/navigation"
 import {
@@ -13,9 +13,12 @@ import { ogLocaleForLocale } from "@/lib/seo"
 import { CurrencyProvider } from "@/lib/currency-context"
 import "../globals.css"
 
-const playfair = Playfair_Display({
+// Display serif. DM Serif Display keeps Playfair's high-contrast editorial
+// feel but sets a conventional ampersand (Playfair's "&" is a swash form).
+const dmSerif = DM_Serif_Display({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-display",
   display: "swap",
 })
 
@@ -63,7 +66,7 @@ export async function generateMetadata({
       siteName: "TableFront",
       type: "website",
       locale: ogLocaleForLocale[lang],
-      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites for hospitality" }],
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "TableFront — websites that turn visitors into bookings, orders and sales" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -99,7 +102,7 @@ export default async function RootLayout({
     <html
       lang={lang}
       data-scroll-behavior="smooth"
-      className={`${playfair.variable} ${lora.variable} ${syne.variable}`}
+      className={`${dmSerif.variable} ${lora.variable} ${syne.variable}`}
     >
       <body className="font-sans antialiased">
         <CurrencyProvider defaultCurrency={defaultCurrencyForLocale[lang]}>{children}</CurrencyProvider>

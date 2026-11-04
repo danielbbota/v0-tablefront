@@ -1,52 +1,28 @@
 import type { Currency } from "@/lib/i18n/config"
 
-/** Fixed per-market prices — same clean digits in both currencies, no conversion. */
+/** Fixed per-market prices — no conversion, each market gets its own clean number. */
 export type Price = Record<Currency, number>
 
+export type PlanId = "essencial" | "profissional" | "loja" | "mensalEssencial" | "mensalProfissional"
+
 export interface PlanData {
-  id: "onetime" | "sub6" | "sub12"
+  id: PlanId
   price: Price
+  /** true = billed per month, false = one-time build */
   monthly: boolean
+  /** the plan we recommend — gets the badge and the brass frame */
   highlight: boolean
-  includesGuarantee: boolean
 }
 
-export const PLANS: PlanData[] = [
-  { id: "onetime", price: { CHF: 1500, EUR: 1500 }, monthly: false, highlight: false, includesGuarantee: false },
-  { id: "sub6", price: { CHF: 149, EUR: 149 }, monthly: true, highlight: false, includesGuarantee: false },
-  { id: "sub12", price: { CHF: 149, EUR: 149 }, monthly: true, highlight: true, includesGuarantee: true },
+export const ONE_TIME_PLANS: PlanData[] = [
+  { id: "essencial", price: { EUR: 490, CHF: 790 }, monthly: false, highlight: false },
+  { id: "profissional", price: { EUR: 890, CHF: 1290 }, monthly: false, highlight: false },
+  { id: "loja", price: { EUR: 1190, CHF: 1890 }, monthly: false, highlight: false },
 ]
 
-export type AddonId =
-  | "menu_visual"
-  | "speed"
-  | "guarantee"
-  | "updates_monthly"
-  | "updates_ondemand"
-  | "support60"
-  | "reports"
-
-export interface AddonData {
-  id: AddonId
-  price: Price | null
-  monthly: boolean
-  /** "from" pricing — variable scope, quoted per update */
-  variable?: boolean
-  /** only selectable on the one-time plan */
-  onetimeOnly?: boolean
-  /** included at no cost when the 12-month plan is selected */
-  freeOnSub12?: boolean
-}
-
-export const ADDONS: AddonData[] = [
-  { id: "menu_visual", price: { CHF: 500, EUR: 500 }, monthly: false },
-  { id: "speed", price: { CHF: 800, EUR: 800 }, monthly: false },
-  { id: "guarantee", price: { CHF: 600, EUR: 600 }, monthly: false, freeOnSub12: true },
-  { id: "updates_monthly", price: { CHF: 79, EUR: 79 }, monthly: true, onetimeOnly: true },
-  { id: "updates_ondemand", price: { CHF: 80, EUR: 80 }, monthly: false, variable: true },
-  { id: "support60", price: { CHF: 400, EUR: 400 }, monthly: false },
-  { id: "reports", price: { CHF: 350, EUR: 350 }, monthly: false },
+export const MONTHLY_PLANS: PlanData[] = [
+  { id: "mensalEssencial", price: { EUR: 39, CHF: 69 }, monthly: true, highlight: false },
+  { id: "mensalProfissional", price: { EUR: 59, CHF: 99 }, monthly: true, highlight: true },
 ]
 
-/** Visual menu monthly update coverage on subscription plans. */
-export const VISUAL_MENU_MONTHLY: Price = { CHF: 60, EUR: 60 }
+export const PLANS: PlanData[] = [...ONE_TIME_PLANS, ...MONTHLY_PLANS]
