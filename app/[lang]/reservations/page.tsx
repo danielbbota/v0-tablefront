@@ -2,13 +2,14 @@ import type { Metadata } from "next"
 import type { CSSProperties } from "react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { CALENDLY_URL, isLocale, SITE_URL } from "@/lib/i18n/config"
+import { APP_LOGIN_URL, CALENDLY_URL, isLocale, SITE_URL } from "@/lib/i18n/config"
 import { getDictionary } from "@/lib/i18n/get-dictionary"
 import { languageAlternates, openGraphFor } from "@/lib/seo"
 import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
 import { RevealInit } from "@/components/site/reveal-init"
-import { ReservationsIllustration } from "@/components/reservations/illustration"
+import { DemoVideo } from "@/components/reservations/demo-video"
+import { InteractiveTour } from "@/components/reservations/interactive-tour"
 import { PlanPrice } from "@/components/reservations/plan-price"
 
 export async function generateMetadata({
@@ -42,7 +43,12 @@ function SectionIntro({ eyebrow, headline, sub }: { eyebrow: string; headline: s
   )
 }
 
-/** The hospitality reservation platform (app.tablesfront.com), explained for restaurant owners. */
+/**
+ * The hospitality reservation platform (app.tablesfront.com), explained for
+ * restaurant owners: the presentation video, a working click-through of the
+ * widget and dashboard, the team features, why not a marketplace, and the
+ * two ways to get it (inside Monthly Professional, or the platform alone).
+ */
 export default async function ReservationsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params
   if (!isLocale(lang)) notFound()
@@ -55,52 +61,44 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
       <Navigation lang={lang} dict={dict.nav} />
       <main className="bg-background">
         {/* Header */}
-        <header className="mx-auto grid max-w-[1280px] items-center gap-14 px-6 pb-12 pt-28 md:grid-cols-[7fr_5fr] md:gap-12 lg:px-8">
-          <div>
-            <p className="eyebrow">{t.eyebrow}</p>
-            <h1 className="mt-5 font-serif text-display font-medium text-heading text-balance">
-              {t.headline1} <em className="not-italic text-primary">{t.headline2}</em>
-            </h1>
-            <p className="mt-6 max-w-2xl text-body-lg text-muted-foreground">{t.sub}</p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                {t.ctaPrimary}
-              </a>
-              <Link href={`/${lang}/pricing`} className="btn btn-outline">
-                {t.ctaSecondary}
-              </Link>
-            </div>
-            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
-              {t.strip.map((item) => (
-                <li key={item} className="flex items-center gap-2.5 font-mono text-label text-foreground/80">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brass" aria-hidden />
-                  {item}
-                </li>
-              ))}
-            </ul>
+        <header className="mx-auto max-w-[1280px] px-6 pb-12 pt-28 lg:px-8">
+          <p className="eyebrow">{t.eyebrow}</p>
+          <h1 className="mt-5 max-w-4xl font-serif text-display font-medium text-heading text-balance">
+            {t.headline1} <em className="not-italic text-primary">{t.headline2}</em>
+          </h1>
+          <p className="mt-6 max-w-2xl text-body-lg text-muted-foreground">{t.sub}</p>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              {t.ctaPrimary}
+            </a>
+            <Link href={`/${lang}/pricing`} className="btn btn-outline">
+              {t.ctaSecondary}
+            </Link>
           </div>
-          <ReservationsIllustration mock={t.mock} />
+          <p className="mt-5 text-sm text-muted-foreground">
+            {t.loginHint}{" "}
+            <a href={APP_LOGIN_URL} className="link-brass font-medium text-heading">
+              {t.loginCta} →
+            </a>
+          </p>
+          <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+            {t.strip.map((item) => (
+              <li key={item} className="flex items-center gap-2.5 font-mono text-label text-foreground/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-brass" aria-hidden />
+                {item}
+              </li>
+            ))}
+          </ul>
         </header>
 
-        {/* For your guests */}
-        <section className="border-t border-border bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
+        {/* The presentation video is narrated in Portuguese, so only the PT site shows it. */}
+        {lang === "pt" && <DemoVideo dict={t.video} />}
+
+        {/* Interactive tour */}
+        <section id="tour" className="scroll-mt-24 border-t border-border bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
           <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-            <SectionIntro eyebrow={t.guests.eyebrow} headline={t.guests.headline} sub={t.guests.sub} />
-            <ol className="mt-10 grid gap-6 md:grid-cols-3">
-              {t.guests.steps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className="reveal rounded-lg border border-transparent bg-background p-8 transition-colors duration-300 hover:border-brass/60"
-                  style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}
-                >
-                  <span className="font-mono text-label tracking-[0.16em] text-brass" aria-hidden>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-4 font-serif text-h3 font-medium text-heading">{step.title}</h3>
-                  <p className="mt-3 leading-relaxed text-foreground/80">{step.body}</p>
-                </li>
-              ))}
-            </ol>
+            <SectionIntro eyebrow={t.tour.eyebrow} headline={t.tour.headline} sub={t.tour.sub} />
+            <InteractiveTour dict={t.tour} />
           </div>
         </section>
 
@@ -142,37 +140,51 @@ export default async function ReservationsPage({ params }: { params: Promise<{ l
           </div>
         </section>
 
-        {/* Included in Monthly Professional + good to know */}
-        <section className="py-16 md:py-[clamp(3rem,8svh,5rem)]">
-          <div className="mx-auto grid max-w-[1280px] gap-10 px-6 md:grid-cols-[6fr_6fr] lg:px-8">
-            <div className="reveal rounded-lg border border-brass bg-background p-8 ring-1 ring-brass/40">
-              <p className="eyebrow">{t.included.eyebrow}</p>
-              <h2 className="mt-5 font-serif text-h2 font-medium text-heading text-balance">{t.included.headline}</h2>
-              <p className="mt-4 leading-relaxed text-foreground/80">{t.included.body}</p>
-              <PlanPrice lang={lang} perMonth={t.included.perMonth} />
-              <Link
-                href={`/${lang}/pricing`}
-                className="link-brass mt-6 inline-block font-mono text-label uppercase text-heading"
-              >
-                {t.included.cta}
-              </Link>
+        {/* Two ways to get it */}
+        <section id="pricing" className="scroll-mt-24 py-16 md:py-[clamp(3rem,8svh,5rem)]">
+          <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+            <SectionIntro eyebrow={t.pricing.eyebrow} headline={t.pricing.headline} />
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              <div className="reveal relative rounded-lg border border-brass bg-background p-8 ring-1 ring-brass/40">
+                <span className="absolute -top-3 left-6 whitespace-nowrap rounded-full bg-espresso px-4 py-1 font-mono text-xs uppercase tracking-[0.12em] text-cream">
+                  {t.pricing.included.badge}
+                </span>
+                <h3 className="font-serif text-h2 font-medium text-heading text-balance">{t.pricing.included.title}</h3>
+                <p className="mt-4 leading-relaxed text-foreground/80">{t.pricing.included.body}</p>
+                <PlanPrice lang={lang} perMonth={t.pricing.perMonth} planId="mensalProfissional" />
+              </div>
+              <div className="reveal rounded-lg border border-border bg-surface p-8" style={{ "--reveal-delay": "120ms" } as CSSProperties}>
+                <h3 className="font-serif text-h2 font-medium text-heading text-balance">{t.pricing.standalone.title}</h3>
+                <p className="mt-4 leading-relaxed text-foreground/80">{t.pricing.standalone.body}</p>
+                <PlanPrice lang={lang} perMonth={t.pricing.perMonth} planId="reservas" />
+              </div>
             </div>
-            <div className="reveal" style={{ "--reveal-delay": "120ms" } as CSSProperties}>
-              <p className="eyebrow">{t.setup.eyebrow}</p>
-              <dl className="mt-6 divide-y divide-border">
-                {t.setup.items.map((item) => (
-                  <div key={item.title} className="py-5 first:pt-0">
-                    <dt className="font-serif text-h3 font-medium text-heading">{item.title}</dt>
-                    <dd className="mt-2 leading-relaxed text-foreground/80">{item.body}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <Link
+              href={`/${lang}/pricing`}
+              className="link-brass mt-8 inline-block font-mono text-label uppercase text-heading"
+            >
+              {t.pricing.cta}
+            </Link>
+          </div>
+        </section>
+
+        {/* Good to know */}
+        <section className="border-t border-border bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
+          <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
+            <p className="eyebrow reveal">{t.setup.eyebrow}</p>
+            <dl className="mt-6 grid gap-8 md:grid-cols-3">
+              {t.setup.items.map((item, index) => (
+                <div key={item.title} className="reveal" style={{ "--reveal-delay": `${index * 110}ms` } as CSSProperties}>
+                  <dt className="font-serif text-h3 font-medium text-heading">{item.title}</dt>
+                  <dd className="mt-2 leading-relaxed text-foreground/80">{item.body}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
         {/* Exit */}
-        <section className="mx-auto max-w-[1280px] px-6 pb-24 lg:px-8">
+        <section className="mx-auto max-w-[1280px] px-6 py-16 lg:px-8">
           <div className="reveal rounded-lg bg-espresso p-8 text-center">
             <p className="font-serif text-h2 font-medium text-cream">{t.exitTitle}</p>
             <p className="mt-2 text-cream/70">{t.exitSub}</p>

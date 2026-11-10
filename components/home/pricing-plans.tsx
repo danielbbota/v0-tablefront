@@ -62,7 +62,7 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
 }
 
 /**
- * The five fixed-price packages. Prices follow the CHF/EUR toggle in the
+ * The six fixed-price packages. Prices follow the CHF/EUR toggle in the
  * navigation (EN/PT default to EUR, DE/FR to CHF). Used on the homepage and,
  * with `showFullLink` off, as the body of the pricing page.
  */
@@ -104,7 +104,7 @@ export function PricingPlans({
         <div className="mt-10">
           <h3 className="font-serif text-h3 font-medium text-heading">{dict.monthlyTitle}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{dict.monthlySub}</p>
-          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:max-w-[66%]">
+          <div className="mt-5 grid gap-5 md:grid-cols-3">
             {MONTHLY_PLANS.map((plan, index) => (
               <PlanCard key={plan.id} plan={plan} dict={dict} lang={lang} index={index} />
             ))}

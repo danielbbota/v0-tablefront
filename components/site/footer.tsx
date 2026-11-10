@@ -1,6 +1,6 @@
 import { Wordmark } from "@/components/site/wordmark"
 import Link from "next/link"
-import { CALENDLY_URL, type Locale } from "@/lib/i18n/config"
+import { APP_LOGIN_URL, CALENDLY_URL, type Locale } from "@/lib/i18n/config"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
 export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"] }) {
@@ -68,6 +68,11 @@ export function Footer({ lang, dict }: { lang: Locale; dict: Dictionary["footer"
                 <Link href={`/${lang}#free-prototype`} className="link-brass text-sm text-foreground/70 hover:text-heading">
                   {dict.linkPrototype}
                 </Link>
+              </li>
+              <li>
+                <a href={APP_LOGIN_URL} className="link-brass text-sm text-foreground/70 hover:text-heading">
+                  {dict.linkLogin}
+                </a>
               </li>
             </ul>
           </nav>

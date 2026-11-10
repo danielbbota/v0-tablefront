@@ -3,7 +3,13 @@ import type { Currency } from "@/lib/i18n/config"
 /** Fixed per-market prices — no conversion, each market gets its own clean number. */
 export type Price = Record<Currency, number>
 
-export type PlanId = "essencial" | "profissional" | "loja" | "mensalEssencial" | "mensalProfissional"
+export type PlanId =
+  | "essencial"
+  | "profissional"
+  | "loja"
+  | "mensalEssencial"
+  | "mensalProfissional"
+  | "reservas"
 
 export interface PlanData {
   id: PlanId
@@ -23,6 +29,15 @@ export const ONE_TIME_PLANS: PlanData[] = [
 export const MONTHLY_PLANS: PlanData[] = [
   { id: "mensalEssencial", price: { EUR: 39, CHF: 69 }, monthly: true, highlight: false },
   { id: "mensalProfissional", price: { EUR: 59, CHF: 99 }, monthly: true, highlight: true },
+  /**
+   * The reservation platform on its own — for clients who bought a one-time
+   * site, or already have a website and only need the bookings.
+   */
+  { id: "reservas", price: { EUR: 29, CHF: 49 }, monthly: true, highlight: false },
 ]
 
 export const PLANS: PlanData[] = [...ONE_TIME_PLANS, ...MONTHLY_PLANS]
+
+export function planById(id: PlanId): PlanData {
+  return PLANS.find((plan) => plan.id === id)!
+}

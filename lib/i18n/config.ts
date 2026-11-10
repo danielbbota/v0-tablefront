@@ -27,6 +27,15 @@ export const SITE_URL = "https://www.tablesfront.com"
 
 export const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
+/**
+ * The reservations dashboard (separate app). Clients sign in here.
+ * Intended home is app.tablesfront.com, but that subdomain has no DNS record
+ * yet (needs a CNAME to cname.vercel-dns.com in Google Cloud DNS). Until it
+ * does, link to the Vercel URL that is actually live.
+ */
+export const APP_URL = "https://tablefront-reservations.vercel.app"
+export const APP_LOGIN_URL = `${APP_URL}/login`
+
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value)
 }

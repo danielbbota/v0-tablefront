@@ -6,6 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import {
+  APP_LOGIN_URL,
   CALENDLY_URL,
   currencies,
   localeNames,
@@ -148,6 +149,13 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
           {currencyToggle}
 
           <a
+            href={APP_LOGIN_URL}
+            className="link-brass whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
+          >
+            {dict.login}
+          </a>
+
+          <a
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -212,6 +220,9 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
             <Link href={`/${lang}#free-prototype`} onClick={() => setIsMobileOpen(false)} className="btn btn-outline">
               {dict.getPrototype}
             </Link>
+            <a href={APP_LOGIN_URL} className="btn btn-outline">
+              {dict.login}
+            </a>
           </div>
         </div>
       )}
