@@ -1,4 +1,5 @@
 import type { Dictionary } from "./en"
+import business from "./business.de"
 
 const de: Dictionary = {
   meta: {
@@ -10,10 +11,10 @@ const de: Dictionary = {
     pricing: {
       title: "Preise — Fixe Website-Pakete, angezeigt in CHF oder EUR",
       description:
-        "Transparente Website-Preise: einmaliger Aufbau ab CHF 790 / €490, monatliche Partnerschaften ab CHF 69 / €39. Fix pro Markt, keine versteckten Gebühren, Lieferung in 7 Tagen.",
+        "Transparente Website-Preise: einmaliger Aufbau ab CHF 790 / €490, monatliche Partnerschaften ab CHF 79 / €49. Fix pro Markt, keine versteckten Gebühren, Lieferung in 7 Tagen.",
     },
     reservations: {
-      title: "Reservierungen — Provisionsfreie Tischreservierungen auf Ihrer eigenen Website",
+      title: "Restaurants — Provisionsfreie Tischreservierungen auf Ihrer eigenen Website",
       description: "TableFront Reservierungen: ein provisionsfreies Buchungs-Widget für Restaurants und Cafés, mit Bestätigungs- und Erinnerungs-E-Mails, Live-Tischplan und Tagesansicht für Ihr Team. Im Plan Monatlich Professional enthalten — oder einzeln für eine bestehende Website.",
     },
     legal: {
@@ -23,13 +24,10 @@ const de: Dictionary = {
   },
 
   nav: {
-    why: "Warum TableFront",
+    business: "Für Ihren Betrieb",
     how: "Ablauf",
     work: "Referenzen",
-    story: "Geschichte",
-    faq: "FAQ",
     pricing: "Preise",
-    reservations: "Reservierungen",
     bookCall: "Gratis-Gespräch",
     login: "Anmelden",
     getPrototype: "Gratis-Prototyp",
@@ -47,7 +45,7 @@ const de: Dictionary = {
     eyebrowPrefix: "Webseiten für",
     verticals: ["Restaurants", "Cafés", "Salons", "Praxen", "Shops"],
     headline1: "Webseiten, die aus Besuchern",
-    headline2: "Buchungen, Bestellungen und Verkäufe machen.",
+    headline2: "Kunden machen.",
     sub: "In der Gastronomie geboren — gebaut für jedes Unternehmen, das an Kunden verkauft.",
     ctaPrimary: "Kostenloses Gespräch buchen",
     ctaSecondary: "Gratis-Prototyp erhalten",
@@ -101,34 +99,6 @@ const de: Dictionary = {
         statValue: "+63%",
       },
       ],
-    },
-  },
-
-  verticals: {
-    eyebrow: "Für wen wir arbeiten",
-    headline: "Eine Webseite. Eine klare Aktion.",
-    sub: "Wir bauen für Unternehmen, die direkt an ihre Kunden verkaufen — und gestalten jede Seite rund um das Eine, das ein Besucher als Nächstes tun soll.",
-    actionLabel: "Hauptaktion",
-    items: {
-      hospitality: {
-        kicker: "Flaggschiff",
-        title: "Gastronomie",
-        examples: "Restaurants, Bars, Cafés, Hotels",
-        body: "Hier wurde TableFront geboren. Speisekarte, Öffnungszeiten, Standort und ein Reservierungsablauf, der die Buchung — und den Gast — bei Ihnen behält.",
-        action: "Tisch reservieren",
-      },
-      beauty: {
-        title: "Gesundheit & Beauty",
-        examples: "Salons, Barbiere, Praxen, Studios",
-        body: "Leistungen, Team und Preise klar dargestellt — mit Online-Buchung, die Ihren Kalender füllt, während Sie beim Kunden sind.",
-        action: "Termin buchen",
-      },
-      shops: {
-        title: "Produzenten & Shops",
-        examples: "Manufakturen, Boutiquen, Online-Shops",
-        body: "Eine Markenseite mit eingebautem Online-Shop — Produktseiten, Checkout und Versand, damit Sie direkt verkaufen statt über Marktplätze.",
-        action: "Online kaufen",
-      },
     },
   },
 
@@ -237,10 +207,12 @@ const de: Dictionary = {
     oneTimeTitle: "Einmaliger Aufbau",
     oneTimeSub: "Einmal bezahlen. Die Seite gehört Ihnen.",
     monthlyTitle: "Monatliche Partnerschaften",
-    monthlySub: "Wir hosten und warten sie für Sie — oder Sie nehmen nur die Reservierungsplattform.",
+    monthlySub: "Website, Hosting und Wartung in einer Monatsgebühr, mit 12-Monats-Vertrag. Oder Sie nehmen nur die Buchungsplattform.",
     perMonth: "/Mt.",
     oneTime: "einmalig",
     recommended: "Empfohlen",
+    contract: "12-Monats-Vertrag",
+    platformsNote: "Welche Buchungsplattform Sie erhalten, hängt von Ihrem Betrieb ab:",
     items: {
       essencial: {
         label: "Essential",
@@ -289,7 +261,7 @@ const de: Dictionary = {
         tagline: "Alles erledigt — inklusive Buchungen.",
         features: [
           "Alles aus Monatlich Essential",
-          "Reservierungen inklusive für die Gastronomie",
+          "Buchungsplattform inklusive: Tische, Übernachtungen oder Termine",
           "Prioritäts-Support",
           "Vierteljährlicher Leistungsbericht",
         ],
@@ -300,7 +272,7 @@ const de: Dictionary = {
         features: [
           "Buchungs-Widget auf Ihrer bestehenden Website",
           "Bestätigungs-, Erinnerungs- & Stornierungs-E-Mails",
-          "Tagesansicht, Live-Tischplan & Tischplan-Editor",
+          "Für Tische, Übernachtungen oder Termine, jeweils mit eigenem Dashboard",
           "Widget & E-Mails auf DE · EN · PT · FR",
           "Mit Ihnen eingerichtet, keine Gebühr pro Reservierung",
         ],
@@ -311,18 +283,22 @@ const de: Dictionary = {
     note: "Fixe Preise pro Markt, angezeigt in CHF oder EUR. 7-Tage-Aufbau ab Materialeingang. Keine versteckten Gebühren.",
   },
 
-  guarantee: {
-    eyebrow: "Unser Versprechen",
-    headline: "Wenn es für Sie nicht funktioniert, bezahlen Sie es nicht.",
-    body: "Jede monatliche Partnerschaft enthält eine 30-Tage-Geld-zurück-Garantie: Wenn die neue Seite im ersten Monat ihren Job nicht macht, erhalten Sie den vollen Betrag zurück. Wir tragen lieber das Risiko, als dass Sie den Zweifel tragen.",
-    points: ["30 Tage, volle Rückerstattung", "Kein Kleingedrucktes", "Wir tragen das Risiko"],
-    cta: "Pakete & Preise ansehen",
+  pricingSummary: {
+    eyebrow: "Preise",
+    headline: "Klare Preise, fix pro Markt.",
+    sub: "Drei Wege, mit uns zu arbeiten. Alle Pakete und was sie enthalten, stehen auf der Preisseite.",
+    from: "ab",
+    perMonth: "/Mt.",
+    items: {
+      oneTime: { title: "Einmaliger Aufbau", body: "Einmal bezahlen. Die Seite gehört Ihnen." },
+      monthly: { title: "Monatliche Partnerschaft", body: "Website, Hosting und Wartung in einer Monatsgebühr. 12-Monats-Vertrag." },
+      platform: { title: "Nur die Buchungsplattform", body: "Tischreservierungen, Übernachtungen oder Termine auf Ihrer bestehenden Website." },
+    },
+    cta: "Alle Pakete ansehen",
   },
 
   team: {
     eyebrow: "Die Menschen dahinter",
-    headline: "Geführt von Menschen, die selbst im Service standen.",
-    sub: "Wir kommen nicht aus Agenturen. Wir kommen aus der Gastronomie.",
     members: [
       {
         name: "Daniel Bota",
@@ -345,7 +321,7 @@ const de: Dictionary = {
     items: [
       {
         q: "Was kostet eine Webseite?",
-        a: "Transparente Preise: Der einmalige Aufbau beginnt bei CHF 790 / €490, monatliche Partnerschaften bei CHF 69 / €39 pro Monat. Jeder Preis ist öffentlich auf unserer Preisseite — keine «Offerte anfragen»-Spiele.",
+        a: "Transparente Preise: Der einmalige Aufbau beginnt bei CHF 790 / €490, monatliche Partnerschaften bei CHF 79 / €49 pro Monat. Jeder Preis ist öffentlich auf unserer Preisseite — keine «Offerte anfragen»-Spiele.",
       },
       {
         q: "Ich habe schon eine Webseite. Warum wechseln?",
@@ -361,11 +337,11 @@ const de: Dictionary = {
       },
       {
         q: "Gehört mir die Webseite?",
-        a: "Beim einmaligen Aufbau: ja, vollständig — Seite und Inhalte gehören Ihnen. Bei monatlichen Partnerschaften hosten und warten wir sie für Sie, solange die Partnerschaft läuft.",
+        a: "Beim einmaligen Aufbau: ja, vollständig — Seite und Inhalte gehören Ihnen. Bei monatlichen Partnerschaften hosten und warten wir sie für Sie, solange die Partnerschaft läuft. Monatliche Partnerschaften laufen über einen 12-Monats-Vertrag.",
       },
       {
         q: "Was passiert, wenn sich meine Preise oder mein Angebot ändern?",
-        a: "Schicken Sie uns die Änderung, und wir bieten sie als kleines Update an — bei jedem Plan. Kleine Änderung, kleine Rechnung, keine Bindung.",
+        a: "Schicken Sie uns die Änderung, und wir bieten sie als kleines Update an — bei jedem Plan. Kleine Änderung, kleine Rechnung.",
       },
       {
         q: "Arbeiten Sie nur in der Schweiz und in Portugal?",
@@ -373,7 +349,7 @@ const de: Dictionary = {
       },
       {
         q: "Was, wenn ich nicht zufrieden bin?",
-        a: "Monatliche Partnerschaften enthalten eine 30-Tage-Geld-zurück-Garantie — volle Rückerstattung, kein Kleingedrucktes. Jedes Projekt enthält mindestens 30 Tage Support nach dem Launch.",
+        a: "Bevor Sie sich festlegen, sehen Sie einen kostenlosen Prototyp Ihrer Startseite. So wissen Sie, was Sie bekommen. Jedes Projekt enthält zudem mindestens 30 Tage Support nach dem Launch.",
       },
     ],
   },
@@ -394,29 +370,9 @@ const de: Dictionary = {
     privacyNote: "Wir verwenden Ihre Angaben ausschliesslich, um Ihren Prototyp zu erstellen und zu senden. Kein Newsletter, kein Spam.",
   },
 
-  finalCta: {
-    headline: "Ihre Kunden suchen Sie genau jetzt.",
-    sub: "Seien Sie das Unternehmen, das sie finden — und bei dem sie buchen, bestellen oder kaufen.",
-    ctaPrimary: "Kostenloses Gespräch buchen",
-    ctaSecondary: "Gratis-Prototyp erhalten",
-    note: "30-Minuten-Gespräch · Keine Verpflichtung · Live in 7 Tagen",
-  },
-
-  reservationsTeaser: {
-    eyebrow: "Reservierungen · Gastronomie",
-    headline: "Unsere eigene Reservierungsplattform, in Ihre Website eingebaut.",
-    sub: "Gäste reservieren in Sekunden auf Ihrer Website — kein Marktplatz, keine Provision. Ihr Team sieht jede Reservierung, jeden Anruf und jeden Walk-in auf einem Tischplan.",
-    points: [
-      "Provisionsfrei, auf Ihrer eigenen Domain",
-      "Bestätigungs- und Erinnerungs-E-Mails in vier Sprachen",
-      "Tagesansicht mit Live-Tischplan, Ankünften und No-shows",
-    ],
-    included: "In Monatlich Professional enthalten",
-    cta: "Plattform entdecken",
-  },
 
   reservations: {
-    eyebrow: "Reservierungen für die Gastronomie",
+    eyebrow: "Restaurants, Bars & Cafés",
     headline1: "Ihr eigenes Reservierungssystem,",
     headline2: "auf Ihrer eigenen Website.",
     sub: "TableFront Reservierungen ist die Buchungsplattform, die wir im eigenen Restaurantbetrieb entwickelt haben. Sie lebt auf der Website, die wir für Sie gestalten: Gäste reservieren in Sekunden, Ihr Team führt den Betrieb von einem Bildschirm aus, und niemand nimmt eine Provision.",
@@ -430,6 +386,14 @@ const de: Dictionary = {
       "Live-Tischplan",
       "Deutsch · Englisch · Portugiesisch · Französisch",
     ],
+    site: {
+      headline: "Eine Website, die Tische füllt.",
+      items: [
+        { title: "Speisekarte, Öffnungszeiten, Standort", body: "Was Gäste zuerst suchen, auf dem Handy gut lesbar und einfach aktuell zu halten." },
+        { title: "Eine klare Aktion: Tisch reservieren", body: "Ein Reservierungsknopf auf jeder Seite, statt eines Telefons, das mitten im Service klingelt." },
+        { title: "In der Nähe gefunden", body: "Lokales SEO, Google Maps und Click-to-Call." },
+      ],
+    },
     video: {
       eyebrow: "Ansehen",
       headline: "Ein Freitagabend, in 47 Sekunden.",
@@ -659,39 +623,13 @@ const de: Dictionary = {
     exitSub: "Buchen Sie ein Gespräch — wir führen Sie durch Dashboard und Widget.",
     exitCall: "Kostenloses Gespräch buchen",
     exitPricing: "Preise ansehen",
-    mock: {
-      widgetTitle: "Tisch reservieren",
-      date: "Datum",
-      party: "Gäste",
-      time: "Uhrzeit",
-      dateValue: "Fr 14. Nov",
-      partyValue: "4 Gäste",
-      slots: [
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-        "20:30",
-      ],
-      name: "Name",
-      phone: "Telefon",
-      button: "Reservierung bestätigen",
-      confirmed: "Reservierung bestätigt!",
-      confirmedSub: "Tisch für 4 · Fr 14. Nov · 20:00",
-      floorTitle: "Heute Abend",
-      floorCovers: "42 Gedecke · 11 Tische",
-      legend: [
-        "Frei",
-        "Platziert",
-        "Im Anmarsch",
-      ],
-    },
   },
 
   footer: {
     tagline:
       "Webseiten, die aus Besuchern Buchungen, Bestellungen und Verkäufe machen. In der Gastronomie geboren — gebaut für jedes Unternehmen, das an Kunden verkauft.",
     navTitle: "Navigation",
+    businessTitle: "Für Ihren Betrieb",
     startTitle: "Loslegen",
     legalTitle: "Rechtliches",
     linkHow: "Ablauf",
@@ -699,7 +637,6 @@ const de: Dictionary = {
     linkStory: "Unsere Geschichte",
     linkFaq: "FAQ",
     linkPricing: "Preise",
-    linkReservations: "Reservierungen",
     linkCall: "Gespräch buchen",
     linkPrototype: "Gratis-Prototyp",
     linkLogin: "Login Reservierungen",
@@ -763,6 +700,8 @@ const de: Dictionary = {
       },
     ],
   },
+
+  business,
 
   notFound: {
     headline: "Diese Seite hat noch nicht geöffnet.",

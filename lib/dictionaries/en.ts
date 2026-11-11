@@ -1,3 +1,5 @@
+import business from "./business.en"
+
 const en = {
   meta: {
     home: {
@@ -8,10 +10,10 @@ const en = {
     pricing: {
       title: "Pricing — Fixed website packages, shown in CHF or EUR",
       description:
-        "Transparent website pricing: one-time builds from €490 / CHF 790, monthly partnerships from €39 / CHF 69. Fixed per market, no hidden fees, 7-day delivery.",
+        "Transparent website pricing: one-time builds from €490 / CHF 790, monthly partnerships from €49 / CHF 79. Fixed per market, no hidden fees, 7-day delivery.",
     },
     reservations: {
-      title: "Reservations — Commission-free table bookings on your own website",
+      title: "Restaurants — Commission-free table bookings on your own website",
       description: "TableFront Reservations: a commission-free booking widget for restaurants and cafés, with confirmation and reminder emails, a live floor map and a day view for your team. Included in the Monthly Professional plan, or on its own for an existing website.",
     },
     legal: {
@@ -21,13 +23,10 @@ const en = {
   },
 
   nav: {
-    why: "Why TableFront",
+    business: "For your business",
     how: "How it works",
     work: "Our work",
-    story: "Our story",
-    faq: "FAQ",
     pricing: "Pricing",
-    reservations: "Reservations",
     bookCall: "Book a free call",
     login: "Log in",
     getPrototype: "Free prototype",
@@ -45,7 +44,7 @@ const en = {
     eyebrowPrefix: "Websites for",
     verticals: ["restaurants", "cafés", "salons", "clinics", "shops"],
     headline1: "Websites that turn visitors",
-    headline2: "into bookings, orders and sales.",
+    headline2: "into customers.",
     sub: "Born in hospitality — built for every business that sells to customers.",
     ctaPrimary: "Book a free call",
     ctaSecondary: "Get a free prototype",
@@ -100,34 +99,6 @@ const en = {
         statValue: "+63%",
       },
       ],
-    },
-  },
-
-  verticals: {
-    eyebrow: "Who we work with",
-    headline: "One website. One clear action.",
-    sub: "We build for businesses that sell directly to their customers — and we design every page around the one thing a visitor should do next.",
-    actionLabel: "Main action",
-    items: {
-      hospitality: {
-        kicker: "Flagship",
-        title: "Hospitality",
-        examples: "Restaurants, bars, cafés, hotels",
-        body: "Where TableFront was born. Menus, hours, location and a reservation flow that keeps the booking — and the guest — yours.",
-        action: "Reserve a table",
-      },
-      beauty: {
-        title: "Health & beauty",
-        examples: "Salons, barbers, clinics, studios",
-        body: "Services, team and prices laid out clearly, with online booking that fills your calendar while you're with a client.",
-        action: "Book an appointment",
-      },
-      shops: {
-        title: "Producers & shops",
-        examples: "Craft producers, boutiques, online stores",
-        body: "A brand site with an online store built in — product pages, checkout and shipping, so you sell directly instead of through marketplaces.",
-        action: "Buy online",
-      },
     },
   },
 
@@ -236,10 +207,12 @@ const en = {
     oneTimeTitle: "One-time builds",
     oneTimeSub: "Pay once. You own the site.",
     monthlyTitle: "Monthly partnerships",
-    monthlySub: "We host and maintain it for you — or take just the reservation platform.",
+    monthlySub: "The site, hosting and maintenance in one monthly fee, on a 12-month contract. Or take just the booking platform.",
     perMonth: "/mo",
     oneTime: "one-time",
     recommended: "Recommended",
+    contract: "12-month contract",
+    platformsNote: "Which booking platform you get depends on your business:",
     items: {
       essencial: {
         label: "Essential",
@@ -288,7 +261,7 @@ const en = {
         tagline: "Everything handled — including bookings.",
         features: [
           "Everything in Monthly Essential",
-          "Reservations included for hospitality",
+          "Booking platform included: tables, stays or appointments",
           "Priority support",
           "Quarterly performance report",
         ],
@@ -299,7 +272,7 @@ const en = {
         features: [
           "Booking widget on your existing site",
           "Confirmation, reminder & cancellation emails",
-          "Day view, live floor map & floor-plan editor",
+          "For tables, stays or appointments, each with its own dashboard",
           "Widget & emails in EN · DE · PT · FR",
           "Set up with you, no per-booking fee",
         ],
@@ -310,18 +283,22 @@ const en = {
     note: "Fixed prices per market, shown in CHF or EUR. 7-day build from materials received. No hidden fees.",
   },
 
-  guarantee: {
-    eyebrow: "Our promise",
-    headline: "If it doesn't work for you, you don't pay for it.",
-    body: "Every monthly partnership includes a 30-day money-back guarantee: if the new site isn't doing its job in the first month, you get a full refund. We'd rather carry the risk than have you carry the doubt.",
-    points: ["30 days, full refund", "No fine print", "We carry the risk"],
-    cta: "See plans & pricing",
+  pricingSummary: {
+    eyebrow: "Pricing",
+    headline: "Clear prices, fixed per market.",
+    sub: "Three ways to work with us. Every plan, and what it includes, is on the pricing page.",
+    from: "from",
+    perMonth: "/mo",
+    items: {
+      oneTime: { title: "One-time build", body: "Pay once. You own the site." },
+      monthly: { title: "Monthly partnership", body: "Site, hosting and maintenance in one monthly fee. 12-month contract." },
+      platform: { title: "Booking platform only", body: "Table reservations, stays or appointments on the site you already have." },
+    },
+    cta: "See all plans",
   },
 
   team: {
     eyebrow: "The people behind it",
-    headline: "Led by people who've worked the floor.",
-    sub: "We didn't come from agencies. We came from hospitality.",
     members: [
       {
         name: "Daniel Bota",
@@ -344,7 +321,7 @@ const en = {
     items: [
       {
         q: "How much does a website cost?",
-        a: "Transparent pricing: one-time builds start at €490 / CHF 790, monthly partnerships at €39 / CHF 69 per month. Every price is public on our pricing page — no \"request a quote\" games.",
+        a: "Transparent pricing: one-time builds start at €490 / CHF 790, monthly partnerships at €49 / CHF 79 per month. Every price is public on our pricing page — no \"request a quote\" games.",
       },
       {
         q: "I already have a website. Why change it?",
@@ -360,11 +337,11 @@ const en = {
       },
       {
         q: "Do I own the website?",
-        a: "On a one-time build: yes, fully — the site and the content are yours. On monthly partnerships we host and maintain it for you while the partnership runs.",
+        a: "On a one-time build: yes, fully — the site and the content are yours. On monthly partnerships we host and maintain it for you while the partnership runs. Monthly partnerships run on a 12-month contract.",
       },
       {
         q: "What happens when my prices or offer change?",
-        a: "Send us the change and we quote it as a small update — on every plan. Small change, small invoice, no lock-in.",
+        a: "Send us the change and we quote it as a small update — on every plan. Small change, small invoice.",
       },
       {
         q: "Do you only work in Switzerland and Portugal?",
@@ -372,7 +349,7 @@ const en = {
       },
       {
         q: "What if I'm not happy with the result?",
-        a: "Monthly partnerships include a 30-day money-back guarantee — full refund, no fine print. Every project includes at least 30 days of post-launch support.",
+        a: "Before you commit, you see a free prototype of your homepage, so you know what you are getting. Every project also includes at least 30 days of post-launch support.",
       },
     ],
   },
@@ -393,31 +370,11 @@ const en = {
     privacyNote: "We use your details only to prepare and send your prototype. No newsletter, no spam.",
   },
 
-  finalCta: {
-    headline: "Your customers are searching for you right now.",
-    sub: "Be the business they find — and the one they book, order from or buy from.",
-    ctaPrimary: "Book your free call",
-    ctaSecondary: "Get a free prototype",
-    note: "30-minute call · No commitment · Live in 7 days",
-  },
-
   /** Home teaser for the reservation platform (hospitality flagship) — links to /reservations. */
-  reservationsTeaser: {
-    eyebrow: "Reservations · Hospitality",
-    headline: "Our own reservation platform, built into your site.",
-    sub: "Guests book a table in seconds on your website — no marketplace, no commission. Your team sees every booking, phone call and walk-in on one floor map.",
-    points: [
-      "Commission-free, on your own domain",
-      "Confirmation and reminder emails, in four languages",
-      "Day view with live floor map, arrivals and no-shows",
-    ],
-    included: "Included in Monthly Professional",
-    cta: "Discover the platform",
-  },
 
   /** /reservations — the hospitality booking platform (app.tablesfront.com) explained. */
   reservations: {
-    eyebrow: "Reservations for hospitality",
+    eyebrow: "Restaurants, bars & cafés",
     headline1: "Your own reservation system,",
     headline2: "on your own website.",
     sub: "TableFront Reservations is the booking platform we built while running restaurants. It lives on the site we design for you: guests book in seconds, your team runs the room from one screen, and nobody takes a cut.",
@@ -431,6 +388,14 @@ const en = {
       "Live floor map",
       "English · German · Portuguese · French",
     ],
+    site: {
+      headline: "A website built to fill tables.",
+      items: [
+        { title: "Menu, hours and location", body: "What guests look for first, readable on a phone and easy to keep current." },
+        { title: "One clear action: book a table", body: "A booking button on every page, instead of a phone that rings in the middle of service." },
+        { title: "Found nearby", body: "Local SEO setup, Google Maps and click-to-call." },
+      ],
+    },
     video: {
       eyebrow: "Watch",
       headline: "A Friday night, in 47 seconds.",
@@ -654,39 +619,13 @@ const en = {
     exitSub: "Book a call and we'll walk you through the dashboard and the widget.",
     exitCall: "Book a free call",
     exitPricing: "See pricing",
-    mock: {
-      widgetTitle: "Reserve a table",
-      date: "Date",
-      party: "Guests",
-      time: "Time",
-      dateValue: "Fri 14 Nov",
-      partyValue: "4 guests",
-      slots: [
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-        "20:30",
-      ],
-      name: "Name",
-      phone: "Phone",
-      button: "Confirm reservation",
-      confirmed: "Booking confirmed!",
-      confirmedSub: "Table for 4 · Fri 14 Nov · 20:00",
-      floorTitle: "Tonight",
-      floorCovers: "42 covers · 11 tables",
-      legend: [
-        "Free",
-        "Seated",
-        "Arriving",
-      ],
-    },
   },
 
   footer: {
     tagline:
       "Websites that turn visitors into bookings, orders and sales. Born in hospitality — built for every business that sells to customers.",
     navTitle: "Navigation",
+    businessTitle: "For your business",
     startTitle: "Get started",
     legalTitle: "Legal",
     linkHow: "How it works",
@@ -694,7 +633,6 @@ const en = {
     linkStory: "Our story",
     linkFaq: "FAQ",
     linkPricing: "Pricing",
-    linkReservations: "Reservations",
     linkCall: "Book a call",
     linkPrototype: "Free prototype",
     linkLogin: "Reservations log in",
@@ -758,6 +696,8 @@ const en = {
       },
     ],
   },
+
+  business,
 
   notFound: {
     headline: "This page isn't open yet.",

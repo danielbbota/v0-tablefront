@@ -29,7 +29,7 @@ export function Faq({ dict }: { dict: Dictionary["faq"] }) {
                 className="reveal group border-b border-border py-2"
                 style={{ "--reveal-delay": `${Math.min(index * 60, 300)}ms` } as CSSProperties}
               >
-                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-6 py-4 [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-6 py-3 [&::-webkit-details-marker]:hidden">
                   <h3 className="font-serif text-subheading font-medium text-heading">{item.q}</h3>
                   <span
                     className="shrink-0 font-serif text-h3 leading-none text-brass transition-transform duration-200 group-open:rotate-45"

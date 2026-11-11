@@ -37,7 +37,7 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
   return (
     <>
       <RevealInit />
-      <Navigation lang={lang} dict={dict.nav} />
+      <Navigation lang={lang} dict={dict.nav} business={dict.business.labels} />
       <main className="bg-background">
         <header className="mx-auto max-w-[1280px] px-6 pb-4 pt-28 lg:px-8">
           <p className="eyebrow">{dict.pricing.eyebrow}</p>
@@ -56,9 +56,17 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
           </ul>
         </header>
 
-        <PricingPlans lang={lang} dict={dict.plans} compact />
+        <PricingPlans
+          lang={lang}
+          dict={dict.plans}
+          platforms={(["restaurants", "stays", "beauty"] as const).map((type) => ({
+            type,
+            label: dict.business.chooser.items[type].platform,
+            business: dict.business.labels[type],
+          }))}
+        />
 
-        <section className="mx-auto max-w-[1280px] px-6 pb-24 lg:px-8">
+        <section className="mx-auto max-w-[1280px] px-6 pb-24 pt-8 lg:px-8">
           <div className="reveal rounded-lg bg-espresso p-8 text-center">
             <p className="font-serif text-h2 font-medium text-cream">{dict.pricing.exitTitle}</p>
             <p className="mt-2 text-cream/70">{dict.pricing.exitSub}</p>
@@ -82,7 +90,7 @@ export default async function PricingPage({ params }: { params: Promise<{ lang: 
           </p>
         </section>
       </main>
-      <Footer lang={lang} dict={dict.footer} />
+      <Footer lang={lang} dict={dict.footer} business={dict.business.labels} />
     </>
   )
 }

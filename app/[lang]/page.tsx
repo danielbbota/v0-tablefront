@@ -7,19 +7,15 @@ import { Navigation } from "@/components/site/navigation"
 import { Footer } from "@/components/site/footer"
 import { RevealInit } from "@/components/site/reveal-init"
 import { Hero } from "@/components/home/hero"
-import { Verticals } from "@/components/home/verticals"
-import { ReservationsTeaser } from "@/components/home/reservations-teaser"
+import { BusinessChooser } from "@/components/home/business-chooser"
 import { Pains } from "@/components/home/pains"
 import { Calculator } from "@/components/home/calculator"
 import { Process } from "@/components/home/process"
 import { LatestProject } from "@/components/home/latest-project"
-import { PricingPlans } from "@/components/home/pricing-plans"
-import { FounderStory } from "@/components/home/founder-story"
-import { Guarantee } from "@/components/home/guarantee"
-import { Team } from "@/components/home/team"
+import { PricingSummary } from "@/components/home/pricing-summary"
+import { About } from "@/components/home/about"
 import { Faq } from "@/components/home/faq"
 import { PrototypeForm } from "@/components/home/prototype-form"
-import { FinalCta } from "@/components/home/final-cta"
 
 export async function generateMetadata({
   params,
@@ -49,24 +45,21 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   return (
     <>
       <RevealInit />
-      <Navigation lang={lang} dict={dict.nav} />
+      <Navigation lang={lang} dict={dict.nav} business={dict.business.labels} />
+      {/* Ten sections, each said once and each sized to fit one laptop screen: who it is for, why, what it costs you, how, proof, price, who we are, questions, the free prototype. */}
       <main>
         <Hero lang={lang} dict={dict.hero} />
-        <Verticals dict={dict.verticals} />
-        <ReservationsTeaser lang={lang} dict={dict.reservationsTeaser} mock={dict.reservations.mock} />
+        <BusinessChooser lang={lang} dict={dict.business} />
         <Pains dict={dict.pains} />
         <Calculator lang={lang} dict={dict.calculator} />
         <Process dict={dict.process} />
         <LatestProject dict={dict.latestProject} />
-        <PricingPlans lang={lang} dict={dict.plans} />
-        <FounderStory dict={dict.founder} />
-        <Guarantee lang={lang} dict={dict.guarantee} />
-        <Team dict={dict.team} />
+        <PricingSummary lang={lang} dict={dict.pricingSummary} />
+        <About founder={dict.founder} team={dict.team} />
         <Faq dict={dict.faq} />
         <PrototypeForm lang={lang} dict={dict.prototype} />
-        <FinalCta lang={lang} dict={dict.finalCta} />
       </main>
-      <Footer lang={lang} dict={dict.footer} />
+      <Footer lang={lang} dict={dict.footer} business={dict.business.labels} />
     </>
   )
 }

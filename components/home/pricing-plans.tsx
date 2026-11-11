@@ -2,9 +2,10 @@
 
 import type { CSSProperties } from "react"
 import Link from "next/link"
-import { Check } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import { CALENDLY_URL, formatPrice, type Locale } from "@/lib/i18n/config"
 import { useCurrency } from "@/lib/currency-context"
+import { BUSINESS_PATH, type BusinessType } from "@/lib/business"
 import { MONTHLY_PLANS, ONE_TIME_PLANS, type PlanData } from "@/lib/pricing-data"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
@@ -35,7 +36,7 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
         {plan.monthly && <span className="ml-1 text-h3 text-muted-foreground">{dict.perMonth}</span>}
       </p>
       <p className="mt-1 font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
-        {plan.monthly ? " " : dict.oneTime}
+        {plan.monthly ? (plan.minTermMonths ? dict.contract : " ") : dict.oneTime}
       </p>
 
       <hr className="my-4 border-border" />
@@ -62,37 +63,29 @@ function PlanCard({ plan, dict, lang, index }: { plan: PlanData; dict: PlansDict
 }
 
 /**
- * The six fixed-price packages. Prices follow the CHF/EUR toggle in the
- * navigation (EN/PT default to EUR, DE/FR to CHF). Used on the homepage and,
- * with `showFullLink` off, as the body of the pricing page.
+ * The six fixed-price packages — the body of the pricing page, the one place
+ * the full cards live (the homepage only shows a three-line summary). Two
+ * sections, one-time builds then monthly partnerships, so each row of cards
+ * fits a laptop screen; the three booking platforms follow underneath.
+ * Prices follow the CHF/EUR toggle in the navigation (EN/PT default to EUR,
+ * DE/FR to CHF).
  */
 export function PricingPlans({
   lang,
   dict,
-  compact = false,
+  platforms,
 }: {
   lang: Locale
   dict: PlansDict
-  /** Pricing page: the page header already introduces the section, so skip the intro and the "full pricing" link. */
-  compact?: boolean
+  /** The three booking platforms, linked to the business page that explains each. */
+  platforms: { type: BusinessType; label: string; business: string }[]
 }) {
+  const wrap = "mx-auto max-w-[1280px] px-6 lg:px-8"
   return (
-    <section
-      id="pricing"
-      className={`scroll-mt-24 ${compact ? "bg-background pb-20 pt-12 md:pt-16" : "bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]"}`}
-    >
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
-        {!compact && (
-          <div className="reveal max-w-4xl">
-            <p className="eyebrow">{dict.eyebrow}</p>
-            <h2 className="mt-4 font-serif text-h1 font-medium text-heading text-balance">{dict.headline}</h2>
-            <p className="mt-4 text-body-lg text-muted-foreground">{dict.sub}</p>
-            <span className="draw-rule mt-5 w-24" aria-hidden />
-          </div>
-        )}
-
-        <div className={compact ? "" : "mt-10"}>
-          <h3 className="font-serif text-h3 font-medium text-heading">{dict.oneTimeTitle}</h3>
+    <>
+      <section id="pricing" className="scroll-mt-24 bg-background pb-12 pt-10 md:pb-[clamp(3rem,7svh,4.5rem)]">
+        <div className={wrap}>
+          <h2 className="font-serif text-h3 font-medium text-heading">{dict.oneTimeTitle}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{dict.oneTimeSub}</p>
           <div className="mt-5 grid gap-5 md:grid-cols-3">
             {ONE_TIME_PLANS.map((plan, index) => (
@@ -100,9 +93,11 @@ export function PricingPlans({
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="mt-10">
-          <h3 className="font-serif text-h3 font-medium text-heading">{dict.monthlyTitle}</h3>
+      <section id="monthly" className="scroll-mt-24 border-t border-border bg-surface py-12 md:py-[clamp(3rem,7svh,4.5rem)]">
+        <div className={wrap}>
+          <h2 className="font-serif text-h3 font-medium text-heading">{dict.monthlyTitle}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{dict.monthlySub}</p>
           <div className="mt-5 grid gap-5 md:grid-cols-3">
             {MONTHLY_PLANS.map((plan, index) => (
@@ -110,17 +105,31 @@ export function PricingPlans({
             ))}
           </div>
         </div>
+      </section>
 
-        {!compact && <p className="mt-8 max-w-2xl text-xs leading-relaxed text-muted-foreground">{dict.note}</p>}
-        {!compact && (
-          <Link
-            href={`/${lang}/pricing`}
-            className="link-brass mt-5 inline-block font-mono text-label uppercase text-heading"
-          >
-            {dict.ctaSecondary}
-          </Link>
-        )}
-      </div>
-    </section>
+      <section className="border-t border-border bg-background pt-12 md:pt-[clamp(3rem,7svh,4.5rem)]">
+        <div className={wrap}>
+          <div className="reveal rounded-lg border border-border bg-surface p-6 md:p-7">
+            <p className="font-mono text-label uppercase text-heading">{dict.platformsNote}</p>
+            <ul className="mt-4 grid gap-4 md:grid-cols-3">
+              {platforms.map((platform) => (
+                <li key={platform.type}>
+                  <Link href={`/${lang}${BUSINESS_PATH[platform.type]}`} className="group block">
+                    <span className="flex items-center gap-2 font-serif text-h3 font-medium text-heading">
+                      {platform.label}
+                      <ArrowRight
+                        className="h-4 w-4 text-primary-deep transition-transform duration-300 group-hover:translate-x-1"
+                        aria-hidden
+                      />
+                    </span>
+                    <span className="mt-1 block text-sm text-muted-foreground">{platform.business}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

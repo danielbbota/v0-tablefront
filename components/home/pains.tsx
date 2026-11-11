@@ -1,9 +1,13 @@
 import type { CSSProperties } from "react"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
+/**
+ * "Why": the four quiet costs of a weak website. Sized to fit one laptop
+ * screen; the calculator that puts a number on them is the next section.
+ */
 export function Pains({ dict }: { dict: Dictionary["pains"] }) {
   return (
-    <section id="why" className="scroll-mt-24 bg-surface py-16 md:py-[clamp(3rem,8svh,5rem)]">
+    <section id="why" className="scroll-mt-24 bg-surface py-16 md:py-[clamp(2.5rem,6.5svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="reveal max-w-4xl">
           <p className="eyebrow">{dict.eyebrow}</p>
@@ -12,11 +16,11 @@ export function Pains({ dict }: { dict: Dictionary["pains"] }) {
           <span className="draw-rule mt-5 w-24" aria-hidden />
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
           {dict.items.map((item, index) => (
             <article
               key={item.title}
-              className="reveal rounded-lg border border-transparent bg-background px-7 py-6 transition-colors duration-300 hover:border-brass/60"
+              className="reveal rounded-lg border border-transparent bg-background px-7 py-4 transition-colors duration-300 hover:border-brass/60"
               style={{ "--reveal-delay": `${index * 90}ms` } as CSSProperties}
             >
               <div className="flex items-baseline justify-between gap-4">
@@ -25,8 +29,8 @@ export function Pains({ dict }: { dict: Dictionary["pains"] }) {
                   {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-foreground/80">{item.body}</p>
-              <p className="mt-4 border-l-2 border-brass pl-4 text-sm italic text-muted-foreground">{item.note}</p>
+              <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-foreground/80">{item.body}</p>
+              <p className="mt-3 border-l-2 border-brass pl-4 text-sm italic text-muted-foreground">{item.note}</p>
             </article>
           ))}
         </div>
