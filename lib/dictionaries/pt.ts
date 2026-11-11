@@ -1,4 +1,5 @@
 import type { Dictionary } from "./en"
+import business from "./business.pt"
 
 const pt: Dictionary = {
   meta: {
@@ -10,10 +11,10 @@ const pt: Dictionary = {
     pricing: {
       title: "Preços — Pacotes de website fixos, em CHF ou EUR",
       description:
-        "Preços transparentes para websites: construção única desde €490 / CHF 790, parcerias mensais desde €39 / CHF 69. Fixos por mercado, sem taxas ocultas, entrega em 7 dias.",
+        "Preços transparentes para websites: construção única desde €490 / CHF 790, parcerias mensais desde €49 / CHF 79. Fixos por mercado, sem taxas ocultas, entrega em 7 dias.",
     },
     reservations: {
-      title: "Reservas — Reservas de mesa sem comissões no seu próprio website",
+      title: "Restaurantes — Reservas de mesa sem comissões no seu próprio website",
       description: "TableFront Reservas: um widget de reservas sem comissões para restaurantes e cafés, com e-mails de confirmação e lembrete, mapa de sala em tempo real e vista do dia para a sua equipa. Incluído no plano Mensal Profissional, ou à parte para um website já existente.",
     },
     legal: {
@@ -23,13 +24,10 @@ const pt: Dictionary = {
   },
 
   nav: {
-    why: "Porquê TableFront",
+    business: "Para o seu negócio",
     how: "Como funciona",
     work: "Projetos",
-    story: "História",
-    faq: "FAQ",
     pricing: "Preços",
-    reservations: "Reservas",
     bookCall: "Chamada gratuita",
     login: "Entrar",
     getPrototype: "Protótipo grátis",
@@ -47,7 +45,7 @@ const pt: Dictionary = {
     eyebrowPrefix: "Websites para",
     verticals: ["restaurantes", "cafés", "salões", "clínicas", "lojas"],
     headline1: "Websites que transformam visitas",
-    headline2: "em reservas, encomendas e vendas.",
+    headline2: "em clientes.",
     sub: "Nascido na hotelaria — feito para todos os negócios que vendem diretamente aos clientes.",
     ctaPrimary: "Agendar chamada gratuita",
     ctaSecondary: "Receber protótipo grátis",
@@ -101,34 +99,6 @@ const pt: Dictionary = {
         statValue: "+63%",
       },
       ],
-    },
-  },
-
-  verticals: {
-    eyebrow: "Com quem trabalhamos",
-    headline: "Um website. Uma única ação clara.",
-    sub: "Construímos para negócios que vendem diretamente aos seus clientes — e desenhamos cada página à volta da única coisa que um visitante deve fazer a seguir.",
-    actionLabel: "Ação principal",
-    items: {
-      hospitality: {
-        kicker: "Especialidade",
-        title: "Hotelaria",
-        examples: "Restaurantes, bares, cafés, hotéis",
-        body: "Onde o TableFront nasceu. Menu, horários, localização e um fluxo de reservas que mantém a reserva — e o cliente — seus.",
-        action: "Reservar mesa",
-      },
-      beauty: {
-        title: "Saúde & beleza",
-        examples: "Salões, barbearias, clínicas, estúdios",
-        body: "Serviços, equipa e preços apresentados com clareza, com marcações online que enchem a sua agenda enquanto está com um cliente.",
-        action: "Fazer marcação",
-      },
-      shops: {
-        title: "Produtores & lojas",
-        examples: "Produtores artesanais, boutiques, lojas online",
-        body: "Um site de marca com loja online integrada — páginas de produto, checkout e envios, para vender diretamente em vez de através de marketplaces.",
-        action: "Comprar online",
-      },
     },
   },
 
@@ -237,10 +207,12 @@ const pt: Dictionary = {
     oneTimeTitle: "Construção única",
     oneTimeSub: "Pague uma vez. O site é seu.",
     monthlyTitle: "Parcerias mensais",
-    monthlySub: "Alojamos e mantemos por si — ou leve só a plataforma de reservas.",
+    monthlySub: "O site, o alojamento e a manutenção numa mensalidade, com contrato de 12 meses. Ou leve só a plataforma de reservas.",
     perMonth: "/mês",
     oneTime: "pagamento único",
     recommended: "Recomendado",
+    contract: "contrato de 12 meses",
+    platformsNote: "A plataforma de reservas depende do seu negócio:",
     items: {
       essencial: {
         label: "Essencial",
@@ -289,7 +261,7 @@ const pt: Dictionary = {
         tagline: "Tudo tratado — incluindo as reservas.",
         features: [
           "Tudo o que está no Mensal Essencial",
-          "Reservas incluídas para hotelaria",
+          "Plataforma de reservas incluída: mesas, estadias ou marcações",
           "Suporte prioritário",
           "Relatório de desempenho trimestral",
         ],
@@ -300,7 +272,7 @@ const pt: Dictionary = {
         features: [
           "Widget de reservas no seu site atual",
           "E-mails de confirmação, lembrete & cancelamento",
-          "Vista do dia, mapa de sala em tempo real & editor da planta",
+          "Para mesas, estadias ou marcações, cada uma com o seu painel",
           "Widget & e-mails em PT · EN · DE · FR",
           "Configurado consigo, sem custo por reserva",
         ],
@@ -311,18 +283,22 @@ const pt: Dictionary = {
     note: "Preços fixos por mercado, em CHF ou EUR. Construção em 7 dias após receção dos materiais. Sem taxas ocultas.",
   },
 
-  guarantee: {
-    eyebrow: "A nossa promessa",
-    headline: "Se não funcionar para si, não paga.",
-    body: "Cada parceria mensal inclui uma garantia de devolução do dinheiro em 30 dias: se o novo site não estiver a fazer o seu trabalho no primeiro mês, devolvemos o valor na totalidade. Preferimos assumir o risco a deixá-lo com a dúvida.",
-    points: ["30 dias, reembolso total", "Sem letras pequenas", "O risco é nosso"],
-    cta: "Ver planos & preços",
+  pricingSummary: {
+    eyebrow: "Preços",
+    headline: "Preços claros, fixos por mercado.",
+    sub: "Três formas de trabalhar connosco. Todos os planos, e o que cada um inclui, estão na página de preços.",
+    from: "desde",
+    perMonth: "/mês",
+    items: {
+      oneTime: { title: "Construção única", body: "Pague uma vez. O site é seu." },
+      monthly: { title: "Parceria mensal", body: "Site, alojamento e manutenção numa mensalidade. Contrato de 12 meses." },
+      platform: { title: "Só a plataforma de reservas", body: "Reservas de mesa, estadias ou marcações no site que já tem." },
+    },
+    cta: "Ver todos os planos",
   },
 
   team: {
     eyebrow: "As pessoas por detrás",
-    headline: "Liderado por pessoas que trabalharam no terreno.",
-    sub: "Não viemos de agências. Viemos da hotelaria.",
     members: [
       {
         name: "Daniel Bota",
@@ -345,7 +321,7 @@ const pt: Dictionary = {
     items: [
       {
         q: "Quanto custa um website?",
-        a: "Preços transparentes: a construção única começa em €490 / CHF 790, as parcerias mensais em €39 / CHF 69 por mês. Todos os preços estão públicos na página de preços — sem jogos de «peça um orçamento».",
+        a: "Preços transparentes: a construção única começa em €490 / CHF 790, as parcerias mensais em €49 / CHF 79 por mês. Todos os preços estão públicos na página de preços — sem jogos de «peça um orçamento».",
       },
       {
         q: "Já tenho um website. Porquê mudar?",
@@ -361,11 +337,11 @@ const pt: Dictionary = {
       },
       {
         q: "O website é meu?",
-        a: "Na construção única: sim, totalmente — o site e os conteúdos são seus. Nas parcerias mensais, alojamos e mantemos por si enquanto a parceria durar.",
+        a: "Na construção única: sim, totalmente — o site e os conteúdos são seus. Nas parcerias mensais, alojamos e mantemos por si enquanto a parceria durar. As parcerias mensais têm um contrato de 12 meses.",
       },
       {
         q: "E quando os meus preços ou a minha oferta mudarem?",
-        a: "Envie-nos a alteração e orçamentamos como uma pequena atualização — em qualquer plano. Alteração pequena, fatura pequena, sem fidelização.",
+        a: "Envie-nos a alteração e orçamentamos como uma pequena atualização — em qualquer plano. Alteração pequena, fatura pequena.",
       },
       {
         q: "Só trabalham na Suíça e em Portugal?",
@@ -373,7 +349,7 @@ const pt: Dictionary = {
       },
       {
         q: "E se eu não ficar satisfeito com o resultado?",
-        a: "As parcerias mensais incluem uma garantia de devolução do dinheiro em 30 dias — reembolso total, sem letras pequenas. Todos os projetos incluem pelo menos 30 dias de suporte pós-lançamento.",
+        a: "Antes de se comprometer, vê um protótipo gratuito da sua homepage, para saber o que vai receber. Todos os projetos incluem ainda pelo menos 30 dias de suporte pós-lançamento.",
       },
     ],
   },
@@ -394,29 +370,9 @@ const pt: Dictionary = {
     privacyNote: "Usamos os seus dados apenas para preparar e enviar o seu protótipo. Sem newsletter, sem spam.",
   },
 
-  finalCta: {
-    headline: "Os seus clientes estão à sua procura neste momento.",
-    sub: "Seja o negócio que eles encontram — e onde reservam, encomendam ou compram.",
-    ctaPrimary: "Agendar a sua chamada gratuita",
-    ctaSecondary: "Receber protótipo grátis",
-    note: "Chamada de 30 minutos · Sem compromisso · Live em 7 dias",
-  },
-
-  reservationsTeaser: {
-    eyebrow: "Reservas · Hotelaria",
-    headline: "A nossa própria plataforma de reservas, integrada no seu site.",
-    sub: "Os clientes reservam mesa em segundos no seu website — sem marketplace, sem comissão. A sua equipa vê todas as reservas, telefonemas e walk-ins num único mapa de sala.",
-    points: [
-      "Sem comissões, no seu próprio domínio",
-      "E-mails de confirmação e lembrete, em quatro línguas",
-      "Vista do dia com mapa de sala em tempo real, chegadas e faltas",
-    ],
-    included: "Incluído no Mensal Profissional",
-    cta: "Conhecer a plataforma",
-  },
 
   reservations: {
-    eyebrow: "Reservas para a hotelaria",
+    eyebrow: "Restaurantes, bares & cafés",
     headline1: "O seu próprio sistema de reservas,",
     headline2: "no seu próprio website.",
     sub: "O TableFront Reservas é a plataforma de reservas que construímos enquanto geríamos restaurantes. Vive no site que desenhamos para si: os clientes reservam em segundos, a equipa gere a sala a partir de um ecrã e ninguém fica com uma parte.",
@@ -430,6 +386,14 @@ const pt: Dictionary = {
       "Mapa de sala em tempo real",
       "Português · Inglês · Alemão · Francês",
     ],
+    site: {
+      headline: "Um website feito para encher mesas.",
+      items: [
+        { title: "Menu, horários e localização", body: "O que o cliente procura primeiro, legível no telemóvel e fácil de manter atualizado." },
+        { title: "Uma única ação clara: reservar mesa", body: "Um botão de reserva em todas as páginas, em vez de um telefone que toca a meio do serviço." },
+        { title: "Encontrado por quem está perto", body: "Configuração de SEO local, Google Maps e click-to-call." },
+      ],
+    },
     video: {
       eyebrow: "Veja",
       headline: "Uma sexta-feira à noite, em 47 segundos.",
@@ -659,39 +623,13 @@ const pt: Dictionary = {
     exitSub: "Agende uma chamada e mostramos-lhe o painel e o widget.",
     exitCall: "Agendar chamada gratuita",
     exitPricing: "Ver preços",
-    mock: {
-      widgetTitle: "Reservar mesa",
-      date: "Data",
-      party: "Pessoas",
-      time: "Hora",
-      dateValue: "Sex 14 nov",
-      partyValue: "4 pessoas",
-      slots: [
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-        "20:30",
-      ],
-      name: "Nome",
-      phone: "Telefone",
-      button: "Confirmar reserva",
-      confirmed: "Reserva confirmada!",
-      confirmedSub: "Mesa para 4 · Sex 14 nov · 20:00",
-      floorTitle: "Esta noite",
-      floorCovers: "42 couverts · 11 mesas",
-      legend: [
-        "Livre",
-        "Sentados",
-        "A chegar",
-      ],
-    },
   },
 
   footer: {
     tagline:
       "Websites que transformam visitas em reservas, encomendas e vendas. Nascido na hotelaria — feito para todos os negócios que vendem diretamente aos clientes.",
     navTitle: "Navegação",
+    businessTitle: "Para o seu negócio",
     startTitle: "Começar",
     legalTitle: "Legal",
     linkHow: "Como funciona",
@@ -699,7 +637,6 @@ const pt: Dictionary = {
     linkStory: "A nossa história",
     linkFaq: "FAQ",
     linkPricing: "Preços",
-    linkReservations: "Reservas",
     linkCall: "Agendar chamada",
     linkPrototype: "Protótipo grátis",
     linkLogin: "Entrar nas Reservas",
@@ -763,6 +700,8 @@ const pt: Dictionary = {
       },
     ],
   },
+
+  business,
 
   notFound: {
     headline: "Esta página ainda não abriu.",

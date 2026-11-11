@@ -13,14 +13,34 @@ import {
   locales,
   type Locale,
 } from "@/lib/i18n/config"
+import { BUSINESS_PATH, BUSINESS_TYPES, type BusinessType } from "@/lib/business"
 import { useCurrency } from "@/lib/currency-context"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
-export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav"] }) {
+const LINK_CLASS =
+  "link-brass whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
+
+/**
+ * Site header. The first item, "For your business", opens the four business
+ * pages; the rest is short on purpose (how it works, work, pricing) so a
+ * visitor always knows where they are.
+ */
+export function Navigation({
+  lang,
+  dict,
+  business,
+}: {
+  lang: Locale
+  dict: Dictionary["nav"]
+  /** Names of the four business pages, shown in the "For your business" menu. */
+  business: Record<BusinessType, string>
+}) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
+  const [isBusinessOpen, setIsBusinessOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+  const businessRef = useRef<HTMLDivElement>(null)
   const mobileTriggerRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
   const { currency, setCurrency } = useCurrency()
@@ -28,12 +48,15 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
   // Current path with the locale segment stripped, so switching keeps the page.
   const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "") || ""
 
+  const businessLinks = BUSINESS_TYPES.map((type) => ({
+    href: `/${lang}${BUSINESS_PATH[type]}`,
+    label: business[type],
+    current: pathWithoutLocale === BUSINESS_PATH[type],
+  }))
+
   const navLinks = [
-    { href: `/${lang}#why`, label: dict.why },
     { href: `/${lang}#how-it-works`, label: dict.how },
     { href: `/${lang}#work`, label: dict.work },
-    { href: `/${lang}/reservations`, label: dict.reservations },
-    { href: `/${lang}#faq`, label: dict.faq },
     { href: `/${lang}/pricing`, label: dict.pricing },
   ]
 
@@ -46,19 +69,20 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(event.target as Node)) {
-        setIsLangOpen(false)
-      }
+      const target = event.target as Node
+      if (langRef.current && !langRef.current.contains(target)) setIsLangOpen(false)
+      if (businessRef.current && !businessRef.current.contains(target)) setIsBusinessOpen(false)
     }
     document.addEventListener("mousedown", handleClickOutside)
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
   useEffect(() => {
-    if (!isMobileOpen && !isLangOpen) return
+    if (!isMobileOpen && !isLangOpen && !isBusinessOpen) return
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return
       setIsLangOpen(false)
+      setIsBusinessOpen(false)
       if (isMobileOpen) {
         setIsMobileOpen(false)
         mobileTriggerRef.current?.focus()
@@ -66,7 +90,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
     }
     document.addEventListener("keydown", handleEscape)
     return () => document.removeEventListener("keydown", handleEscape)
-  }, [isMobileOpen, isLangOpen])
+  }, [isMobileOpen, isLangOpen, isBusinessOpen])
 
   const currencyToggle = (
     <div
@@ -104,12 +128,46 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
         {/* Desktop — xl breakpoint: DE/FR/PT labels need the room */}
         <div className="hidden items-center gap-5 xl:flex">
           <nav className="flex items-center gap-5" aria-label={dict.mainNavLabel}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="link-brass whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
+            <div className="relative" ref={businessRef}>
+              <button
+                type="button"
+                onClick={() => setIsBusinessOpen(!isBusinessOpen)}
+                aria-expanded={isBusinessOpen}
+                aria-controls="business-menu"
+                className="flex items-center gap-1 whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
               >
+                {dict.business}
+                <ChevronDown
+                  className={`h-3 w-3 transition-transform ${isBusinessOpen ? "rotate-180" : ""}`}
+                  aria-hidden
+                />
+              </button>
+              {isBusinessOpen && (
+                <div
+                  id="business-menu"
+                  className="absolute left-0 top-full mt-3 min-w-64 overflow-hidden rounded-lg border border-border bg-background shadow-lg"
+                >
+                  {businessLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsBusinessOpen(false)}
+                      aria-current={link.current ? "page" : undefined}
+                      className={`block whitespace-nowrap px-4 py-3 font-mono text-label uppercase transition-colors ${
+                        link.current
+                          ? "bg-surface text-primary-deep"
+                          : "text-foreground/80 hover:bg-surface hover:text-heading"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {navLinks.map((link) => (
+              <Link key={link.href} href={link.href} className={LINK_CLASS}>
                 {link.label}
               </Link>
             ))}
@@ -148,10 +206,7 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
 
           {currencyToggle}
 
-          <a
-            href={APP_LOGIN_URL}
-            className="link-brass whitespace-nowrap font-mono text-label uppercase text-foreground/80 transition-colors hover:text-heading"
-          >
+          <a href={APP_LOGIN_URL} className={LINK_CLASS}>
             {dict.login}
           </a>
 
@@ -181,8 +236,30 @@ export function Navigation({ lang, dict }: { lang: Locale; dict: Dictionary["nav
 
       {/* Mobile panel */}
       {isMobileOpen && (
-        <div id="mobile-nav-panel" className="border-b border-border bg-background px-6 pb-8 pt-2 xl:hidden">
+        <div
+          id="mobile-nav-panel"
+          className="max-h-[calc(100svh-4.5rem)] overflow-y-auto border-b border-border bg-background px-6 pb-8 pt-2 xl:hidden"
+        >
           <nav className="flex flex-col gap-5" aria-label={dict.mainNavLabel}>
+            <div>
+              <p className="eyebrow">{dict.business}</p>
+              <ul className="mt-3 flex flex-col gap-3 border-l-2 border-brass pl-4">
+                {businessLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileOpen(false)}
+                      aria-current={link.current ? "page" : undefined}
+                      className={`font-mono text-label uppercase ${
+                        link.current ? "text-primary-deep" : "text-foreground/80"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
             {navLinks.map((link) => (
               <Link
                 key={link.href}

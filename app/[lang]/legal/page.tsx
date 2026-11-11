@@ -33,7 +33,7 @@ export default async function LegalPage({ params }: { params: Promise<{ lang: st
 
   return (
     <>
-      <Navigation lang={lang} dict={dict.nav} />
+      <Navigation lang={lang} dict={dict.nav} business={dict.business.labels} />
       <main className="bg-background">
         <div className="mx-auto max-w-3xl px-6 pb-24 pt-28 lg:px-8">
           <h1 className="font-serif text-h1 font-medium text-heading">{dict.legal.title}</h1>
@@ -49,7 +49,7 @@ export default async function LegalPage({ params }: { params: Promise<{ lang: st
           </div>
         </div>
       </main>
-      <Footer lang={lang} dict={dict.footer} />
+      <Footer lang={lang} dict={dict.footer} business={dict.business.labels} />
     </>
   )
 }

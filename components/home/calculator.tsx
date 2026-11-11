@@ -37,8 +37,9 @@ function useTweenedNumber(target: number): number {
 }
 
 /**
- * Revenue-leak estimator. No invented statistics: the visitor's own numbers
- * run through two clearly labelled, adjustable assumptions.
+ * Revenue-leak estimator, the section right after the four pains. No
+ * invented statistics: the visitor's own numbers run through two clearly
+ * labelled, adjustable assumptions.
  */
 export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["calculator"] }) {
   const { currency } = useCurrency()
@@ -56,7 +57,7 @@ export function Calculator({ lang, dict }: { lang: Locale; dict: Dictionary["cal
   const yearlyLeak = tweenedMonthly * 12
 
   return (
-    <section className="bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
+    <section id="calculator" className="scroll-mt-24 bg-background py-16 md:py-[clamp(3rem,8svh,5rem)]">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
         <div className="reveal max-w-4xl">
           <p className="eyebrow">{dict.eyebrow}</p>
