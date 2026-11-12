@@ -1,7 +1,8 @@
 import type { ReactNode } from "react"
 import { Wordmark } from "@/components/site/wordmark"
 import Link from "next/link"
-import { APP_LOGIN_URL, CALENDLY_URL, type Locale } from "@/lib/i18n/config"
+import { Instagram } from "lucide-react"
+import { APP_LOGIN_URL, CALENDLY_URL, INSTAGRAM_HANDLE, INSTAGRAM_URL, type Locale } from "@/lib/i18n/config"
 import { BUSINESS_PATH, BUSINESS_TYPES, type BusinessType } from "@/lib/business"
 import type { Dictionary } from "@/lib/dictionaries/en"
 
@@ -35,6 +36,16 @@ export function Footer({
               <Wordmark className="text-[1.75rem]" />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">{dict.tagline}</p>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Instagram ${INSTAGRAM_HANDLE}`}
+              className={`${LINK_CLASS} mt-5 inline-flex items-center gap-2`}
+            >
+              <Instagram className="h-4 w-4 text-brass" strokeWidth={1.75} aria-hidden />
+              {INSTAGRAM_HANDLE}
+            </a>
           </div>
 
           <Column title={dict.businessTitle}>
