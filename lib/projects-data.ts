@@ -24,9 +24,9 @@ export const PROJECTS: ProjectData[] = [
     id: "aconchego",
     name: "Aconchego Dry Gin",
     url: "https://www.aconchegodrygin.com",
-    image: "/images/projects/aconchego-dry-gin.webp",
+    image: "/images/projects/aconchego-dry-gin-amendoeira.webp",
     width: 2000,
-    height: 1082,
+    height: 1126,
     vertical: "shops",
   },
 ]

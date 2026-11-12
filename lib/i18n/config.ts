@@ -27,6 +27,9 @@ export const SITE_URL = "https://www.tablesfront.com"
 
 export const CALENDLY_URL = "https://calendly.com/daniel-tablesfront/30min"
 
+export const INSTAGRAM_HANDLE = "@tablesfront"
+export const INSTAGRAM_URL = "https://www.instagram.com/tablesfront/"
+
 /**
  * The reservations dashboard (separate app). Clients sign in here.
  * Intended home is app.tablesfront.com, but that subdomain has no DNS record
